@@ -1,0 +1,12 @@
+<h1>Job Listings</h1>
+
+<% @job_listings.each do |job_listing| %>
+  <div>
+    <h2><%= job_listing.title %></h2>
+    <p><%= job_listing.description %></p>
+    <p>Salary: <%= job_listing.salary %></p>
+    <%= link_to 'View', job_listing %>
+  </div>
+<% end %>
+
+<%= link_to 'New Job Listing', new_job_listing_path %>

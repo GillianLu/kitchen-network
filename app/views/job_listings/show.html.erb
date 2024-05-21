@@ -1,0 +1,7 @@
+<h1><%= @job_listing.title %></h1>
+<p><%= @job_listing.description %></p>
+<p>Salary: <%= @job_listing.salary %></p>
+<p>
+  <%= link_to 'Edit', edit_job_listing_path(@job_listing) %> |
+  <%= link_to 'Back', job_listings_path %>
+</p>

@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_080640) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_21_123331) do
+  create_table "applied_jobs", force: :cascade do |t|
+    t.integer "job_listing_id", null: false
+    t.integer "talent_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_listing_id"], name: "index_applied_jobs_on_job_listing_id"
+    t.index ["talent_id"], name: "index_applied_jobs_on_talent_id"
+  end
+
+  create_table "job_listings", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "requirements"
+    t.decimal "salary"
+    t.integer "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_job_listings_on_owner_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "role_name"
     t.datetime "created_at", null: false
@@ -34,5 +54,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_080640) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "applied_jobs", "job_listings"
+  add_foreign_key "applied_jobs", "talents"
+  add_foreign_key "job_listings", "users", column: "owner_id"
   add_foreign_key "users", "roles"
 end

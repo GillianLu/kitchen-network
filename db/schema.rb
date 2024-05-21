@@ -11,9 +11,12 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_05_21_123331) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "applied_jobs", force: :cascade do |t|
-    t.integer "job_listing_id", null: false
-    t.integer "talent_id", null: false
+    t.bigint "job_listing_id", null: false
+    t.bigint "talent_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["job_listing_id"], name: "index_applied_jobs_on_job_listing_id"
@@ -25,7 +28,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_123331) do
     t.text "description"
     t.text "requirements"
     t.decimal "salary"
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_job_listings_on_owner_id"
@@ -48,14 +51,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_123331) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role_id", null: false
+    t.bigint "role_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "applied_jobs", "job_listings"
-  add_foreign_key "applied_jobs", "talents"
+  add_foreign_key "applied_jobs", "users", column: "talent_id"
   add_foreign_key "job_listings", "users", column: "owner_id"
   add_foreign_key "users", "roles"
 end

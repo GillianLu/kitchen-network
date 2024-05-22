@@ -71,3 +71,5 @@ end
 gem "devise", "~> 4.9"
 
 gem 'font-awesome-sass'
+
+gem 'dotenv-rails'

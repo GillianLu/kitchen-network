@@ -9,8 +9,13 @@
 #   end
 # db/seeds.rb
 
+# Destroy existing records to start fresh
+User.destroy_all
+Role.destroy_all
+
+# Create roles
 roles = ['admin', 'talent', 'owner']
 
 roles.each do |role_name|
-  Role.find_or_create_by(role_name: role_name)
+  Role.find_or_create_by!(role_name: role_name)
 end

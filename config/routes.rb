@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+    controllers: {
+      registrations: 'users/registrations'
+    }
+
+  # Defines the root path route ("/")
+  root 'job_listings#index'
 
   resources :job_listings do
     collection do
@@ -19,6 +25,4 @@ Rails.application.routes.draw do
       patch 'reject'
     end
   end
-
-  root to: 'job_listings#index'
 end

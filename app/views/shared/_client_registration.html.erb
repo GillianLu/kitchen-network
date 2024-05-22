@@ -1,0 +1,53 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'signup-body-form' }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class='signup-form-col'>
+        <div class='signup-form-two'>
+            <%= f.label :first_name, "First Name*", class: 'signup-body-form-label' %>
+            <%= f.text_field :first_name, autocomplete: "first-name", required: true, class: 'signup-body-form-field' %>
+        </div>
+
+        <div class='signup-form-two'>
+            <%= f.label :last_name, "Last Name*", class: 'signup-body-form-label' %>
+            <%= f.text_field :last_name, autocomplete: "last-name", required: true, class: 'signup-body-form-field' %>
+        </div>
+    </div>
+
+    <div class='signup-form-col'>
+        <div class='signup-form-two'>
+            <%= f.label :email, "Email*", class: 'signup-body-form-label' %>
+            <%= f.email_field :email, autocomplete: "email", required: true, class: 'signup-body-form-field' %>
+        </div>
+    </div>
+
+    <div class='signup-form-col'>
+        <div class='signup-form-two'>
+            <%= f.label :phone_number, "Phone Number*", class: 'signup-body-form-label' %>
+            <%= f.text_field :phone_number, autocomplete: "phone-number", required: true, class: 'signup-body-form-field' %>
+        </div>
+    </div>
+
+    <div class='signup-form-col'>
+        <div class='signup-form-two'>
+            <div class='signup-label-flex'>
+                <%= f.label :password, "Password*", class: 'signup-body-form-label' %>
+                <% if @minimum_password_length %>
+                    <em class='signup-password-minimum'>(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %><br />
+            </div>
+            <%= f.password_field :password, autocomplete: "new-password", required: true, class: 'signup-body-form-field' %>
+        </div>
+        <div class='signup-form-two'>
+            <%= f.label :password_confirmation, "Confirm Password*", class: 'signup-body-form-label' %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: 'signup-body-form-field' %>
+        </div>
+    </div>
+
+    <%= f.hidden_field :role_id, value: '2'.to_i %>
+
+    <div class='signup-form-col'>
+        <div class='signup-form-button'>
+            <%= f.submit "Register", class: 'sign-body-form-submit' %>
+        </div>
+    </div>
+<% end %>

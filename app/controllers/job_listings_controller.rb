@@ -1,9 +1,19 @@
+# app/controllers/job_listings_controller.rb
 class JobListingsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user!, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_job_listing, only: [:show, :edit, :update, :destroy]
 
   def index
-    @job_listings = current_user.job_listings
+    if current_user.role.role_name == 'owner'
+      @job_listings = current_user.job_listings
+    else
+      redirect_to applied_jobs_path
+    end
+  end
+
+  def browse
+    @job_listings = JobListing.all
   end
 
   def new
@@ -18,7 +28,6 @@ class JobListingsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
 
   def show
   end
@@ -47,5 +56,11 @@ class JobListingsController < ApplicationController
 
   def job_listing_params
     params.require(:job_listing).permit(:title, :description, :requirements, :salary)
+  end
+
+  def authorize_user!
+    unless current_user.role.role_name == 'owner'
+      redirect_to applied_jobs_path, alert: 'Unauthorized'
+    end
   end
 end

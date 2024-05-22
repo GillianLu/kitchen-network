@@ -1,9 +1,14 @@
+<%= stylesheet_link_tag "home" %>
+<%= render 'shared/home_navbar' %>
+
+<div class = 'home-main-container'>
+    <div class = 'home-body-container'>
+        <h1>Home#index</h1>
+        <p>Gawin na lang tong landing page. Kahit wag na muna isipin (more on styling lang to.)</p>
 
 
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+        <%= link_to "Sign up", new_user_registration_path %>
 
-
-<%= link_to "Sign up", new_user_registration_path %>
-
-<%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+    </div>
+</div>

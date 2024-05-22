@@ -16,16 +16,13 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  # username: your_postgres_username
-  # password: your_postgres_password
-  # host: localhost
+  # hostname: 127.0.0.1
+  # username: postgres
+  # password: temp123456
 
 development:
   <<: *default
   database: kitchen_network_development
-#   hostname: 127.0.0.1
-#   username: postgres
-#   password: temp123456
 
 test:
   <<: *default

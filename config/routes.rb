@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     }
 
   # Defines the root path route ("/")
-  root 'job_listings#index'
+  # root 'job_listings#index'
+
+  root 'home#index'
 
   resources :job_listings do
     collection do

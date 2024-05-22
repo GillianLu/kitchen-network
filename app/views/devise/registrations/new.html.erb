@@ -1,29 +1,73 @@
-<h2>Sign up</h2>
+<%= stylesheet_link_tag "signup" %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<%= render 'shared/home_navbar' %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<div class="signup-main-container">
+    <div class='signup-body-container'>
+        <div class='signup-body-content'>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+            <div class='signup-form-options'>
+                <button class = 'sign-up-options-button orange' id="talent">Apply as Talent</button>
+                <button class = 'sign-up-options-button' id='client'>Apply as Client</button>
+            </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+            <div class='signup-body-divider'></div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+            <div class='signup-body-title' id='talent-title'>
+                <h2>Sign up to find work you love.</h2>
+            </div>
 
-<%= render "devise/shared/links" %>
+            <div class='signup-body-form-container' id="talent-registration">
+                <%= render 'shared/talent_registration' %>
+            </div>
+
+			<div class='signup-body-title hidden' id='client-title'>
+                <h2>Sign up to hire talent.</h2>
+            </div>
+
+			<div class='signup-body-form-container hidden' id="client-registration">
+                <%= render 'shared/client_registration' %>
+            </div>
+
+
+            <div class='signup-body-divider'></div>
+
+            <div class='signup-redirect-buttons-container'>
+                <div class='signup-redirect-content'>
+                    <div class = 'signup-redirect-buttons'>
+                        <%= button_to "Login", new_session_path(resource), method: :get, class: "signup-redirect-login" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var clientButton = document.getElementById('client');
+        var talentButton = document.getElementById('talent');
+        var talentRegistration = document.getElementById('talent-registration');
+        var talentTitle = document.getElementById('talent-title');
+		var clientRegistration = document.getElementById('client-registration');
+		var clientTitle = document.getElementById('client-title');
+
+        clientButton.addEventListener('click', function () {
+            talentRegistration.style.display = 'none';
+            talentTitle.style.display = 'none';
+			clientTitle.style.display = 'block';
+			clientRegistration.style.display = 'block';
+            clientButton.style.color = '#FF8000';
+            talentButton.style.color = '#000000';
+        });
+
+        talentButton.addEventListener('click', function () {
+            talentRegistration.style.display = 'block';
+            talentTitle.style.display = 'block';
+			clientTitle.style.display = 'none'
+			clientRegistration.style.display = 'none'
+            clientButton.style.color = '#000000';
+            talentButton.style.color = '#FF8000';
+        });
+    });
+</script>

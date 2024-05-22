@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "home_navbar"%>
+
+<div class = 'home-navbar-container'>
+    <div class='home-navbar-logo-container'>
+       <div class='home-navbar-logo-content'>
+            <%= image_tag('logo.png', alt: 'Your Logo', class: 'home-navbar-logo') %>
+        </div>
+    </div>
+    <div class = 'home-navbar-links-container'>
+        <div class='home-navbar-links-content'>
+            <%= link_to root_path, class: 'home-navbar-link' do %>
+                <i class="fa-solid fa-house"></i>
+                <p class='home-navbar-link-label'>Home</p>
+            <% end %>
+
+            <%= link_to new_user_registration_path(role_id: 1), class: 'home-navbar-link' do %>
+                <i class="fa-solid fa-user-tie"></i>
+                <p class='home-navbar-link-label'>Talents</p>
+            <% end %>
+
+            <%= link_to new_user_registration_path(role_id: 1), class: 'home-navbar-link' do %>
+                <i class="fa-solid fa-magnifying-glass-dollar"></i>
+                <p class='home-navbar-link-label'>Gigs</p>
+            <% end %>
+
+            <%= link_to new_user_registration_path, class: 'home-navbar-button' do %>
+                <i class="fa-solid fa-user-plus"></i>
+                <p class='home-navbar-link-label'>Register</p>
+            <% end %>
+
+            
+        </div>
+    </div>
+</div>

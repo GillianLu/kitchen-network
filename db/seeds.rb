@@ -7,18 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+# db/seeds.rb
 
-
+# Destroy existing records to start fresh
 User.destroy_all
 Role.destroy_all
 
 # Create roles
-roles = [
-  { role_name: 'admin' },
-  { role_name: 'owner' },
-  { role_name: 'talent' }
-]
+roles = ['admin', 'talent', 'owner']
 
-roles.each do |role_attributes|
-  Role.find_or_create_by!(role_attributes)
+roles.each do |role_name|
+  Role.find_or_create_by!(role_name: role_name)
 end

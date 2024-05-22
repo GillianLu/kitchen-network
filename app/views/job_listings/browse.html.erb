@@ -1,0 +1,19 @@
+<h1>Browse Job Listings</h1>
+
+<% if @job_listings.any? %>
+  <% @job_listings.each do |job_listing| %>
+    <div>
+      <h2><%= job_listing.title %></h2>
+      <p><%= job_listing.description %></p>
+      <p>Salary: <%= job_listing.salary %></p>
+      <%= link_to 'View', job_listing_path(job_listing) %>
+      <% if current_user.role.role_name == 'talent' %>
+        <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>No job listings found.</p>
+<% end %>
+
+<%= button_to 'Log Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %>

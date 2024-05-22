@@ -1,0 +1,20 @@
+<h1>Applied Jobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @applied_jobs.each do |applied_job| %>
+      <tr>
+        <td><%= applied_job.job_listing.title %></td>
+        <td><%= applied_job.job_listing.description %></td>
+        <td><%= applied_job.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

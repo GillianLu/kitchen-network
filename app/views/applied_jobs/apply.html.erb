@@ -1,0 +1,10 @@
+<h1>Apply to Job Listing</h1>
+
+<%= form_with(model: @applied_job, url: apply_applied_jobs_path) do |form| %>
+  <div class="field">
+    <%= form.label :job_listing_id, 'Job Listing ID' %>
+    <%= form.number_field :job_listing_id %>
+  </div>
+
+  <%= form.submit 'Apply' %>
+<% end %>

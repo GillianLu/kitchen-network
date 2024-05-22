@@ -1,8 +1,7 @@
-# app/controllers/job_listings_controller.rb
 class JobListingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user!, only: [:index, :new, :create, :edit, :update, :destroy]
-  before_action :set_job_listing, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:index, :new, :create, :edit, :update, :destroy, :applicants]
+  before_action :set_job_listing, only: [:show, :edit, :update, :destroy, :applicants]
 
   def index
     if current_user.role.role_name == 'owner'
@@ -48,10 +47,21 @@ class JobListingsController < ApplicationController
     redirect_to job_listings_path, notice: 'Job listing was successfully deleted.'
   end
 
+  def applicants
+    @job_listing = current_user.job_listings.find(params[:id])
+    @applicants = @job_listing.applied_jobs.includes(:talent)
+  end
+
   private
 
   def set_job_listing
-    @job_listing = current_user.job_listings.find(params[:id])
+    if current_user.role.role_name == 'owner'
+      @job_listing = current_user.job_listings.find(params[:id])
+    else
+      @job_listing = JobListing.find(params[:id])
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'Job listing not found or you are not authorized to view it.'
   end
 
   def job_listing_params

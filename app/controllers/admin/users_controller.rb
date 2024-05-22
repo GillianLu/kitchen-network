@@ -5,23 +5,23 @@ class Admin::UsersController < ApplicationController
 
     
     def index
-        @users = User.where.not(confirmed_at: nil)
+        @owners = User.where.not(confirmed_at: nil)
                     .includes(:role)
-                    .where(roles: { role_name: 'user' })
+                    .where(roles: { role_name: 'owner' })
         render :index
     end
     
-    def moderators
-        @moderators = User.where.not(confirmed_at: nil)
-                        .includes(:role)
-                        .where(roles: { role_name: 'moderator' })
-        render :moderators
+    def talents
+        @talents = User.where.not(confirmed_at: nil)
+                       .includes(:role)
+                       .where(roles: { role_name: 'talent' })
+        render :talents
     end
     
     def pending_users
         @users = User.where(confirmed_at: nil)
                     .includes(:role)
-                    .where(roles: { role_name: ['user', 'moderator'] })
+                    .where(roles: { role_name: ['owner', 'talent'] })
         render :pending_users
     end
     

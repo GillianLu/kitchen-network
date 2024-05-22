@@ -1,0 +1,55 @@
+<div>
+    <div>
+        <div>
+            <%= link_to 'Owners', admin_users_path %>
+            <%= link_to 'Talents', admin_talents_path %>
+            <%= link_to 'Pending', admin_users_pending_path %>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">
+                        ID
+                    </th>
+                    <th scope="col">
+                        Name
+                    </th>
+                    <th scope="col">
+                        Contact
+                    </th>
+                    <th scope="col">
+                        Email
+                    </th>
+                    <th scope="col">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @owners.each do |owner| %>
+                    <tr>
+                        <th scope="row">
+                            <%= owner.id %>
+                        </th>
+                        <td>
+                            <%= link_to "#{owner.first_name} #{owner.last_name}", admin_user_path(owner.id) %>
+                        </td>
+                        <td>
+                            <%= owner.phone_number %>
+                        </td>
+                        <td>
+                            <%= owner.email %>
+                        </td>
+                        <td>
+                            <%= link_to edit_admin_user_path(owner) do %>
+                                <i></i>
+                                <span>Edit</span>
+                            <% end %> 
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+

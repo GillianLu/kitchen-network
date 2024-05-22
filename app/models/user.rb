@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :applied_job_listings, through: :applied_jobs, source: :job_listing
 
   validates :first_name, :last_name, :email, :role_id, presence: true
+
+  def admin?
+    role.role_name == 'admin'
+  end
 end

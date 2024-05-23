@@ -1,0 +1,29 @@
+<!-- app/views/devise/registrations/new_admin.html.erb -->
+
+<%= stylesheet_link_tag "signup" %>
+
+<%= render 'shared/home_navbar' %>
+
+<div class="signup-main-container">
+  <div class='signup-body-container'>
+    <div class='signup-body-content'>
+      <div class='signup-body-title'>
+        <h2>Admin Signup</h2>
+      </div>
+
+      <div class='signup-body-form-container'>
+        <%= render 'shared/admin_registration', admin: @admin %>
+      </div>
+
+      <div class='signup-body-divider'></div>
+
+      <div class='signup-redirect-buttons-container'>
+        <div class='signup-redirect-content'>
+          <div class='signup-redirect-buttons'>
+            <%= button_to "Login", new_session_path(resource_name), method: :get, class: "signup-redirect-login" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

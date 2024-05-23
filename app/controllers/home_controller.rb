@@ -4,4 +4,11 @@ class HomeController < ApplicationController
   def index
   end
 
+  def confirmed
+    @resource = User.find(params[:resource_id])
+  end
+
+  def registered
+    @resource = User.find(params[:resource_id])
+  end
 end

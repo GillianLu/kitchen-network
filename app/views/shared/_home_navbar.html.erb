@@ -23,6 +23,11 @@
                 <p class='home-navbar-link-label'>Gigs</p>
             <% end %>
 
+            <%= link_to new_user_session_path(role_id: 1), class: 'home-navbar-link' do %>
+                <i class="fa-solid fa-right-to-bracket"></i></i>
+                <p class='home-navbar-link-label'>Sign-In</p>
+            <% end %>
+
             <%= link_to new_user_registration_path, class: 'home-navbar-button' do %>
                 <i class="fa-solid fa-user-plus"></i>
                 <p class='home-navbar-link-label'>Register</p>

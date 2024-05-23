@@ -68,4 +68,3 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_072036) do
   add_foreign_key "job_listings", "users", column: "owner_id"
   add_foreign_key "users", "roles"
 end
-

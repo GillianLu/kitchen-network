@@ -7,8 +7,8 @@
     <div class='signup-body-content'>
 
       <div class='signup-form-options'>
-        <button class='sign-up-options-button orange' id="talent">Apply as Talent</button>
-        <button class='sign-up-options-button' id='client'>Apply as Client</button>
+        <button class='sign-up-options-button orange' id="talent" onclick="handleTalentButtonOnClick()">Apply as Talent</button>
+        <button class='sign-up-options-button' id='client' onclick="handleClientButtonOnClick()">Apply as Client</button>
       </div>
 
       <div class='signup-body-divider'></div>
@@ -18,48 +18,7 @@
       </div>
 
       <div class='signup-body-form-container' id="talent-registration">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-
-          <div class="field">
-            <%= f.label :first_name %><br />
-            <%= f.text_field :first_name, autofocus: true %>
-          </div>
-
-          <div class="field">
-            <%= f.label :last_name %><br />
-            <%= f.text_field :last_name %>
-          </div>
-
-          <div class="field">
-            <%= f.label :role_id %><br />
-            <%= f.collection_select :role_id, Role.all, :id, :role_name %>
-          </div>
-
-          <div class="field">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autocomplete: "email" %>
-          </div>
-
-          <div class="field">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
-            <%= f.password_field :password, autocomplete: "new-password" %>
-          </div>
-
-          <div class="field">
-            <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-          </div>
-
-          <div class="actions">
-            <%= f.submit "Sign up" %>
-          </div>
-        <% end %>
-
-        <%= render "devise/shared/links" %>
+        <%= render 'shared/talent_registration' %>
       </div>
 
       <div class='signup-body-title hidden' id='client-title'>
@@ -84,31 +43,29 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var clientButton = document.getElementById('client');
-    var talentButton = document.getElementById('talent');
-    var talentRegistration = document.getElementById('talent-registration');
-    var talentTitle = document.getElementById('talent-title');
-    var clientRegistration = document.getElementById('client-registration');
-    var clientTitle = document.getElementById('client-title');
+  var clientButton = document.getElementById('client');
+  var talentButton = document.getElementById('talent');
+  var talentRegistration = document.getElementById('talent-registration');
+  var talentTitle = document.getElementById('talent-title');
+  var clientRegistration = document.getElementById('client-registration');
+  var clientTitle = document.getElementById('client-title');
 
-    clientButton.addEventListener('click', function () {
-      talentRegistration.style.display = 'none';
-      talentTitle.style.display = 'none';
-      clientTitle.style.display = 'block';
-      clientRegistration.style.display = 'block';
-      clientButton.style.color = '#FF8000';
-      talentButton.style.color = '#000000';
-    });
+  var handleClientButtonOnClick = () => {
+    talentRegistration.style.display = 'none';
+    talentTitle.style.display = 'none';
+    clientTitle.style.display = 'block';
+    clientRegistration.style.display = 'block';
+    clientButton.style.color = '#FF8000';
+    talentButton.style.color = '#000000';
+  }
 
-    talentButton.addEventListener('click', function () {
-      talentRegistration.style.display = 'block';
-      talentTitle.style.display = 'block';
-      clientTitle.style.display = 'none';
-      clientRegistration.style.display = 'none';
-      clientButton.style.color = '#000000';
-      talentButton.style.color = '#FF8000';
-    });
-  });
+  var handleTalentButtonOnClick = () => {
+    talentRegistration.style.display = 'block';
+    talentTitle.style.display = 'block';
+    clientTitle.style.display = 'none';
+    clientRegistration.style.display = 'none';
+    clientButton.style.color = '#000000';
+    talentButton.style.color = '#FF8000';
+  }
 </script>
 

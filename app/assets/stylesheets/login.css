@@ -1,0 +1,9 @@
+.login-main-container {
+    width: 100%;
+    height: 100vh;
+}
+
+.login-body-container {
+    padding-top: 56px;
+    width: 100%;
+}

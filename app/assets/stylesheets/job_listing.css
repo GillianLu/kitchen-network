@@ -1,0 +1,11 @@
+.job-listing-main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.job-listing-main-body {
+    padding-left: 300px;
+    width: 100%;
+    height: 100%;
+}

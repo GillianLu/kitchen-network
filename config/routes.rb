@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get 'account/confirmed', to: 'home#confirmed', as: 'confirmed'
   get 'account/registered', to: 'home#registered', as: 'registered'
 
+
+  get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+
   resources :job_listings do
     collection do
       get 'browse'

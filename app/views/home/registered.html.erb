@@ -1,2 +1,20 @@
-<h1>Welcome, <%= @resource.first_name %> <%= @resource.last_name %>. Your account has been registered.</h1>
-<p>To proceed, instructions have been sent to your email: <%= @resource.email %>.</p>
+<%= stylesheet_link_tag "registered" %>
+
+<%= render 'shared/home_navbar' %>
+
+
+<div class='register-main-container'>
+    <div class='register-body-container'>
+        <div class='register-body-holder'>
+            <div class='register-body-card'>
+                <i class="fa-regular fa-circle-check check"></i>
+                <div class="register-greeting">
+                    <h2>Welcome! You're just one step away from joining the Kitchen Network.</h2>
+                    <p>Instructions have been sent to your email address.</p>
+                </div>
+                <%= button_to "Sign-In", new_session_path(@resource), method: :get, class: "register-redirect-login" %>
+            </div>
+        </div>
+    </div>
+</div>
+

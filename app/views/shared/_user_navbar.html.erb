@@ -1,0 +1,74 @@
+<%= stylesheet_link_tag "user_navbar" %>
+
+<div class='user-navbar-main-container'>
+    <div class='user-navbar-body-container'>
+        <div class='user-navbar-title-container'>
+            <%= image_tag('user_navbar_logo.png', alt: 'Your Logo', class: 'user-navbar-logo') %>
+        </div>
+
+        <div class='user-navbar-main-menu-container'>
+            <div class='user-navbar-main-menu-title'>
+                <p>MAIN MENU</p>
+            </div>
+
+            <div class='user-navbar-main-menu-options'>
+                <%= link_to dashboard_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    <p class='user-navbar-link-label'>Dashboard</p>
+                <% end %>
+
+                <%= link_to job_listings_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-solid fa-list"></i>
+                    <p class='user-navbar-link-label'>Job Listings</p>
+                <% end %>
+
+                <%= link_to applied_jobs_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-solid fa-list-check"></i>
+                    <p class='user-navbar-link-label'>Applied Jobs</p>
+                <% end %>
+
+                <%= link_to dashboard_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-regular fa-handshake"></i>
+                    <p class='user-navbar-link-label'>Transactions</p>
+                <% end %>
+
+                <%= link_to dashboard_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p class='user-navbar-link-label'>Reviews</p>
+                <% end %>
+
+                <%= link_to dashboard_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-solid fa-message"></i>
+                    <p class='user-navbar-link-label'>Messages</p>
+                <% end %>
+            </div>
+
+
+            <div class='user-navbar-main-menu-title'>
+                <p>PREFERENCES</p>
+            </div>
+
+            <div class='user-navbar-main-menu-options'>
+                <%= link_to dashboard_path, class: 'user-navbar-main-menu-link' do %>
+                    <i class="fa-solid fa-gears"></i>
+                    <p class='user-navbar-link-label'>Settings</p>
+                <% end %>
+            </div>
+        </div>
+
+        <div class='user-navbar-footer-container'>
+           <div class='user-navbar-footer-avatar-container'>
+                <i class="fa-solid fa-user-tie user-navbar-avatar"></i>
+           </div>
+           <div class='user-navbar-footer-info-container'>
+                <p class='user-navbar-footer-name'> <%= current_user.first_name %>  <%= current_user.last_name %></p>
+                <p class='user-navbar-footer-email'> <%= current_user.email %></p>
+           </div>
+           <div class='user-navbar-footer-logout-container'>
+                <%= button_to destroy_user_session_path, method: :delete, class: "user-navbar-footer-logout-button" do %>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

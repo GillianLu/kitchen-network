@@ -3,7 +3,7 @@
     display: flex;
     width: 100%;
     height: 56px;
-    background-color: #fbe5c5;
+    background-color: #181414;
 }
 
 .home-navbar-logo-container {
@@ -49,7 +49,7 @@
     font-size: 16px;
     font-weight: 500;
     padding: 0 10px;
-    color: #FF8000;
+    color: #f9f9f9;
 }
 
 .home-navbar-button {
@@ -60,6 +60,6 @@
     font-weight: 500;
     padding: 12px 20px;
     border-radius: 20px;
-    background-color: #FF8000;
-    color: white;
+    background-color: #f9f9f9;
+    color: #181414;
 }

@@ -1,0 +1,11 @@
+.dashboard-main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.dashboard-main-body {
+    padding-left: 300px;
+    width: 100%;
+    height: 100%;
+}

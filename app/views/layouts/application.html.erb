@@ -18,14 +18,6 @@
   </head>
 
 <body>
-  <% if current_user %>
-    <% if current_user.role.role_name == 'talent' %>
-      <%= link_to 'Browse Job Listings', browse_job_listings_path %>
-    <% elsif current_user.role.role_name == 'owner' %>
-      <%= link_to 'My Job Listings', job_listings_path %>
-    <% end %>
-    <%= button_to 'Log Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %>
-  <% end %>
   <%= yield %>
   <%= render partial: 'shared/notifications' %>
 </body>

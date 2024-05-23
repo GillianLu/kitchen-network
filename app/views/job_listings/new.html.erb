@@ -1,5 +1,13 @@
-<h1>New Job Listing</h1>
+<%= stylesheet_link_tag "job_listing" %>
 
-<%= render 'form' %>
+<%= render 'shared/user_navbar' %>
 
-<%= link_to 'Back', job_listings_path %>
+<div class='job-listing-main-container'>
+    <div class='job-listing-main-body'>
+        <h1>New Job Listing</h1>
+
+        <%= render 'form' %>
+
+        <%= link_to 'Back', job_listings_path %>
+    </div>
+</div>

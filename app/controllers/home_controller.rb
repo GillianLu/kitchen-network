@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   skip_before_action :authenticate_user!, except: [:dashboard]
+  before_action :check_if_logged_in, except: [:dashboard]
 
   def index
   end
@@ -13,6 +14,12 @@ class HomeController < ApplicationController
   end
 
   def dashboard
-    # Authentication required for this action
+    @jobs = JobListing.includes(:owner).order(created_at: :desc).limit(5)
+  end
+
+  private
+
+  def check_if_logged_in
+    redirect_to dashboard_path if current_user
   end
 end

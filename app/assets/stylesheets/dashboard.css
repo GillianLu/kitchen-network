@@ -1,11 +1,218 @@
-.dashboard-main-container {
+.dashboard-header-container {
+    position: fixed;
+    display: flex;
     width: 100%;
-    height: 100vh;
+    height: 64px;
+    background-color: #fff; /* Add a background color to the header */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+}
+
+.dashboard-header {
+    flex-grow: 2;
     display: flex;
 }
 
-.dashboard-main-body {
-    padding-left: 300px;
+.dashboard-header-contents-container {
     width: 100%;
     height: 100%;
+    padding-left: 300px;
+    display: flex;
 }
+
+.dashboard-header-content {
+    width: 100%;
+}
+
+.dashboard-content-links,
+.dashboard-search-form {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.dashboard-header-search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.dashboard-search-input {
+    width: 50%;
+    border-radius: 20px;
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    padding: 5px 5px 5px 30px;
+    font-size: 14px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.707,20.293l-5.15-5.15C17.073,13.597,18,11.917,18,10c0-4.418-3.582-8-8-8s-8,3.582-8,8s3.582,8,8,8 c1.917,0,3.597-0.927,4.143-2.357l5.15,5.15c0.293,0.293,0.768,0.293,1.061,0C22,21.061,22,20.707,21.707,20.293z M4,10 c0-3.309,2.691-6,6-6s6,2.691,6,6s-2.691,6-6,6S4,13.309,4,10z"/></svg>'); /* URL-encoded SVG of the Font Awesome icon */
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 5px center;
+}
+
+.dashboard-content-links {
+    width: 100%;
+}
+
+.dashboard-main-container {
+    padding: 84px 20px 20px 320px;
+    z-index: 1;
+}
+
+.dashboard-main-overview-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.dashboard-main-overview h1 {
+    color: #7718F3;
+    font-weight: 800;
+}
+
+.dashboard-main-overview p {
+    font-weight: 600;
+}
+
+.dashboard-main-numbers-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.dashboard-main-number-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-card-icon-container1,
+.dashboard-card-icon-container2,
+.dashboard-card-icon-container3,
+.dashboard-card-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    padding: 5px;
+    background-image: linear-gradient(to right top, #2b32b2, #004cbf, #0062c7, #0076cb, #1488cc);
+    border: 2px solid #004cbf;
+    width: 36px;
+    height: 36px;
+}
+
+.dashboard-card-icon-container1 {
+    background-image: linear-gradient(to right top, #193c14, #296620, #3c932b, #52c234);
+    border: 2px solid #193c14;
+}
+
+.dashboard-card-icon-container2 {
+    background-image: linear-gradient(to right top, #c02425, #d4541e, #e37c19, #eca41f, #f0cb35);
+    border: 2px solid #d4541e;
+}
+
+.dashboard-card-icon-container3 {
+    background-image: linear-gradient(to right top, #93291e, #a92a24, #bf292a, #d62632, #ed213a);
+    border: 2px solid #93291e;
+}
+
+
+.dashboard-card-icon p {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.dashboard-card-details {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.icon {
+    font-size: 28px;
+    color: #f9f9f9;
+}
+
+.dashboard-main-newest h2 {
+    color:#7718F3;
+    font-weight: 600;
+}
+
+.dashboard-main-newest p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dashboard-main-newest-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+.dashboard-main-newest-jobs {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.dashboard-main-newest-divider {
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.newest-job-created-date-container {
+    display: flex;
+}
+
+.newest-job-date {
+    font-size: 12px;
+}
+
+.newest-job-created-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.newest-job-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.newest-job-salary {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.newest-job-description {
+    font-size: 14px;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+.newest-job-apply-button {
+    display: flex;
+    gap: 5px;
+    background-image: linear-gradient(to right top, #6c02f8, #8533fa, #9a4ffc, #ac68fd, #bd80ff);
+    border: solid 2px #6c02f8;
+    border-radius: 20px;
+    color: #f9f9f9;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+
+

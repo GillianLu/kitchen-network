@@ -1,0 +1,100 @@
+<%= stylesheet_link_tag "dashboard" %>
+
+
+<div class='dashboard-main-container'>
+    <div class='dashboard-main-overview-container'>
+        <div class='dashboard-main-overview'>
+            <h1>Overview</h1>
+            <p>Overview of the available jobs you can apply for.</p>
+        </div>
+        <div class='dashboard-main-numbers-container'>
+            
+            <div class='dashboard-main-number-card'>
+                <div class='dashboard-card-title'>
+                    <div class='dashboard-card-icon-container'>
+                        <i class="fa-solid fa-kitchen-set icon"></i>
+                    </div>
+                    <div class='dashboard-card-icon'>
+                        <p>__ Jobs Available</p>
+                    </div>
+                </div>
+                <div>
+                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                </div>
+            </div>
+
+            <div class='dashboard-main-number-card'>
+                <div class='dashboard-card-title'>
+                    <div class='dashboard-card-icon-container1'>
+                        <i class="fa-solid fa-user-tie icon"></i>
+                    </div>
+                    <div class='dashboard-card-icon'>
+                        <p>__ Registered Clients</p>
+                    </div>
+                </div>
+                <div>
+                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                </div>
+            </div>
+
+            <div class='dashboard-main-number-card'>
+                <div class='dashboard-card-title'>
+                    <div class='dashboard-card-icon-container2'>
+                        <i class="fa-solid fa-envelope-circle-check icon"></i>
+                    </div>
+                    <div class='dashboard-card-icon'>
+                        <p>__ Application Sent</p>
+                    </div>
+                </div>
+                <div>
+                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                </div>
+            </div>
+
+            <div class='dashboard-main-number-card'>
+                <div class='dashboard-card-title'>
+                    <div class='dashboard-card-icon-container3'>
+                        <i class="fa-solid fa-circle-check icon"></i>
+                    </div>
+                    <div class='dashboard-card-icon'>
+                        <p>__ Jobs Done</p>
+                    </div>
+                </div>
+                <div>
+                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='dashboard-main-newest-container'>
+        <div class='dashboard-main-newest'>
+            <h2>Newest Jobs</h2>
+            <p>Here are the latest job opportunities available for you to apply for.</p>
+        </div>
+        
+        <div class='dashboard-main-newest-body'>
+            
+            <% @jobs.each do |job| %>
+                <div class='dashboard-main-newest-jobs'>
+                    <div class='newest-job-created-date-container'>
+                        <p class='newest-job-date'><%= job.created_at.strftime("%B %d, %Y") %></p>
+                    </div>
+                    <div class='newest-job-created-info-container'>
+                        <p class='newest-job-title'><%= job.title.capitalize %></p>
+                        <p class='newest-job-salary'>Salary: ₱ <%= number_with_precision(job.salary, precision: 2) %></p>
+                        <p class='newest-job-description'><%= job.description %></p>
+                    </div>
+                    <div class='newest-job-created-button-container'>
+                        <%= button_to root_path, method: :get, class: "newest-job-apply-button" do %>
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <p>Send an Application</p>
+                        <% end %>
+                    </div>
+                </div>
+
+                <div class='dashboard-main-newest-divider'>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

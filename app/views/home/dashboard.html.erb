@@ -1,9 +1,26 @@
 <%= stylesheet_link_tag "dashboard" %>
 
 <%= render 'shared/user_navbar' %>
+<div class = 'dashboard-header-container'>
+    <div class='dashboard-header'>
+        <div class='dashboard-header-contents-container'>
+            <div class='dashboard-header-content'>
+                <div class='dashboard-content-links'>
 
-<div class='dashboard-main-container'>
-    <div class='dashboard-main-body'>
-        
+                </div>
+            </div>
+            <div class='dashboard-header-search'>
+                <%= form_tag(job_listings_path, method: :get, class: 'dashboard-search-form', id: 'search-form') do %>
+                    <%= text_field_tag :query, params[:query], placeholder: 'Search Job Listing...', class: 'dashboard-search-input' %>
+                <% end %>
+            </div>
+        </div>
     </div>
 </div>
+
+<% if current_user.role.role_name === 'talent' %>
+    <%= render 'home/talent_dashboard' %>
+<% else %>
+
+<% end %>
+

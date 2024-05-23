@@ -1,6 +1,8 @@
 <div>
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
     <div>
         <h1>Users</h1>
     </div>
+
     <%= render 'users_table' %>
 </div>

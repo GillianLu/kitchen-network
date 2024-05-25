@@ -4,21 +4,27 @@
 
 <div class='job-listing-main-container'>
     <div class='job-listing-main-body'>
-        <h1>Job Listings</h1>
-
-		<% @job_listings.each do |job_listing| %>
-			<div>
-				<h2><%= job_listing.title %></h2>
-				<p><%= job_listing.description %></p>
-				<p>Salary: <%= job_listing.salary %></p>
-				<%= link_to 'View', job_listing_path(job_listing) %>
-				<% if current_user.role.role_name == 'owner' %>
-				| 	<%= link_to 'Applicants', applicants_job_listing_path(job_listing) %>
-				<% end %>
-			</div>
-		<% end %>
-
-		<%= link_to 'New Job Listing', new_job_listing_path %> |
-		<%= button_to 'Log Out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure you want to log out?' } %>
+        <h1>Your Job Listings</h1>
+        <div class='job-listing-actions'>
+            <%= link_to 'New Job Listing', new_job_listing_path, class: 'action-link' %> 
+        </div>
+        <div class='job-cards'>
+            <% @job_listings.each do |job_listing| %>
+                <div class='job-card'>
+                    <div class='job-card-header'>
+                        <h2><%= job_listing.title %></h2>
+                        <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
+                    </div>
+                    <p><%= job_listing.description %></p>
+                    <p class='job-card-salary'>Salary: <%= job_listing.salary %></p>
+                    <div class='job-card-links'>
+                        <%= link_to 'View', job_listing_path(job_listing) %>
+                        <% if current_user.role.role_name == 'owner' %>
+                            | <%= link_to 'Applicants', applicants_job_listing_path(job_listing) %>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>

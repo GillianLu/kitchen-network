@@ -1,11 +1,247 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F9F0E5;
+    margin: 0;
+}
+
 .job-listing-main-container {
     width: 100%;
     height: 100vh;
     display: flex;
 }
 
+.user-navbar-main-container {
+    position: fixed;
+    width: 300px;
+    height: 100vh;
+    background-color: #181414;
+    display: flex;
+    flex-direction: column;
+    z-index: 30;
+    left: 0;
+    top: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
 .job-listing-main-body {
-    padding-left: 300px;
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.header {
+    background-color: #181414;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 2em;
+}
+
+.search-bar {
     width: 100%;
-    height: 100%;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.search-bar input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #FB730C;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #e66907;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.job-listing-actions {
+    margin-bottom: 20px;
+    display: flex;
+    padding: 20px;
+}
+
+.action-link {
+    color: #FB730C;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+.job-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.job-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.job-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-card-date {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.job-card-salary {
+    font-size: 1.2em;
+    color: #FB730C;
+    margin: 10px 0;
+}
+
+.job-card-links a {
+    color: #FB730C;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.job-card-links a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    margin-left: 300px;
+    padding: 20px;
+    width: calc(100% - 300px);
+}
+
+.job-details {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.job-details h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.job-details p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.job-details .salary {
+    font-size: 1.5em;
+    color: #FB730C;
+    margin-bottom: 25px;
+}
+
+.job-details .actions a {
+    color: #4A90E2;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.job-details .actions a:hover {
+    text-decoration: underline;
+}
+
+.applicants-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.applicants-table th,
+.applicants-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.applicants-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.applicants-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.applicants-table td .action-link {
+    color: #4A90E2;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.applicants-table td .action-link:hover {
+    text-decoration: underline;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+.actions .back-link {
+    color: #4A90E2;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.actions .back-link:hover {
+    text-decoration: underline;
+}
+
+.actions .logout-button {
+    background-color: #FB730C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.actions .logout-button:hover {
+    background-color: #e66907;
 }

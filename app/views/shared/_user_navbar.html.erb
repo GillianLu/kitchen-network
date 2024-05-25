@@ -17,9 +17,16 @@
                     <p class='user-navbar-link-label'>Dashboard</p>
                 <% end %>
 
-                <%= link_to job_listings_path, class: 'user-navbar-main-menu-link' do %>
-                    <i class="fas fa-list"></i>
-                    <p class='user-navbar-link-label'>Job Listings</p>
+                <% if current_user.role.role_name == 'owner' %>
+                    <%= link_to job_listings_path, class: 'user-navbar-main-menu-link' do %>
+                        <i class="fas fa-list"></i>
+                        <p class='user-navbar-link-label'>Job Listings</p>
+                    <% end %>
+                    <% else %>
+                    <%= link_to browse_job_listings_path, class: 'user-navbar-main-menu-link' do %>
+                        <i class="fas fa-list"></i>
+                        <p class='user-navbar-link-label'>Browse Job Listings</p>
+                    <% end %>
                 <% end %>
                 
                 <% if current_user.role.role_name == "talent" %>

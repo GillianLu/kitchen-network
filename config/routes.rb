@@ -45,4 +45,6 @@ Rails.application.routes.draw do
     get 'talents', to: 'users#talents'
     get 'users/pending', to: 'users#pending_users'
   end
+
+  resources :payments, only: [:new, :create]
 end

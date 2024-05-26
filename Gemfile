@@ -73,3 +73,5 @@ gem 'font-awesome-sass'
 gem 'dotenv-rails'
 
 gem "tailwindcss-rails", "~> 2.6"
+
+gem 'stripe'

@@ -1,0 +1,16 @@
+<h1>Pay with Stripe</h1>
+
+<%= form_tag payments_path do %>
+  <article>
+    <label class="amount">
+      <span>Amount: $<%= @amount %></span>
+    </label>
+  </article>
+
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= ENV['STRIPE_PUBLIC_KEY'] %>"
+    data-description="Rails Stripe customer"
+    data-amount="<%= @amount %>"
+    data-locale="auto"></script>
+<% end %>

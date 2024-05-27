@@ -22,8 +22,8 @@ Rails.application.routes.draw do
     end
     member do
       get 'applicants'
-      patch 'confirm_applicant/:applicant_id', action: :confirm_applicant, as: 'confirm_applicant'
-      patch 'reject_applicant/:applicant_id', action: :reject_applicant, as: 'reject_applicant'
+      get 'confirm_applicant/:applicant_id', action: :confirm_applicant, as: 'confirm_applicant'
+      get 'reject_applicant/:applicant_id', action: :reject_applicant, as: 'reject_applicant'
     end
   end
 

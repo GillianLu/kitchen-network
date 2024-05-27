@@ -5,14 +5,14 @@ class Admin::UsersController < ApplicationController
 
     
     def index
-        @owners = User.where.not(confirmed_at: nil)
+        @users = User.where.not(confirmed_at: nil)
                     .includes(:role)
                     .where(roles: { role_name: 'owner' })
         render :index
     end
     
     def talents
-        @talents = User.where.not(confirmed_at: nil)
+        @users = User.where.not(confirmed_at: nil)
                        .includes(:role)
                        .where(roles: { role_name: 'talent' })
         render :talents
@@ -23,14 +23,23 @@ class Admin::UsersController < ApplicationController
                     .includes(:role)
                     .where(roles: { role_name: ['owner', 'talent'] })
         render :pending_users
+
+        
     end
     
     def edit
+        if @user.confirmed_at.nil?
+            redirect_to admin_users_pending_path, alert: 'Pending users cannot be edited.'
+        end
     end
     
     def update
         if @user.update(user_params)
-            redirect_to admin_user_path(@user), notice: 'The user has been updated successfully!'
+            if @user.role.role_name == 'talent'
+                redirect_to admin_talents_path, notice: 'The user has been updated successfully!'
+            else
+                redirect_to admin_users_path, notice: 'The user has been updated successfully!'
+            end
         else
             render :edit, alert: 'Something went wrong with the user update.'
         end

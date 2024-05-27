@@ -19,27 +19,6 @@ class AppliedJobsController < ApplicationController
       redirect_to root_path, alert: 'Unauthorized'
     end
   end
-
-  def confirm
-    @applied_job = AppliedJob.find(params[:id])
-    if current_user.role.role_name == 'owner' && @applied_job.job_listing.owner == current_user
-      @applied_job.update(status: 'confirmed')
-      redirect_to applicants_job_listing_path(@applied_job.job_listing), notice: 'Application confirmed.'
-    else
-      redirect_to root_path, alert: 'Unauthorized'
-    end
-  end
-
-  def reject
-    @applied_job = AppliedJob.find(params[:id])
-    if current_user.role.role_name == 'owner' && @applied_job.job_listing.owner == current_user
-      @applied_job.update(status: 'rejected')
-      redirect_to applicants_job_listing_path(@applied_job.job_listing), notice: 'Application rejected.'
-    else
-      redirect_to root_path, alert: 'Unauthorized'
-    end
-  end
-
   private
 
   def authorize_user!

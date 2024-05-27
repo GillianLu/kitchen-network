@@ -3,43 +3,43 @@
 <%= render 'shared/user_navbar' %>
 
 <div class="container">
-    <h1>Applicants for <%= @job_listing.title %></h1>
+  <h1>Applicants for <%= @job_listing.title %></h1>
 
-    <% if @applicants.any? %>
-      <table class="applicants-table">
-        <thead>
+  <% if @applicants.any? %>
+    <table class="applicants-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Application Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @applicants.each do |applied_job| %>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Application Time</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <td><%= applied_job.talent.first_name %> <%= applied_job.talent.last_name %></td>
+            <td><%= applied_job.talent.email %></td>
+            <td><%= applied_job.created_at %></td>
+            <td><%= applied_job.status || 'Pending' %></td>
+            <td>
+              <% if applied_job.status != 'confirmed' %>
+                <%= link_to 'Confirm', confirm_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'action-link' %>
+              <% end %>
+              <% if applied_job.status != 'rejected' %>
+                <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'action-link' %>
+              <% end %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @applicants.each do |applied_job| %>
-            <tr>
-              <td><%= applied_job.talent.first_name %> <%= applied_job.talent.last_name %></td>
-              <td><%= applied_job.talent.email %></td>
-              <td><%= applied_job.created_at %></td>
-              <td><%= applied_job.status || 'Pending' %></td>
-              <td>
-                <% if applied_job.status != 'confirmed' %>
-                  <%= link_to 'Confirm', confirm_applied_job_path(applied_job), method: :patch, data: { confirm: 'Are you sure?' }, class: 'action-link' %>
-                <% end %>
-                <% if applied_job.status != 'rejected' %>
-                  <%= link_to 'Reject', reject_applied_job_path(applied_job), method: :patch, data: { confirm: 'Are you sure?' }, class: 'action-link' %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p>No applicants found.</p>
-    <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No applicants found.</p>
+  <% end %>
 
-    <div class="actions">
-        <%= link_to 'Back to Job Listings', job_listings_path, class: 'back-link' %>
-    </div>
+  <div class="actions">
+    <%= link_to 'Back to Job Listings', job_listings_path, class: 'back-link' %>
+  </div>
 </div>

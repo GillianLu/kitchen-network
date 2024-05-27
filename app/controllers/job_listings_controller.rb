@@ -85,7 +85,7 @@ class JobListingsController < ApplicationController
   end
 
   def job_listing_params
-    params.require(:job_listing).permit(:title, :description, :requirements, :salary)
+    params.require(:job_listing).permit(:title, :description, :requirements, :duration, :salary)
   end
 
   def authorize_user!

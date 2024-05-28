@@ -1,6 +1,6 @@
 <% if current_user.present? %>
     <div class="flex">
-        <div class="w-64 p-4 bg-stronggreen h-screen sticky top-0 z-999">
+        <div class="w-64 p-4 bg-stronggreen h-screen sticky top-0 z-20">
             <%= link_to root_path, class: "flex items-center ps-2.5 mb-8" do %>
                 <%= image_tag 'logo.png', class: "h-7 me-3", alt: "Logo" %>
                 <span class="self-center text-xl font-semibold whitespace-nowrap text-white">
@@ -12,9 +12,13 @@
                 <% if current_user.role.role_name == 'admin' %>
                     <%= render 'shared/admin_menu' %>
                 <% else%>
-                    <%= render 'shared/user_navbar' %>
+                    <%= render 'shared/user_menu' %>
                 <% end %>
             </ul>
+        </div>
+
+        <div class="flex-grow">
+            <%= render 'shared/navbar' %>
         </div>
     </div>
 <% end %>

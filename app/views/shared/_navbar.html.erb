@@ -1,0 +1,71 @@
+<nav class="fixed top-0 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3 w-full">
+            <div class="flex items-center justify-between">
+                <form class="ml-4">
+                    <%= form_tag(job_listings_path, method: :get, class: "flex items-center w-full") do %>
+                        <label for="job-search" class="mb-2 text-sm font-medium text-stronggray sr-only ">Search</label>
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-5 h-5 text-stronggray" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <%= text_field_tag :query, params[:query], class: "bg-linen border-none text-stronggray text-sm rounded-xl block w-full focus:ring-transparent focus:border-transparent ps-10 p-2.5", placeholder: "Search job listings...", required: true %>
+                        </div>
+                    <% end %>
+                </form>
+                <div class="flex items-center">
+                    <div class="relative flex items-center mr-4">
+                        <div>
+                            <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <span class="sr-only">Open user menu</span>
+                                <%= image_tag 'avatar.jpg', class: "w-8 h-8 rounded-full", alt: "user photo" %>
+                            </button>
+                        </div>
+                        <div class="absolute right-0 top-6 z-50 hidden my-4 w-60 text-sm list-none bg-stronggreen divide-y divide-gray-100 rounded-lg shadow" id="dropdown-user">
+                            <div class="px-4 py-3" role="none">
+                                <p class="text-base text-linen" role="none">
+                                    <%= current_user.first_name %> <%= current_user.last_name %>
+                                </p>
+                                <p class="text-sm font-medium text-mediumgray truncate" role="none">
+                                    <%= current_user.email %>
+                                </p>
+                            </div>
+                            <ul class="p-2" role="none"> 
+                                <li>
+                                    <%= form_tag(destroy_user_session_path, method: :delete) do %>
+                                        <%= button_tag(type: 'submit', class: 'flex items-center px-4 py-2 w-full text-linen transition duration-75 rounded-lg hover:bg-mediumgreen group') do %>
+                                            <svg class="w-5 h-5 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                                            </svg>
+                                            <span>Log Out</span>
+                                        <% end %>
+                                    <% end %>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropdownButton = document.querySelector("[data-dropdown-toggle]");
+        const dropdownMenu = document.getElementById("dropdown-user");
+
+        dropdownButton.addEventListener("click", function() {
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", function(event) {
+            const isDropdownButton = dropdownButton.contains(event.target);
+            const isDropdownMenu = dropdownMenu.contains(event.target);
+
+            if (!isDropdownButton && !isDropdownMenu) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+    });
+</script>

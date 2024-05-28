@@ -1,15 +1,14 @@
 <li>
-    <%= link_to admin_users_path, class: 'flex items-center p-2 text-gray-900 rounded-lg hover:bg-mediumgreen group' do %>
-        <svg class="flex-shrink-0 mr-3 w-5 h-5 text-linen transition duration-75 group-hover:text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+    <%= link_to admin_users_path, class: 'flex items-center p-2 text-linen rounded-lg hover:bg-mediumgreen group' do %>
+        <svg class="flex-shrink-0 mr-3 w-6 h-5 text-linen transition duration-75 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
             <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
         </svg>
         <span class="flex-1 whitespace-nowrap text-linen">Users</span>
     <% end %>
 </li>
-
 <li>
-    <%= link_to admin_users_path, class: 'flex items-center p-2 text-gray-900 rounded-lg hover:bg-mediumgreen group' do %>
-        <svg class="w-6 h-6 mr-3 text-linen group-hover:text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+    <%= link_to admin_users_path, class: 'flex items-center p-2 text-linen rounded-lg hover:bg-mediumgreen group' do %>
+        <svg class="w-6 h-6 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clip-rule="evenodd"/>
             <path fill-rule="evenodd" d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" clip-rule="evenodd"/>
             <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
@@ -17,12 +16,15 @@
         <span class="flex-1 whitespace-nowrap text-linen">Transactions</span>
     <% end %>
 </li>
-
-<li>
-    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Log out?" }, class: 'flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-mediumgreen group' do %>
-        <svg class="w-6 h-6 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
-        </svg>
-        <span class="flex-1 whitespace-nowrap text-linen">Logout</span>
-    <% end %>
-</li>
+<div class="mt-auto mb-4">
+    <ul>
+        <li>
+            <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Log out?" }, class: 'flex items-center p-2 text-linen transition duration-75 rounded-lg hover:bg-mediumgreen group' do %>
+                <svg class="w-6 h-6 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                </svg>
+                <span class="flex-1 whitespace-nowrap text-linen">Logout</span>
+            <% end %>
+        </li>
+    </ul>
+</div>

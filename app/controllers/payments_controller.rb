@@ -4,21 +4,27 @@ class PaymentsController < ApplicationController
     @applied_job = @job_listing.applied_jobs.find_by(talent_id: params[:applicant_id])
     @talent = @applied_job.talent if @applied_job
     @amount = @job_listing.salary.to_i / 2
+    @amount_in_dollars_in_cents = (@amount / 50 * 100)
   end
 
   def create
     begin
       @job_listing = JobListing.find(params[:job_listing_id])
-      @applied_job = @job_listing.applied_jobs.find_by(talent_id: params[:applicant_id])
-      # @talent = @applied_job.talent if @applied_job
+      @applied_job = @job_listing.applied_jobs.find(params[:applied_job_id])
+      @talent_id = @applied_job.talent_id
+      # @job_listing = current_user.job_listings.find(params[:job_listing_id])
+      # @applicants = @job_listing.applied_jobs.includes(:talent)
       # @amount = @job_listing.salary.to_i / 2
 
+      result = Transaction.send_payment(current_user, params[:job_listing_id], params[:applied_job_id])
+
+      if result[:success]
+        redirect_to new_payment_path(job_listing_id: @job_listing.id, applicant_id: @talent_id), notice: result[:message]
+      else
+        redirect_to new_payment_path(job_listing_id: @job_listing.id, applicant_id: @talent_id), alert: result[:message]
+      end
+
       # ------ NOTES NI IAN
-
-      # 1. Update yung job listing -> assigned (status: pending, assigned, completed)
-      # 2. Update yung applied job -> accepted (status: reject, accepted, pending)
-
-      # 3. Update yung ibang applied job -> declined/denied/reject (status: declined/denied/reject, accepted, pending)
 
       # 4. Update yung wallet -> wallet + amount
       # 5. Add transaction -> description: Downpayment, amount: amount (description: Downpayment, Completed)

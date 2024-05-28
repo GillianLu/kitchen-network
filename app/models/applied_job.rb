@@ -13,6 +13,8 @@ class AppliedJob < ApplicationRecord
     return { success: false, message: 'Unauthorized' } unless current_user.role.role_name == 'owner' && job_listing.owner == current_user
 
     ActiveRecord::Base.transaction do
+
+      # pwede pa i-update yung ibang existing na application na pending -> rejected na.
       
       if job_listing.update(status: 'assigned') && applied_job.update(status: 'confirmed', balance: job_listing.salary)
         { success: true, message: 'Application confirmed. Please proceed to payment.'}

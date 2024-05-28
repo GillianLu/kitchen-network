@@ -6,13 +6,16 @@
     </label>
   </article>
 
-<%= form_tag payments_path(job_listing_id: @job_listing.id, applicant_id: @talent.id) do %>
+<%= form_tag payments_path(job_listing_id: @job_listing.id, applied_job_id: @applied_job.id) do %>
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="<%= ENV['STRIPE_PUBLIC_KEY'] %>"
     data-description="Rails Stripe customer"
-    data-amount="<%= @amount %>"
+    data-amount="<%= @amount_in_dollars_in_cents %>"
     data-locale="auto"></script>
 <% end %>
 
 <%= @job_listing.inspect %>
+<br />
+<%= @amount.inspect %>
+<%= @amount_in_dollars_in_cents.inspect %>

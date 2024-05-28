@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_28_092402) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_28_165003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_092402) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "talent_id", null: false
+    t.bigint "job_listing_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_transactions_on_client_id"
+    t.index ["job_listing_id"], name: "index_transactions_on_job_listing_id"
+    t.index ["talent_id"], name: "index_transactions_on_talent_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -70,5 +82,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_092402) do
   add_foreign_key "applied_jobs", "job_listings"
   add_foreign_key "applied_jobs", "users", column: "talent_id"
   add_foreign_key "job_listings", "users", column: "owner_id"
+  add_foreign_key "transactions", "job_listings"
+  add_foreign_key "transactions", "users", column: "client_id"
+  add_foreign_key "transactions", "users", column: "talent_id"
   add_foreign_key "users", "roles"
 end

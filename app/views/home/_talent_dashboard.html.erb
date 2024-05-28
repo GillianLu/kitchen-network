@@ -72,27 +72,28 @@
             <p>Here are the latest job opportunities available for you to apply for.</p>
         </div>
         
-        <div class='dashboard-main-newest-body'>
-            
+        <div class = 'dashboard-newest-body'>
             <% @jobs.each do |job| %>
-                <div class='dashboard-main-newest-jobs'>
-                    <div class='newest-job-created-date-container'>
-                        <p class='newest-job-date'><%= job.created_at.strftime("%B %d, %Y") %></p>
+                <div class = 'dashboard-newest-card'>
+                    <div class = 'dashboard-card-date-container'>
+                        <p class='dashboard-card-date'><%= job.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
                     </div>
-                    <div class='newest-job-created-info-container'>
-                        <p class='newest-job-title'><%= job.title.capitalize %></p>
-                        <p class='newest-job-salary'>Salary: ₱ <%= number_with_precision(job.salary, precision: 2) %></p>
-                        <p class='newest-job-description'><%= job.description %></p>
+                    <div class = 'dashboard-card-info-container'>
+                        <div class='dashboard-card-title-container'>
+                            <p class='dashboard-card-title'><%= job.title %></p>
+                            <p class='dashboard-card-salary'><%= number_to_currency(job.salary, unit: "₱", precision: 2) %></p>
+                        </div>
+                        <div class='dashboard-card-definition-container'>
+                            <p class='dashboard-card-definition'><%= job.description %></p>
+                        </div>
+                        <div class='dashboard-card-requirements-container'>
+                            <p class='dashboard-card-requirements'><b>Requirements: </b><%= job.requirements %></p>
+                        </div>               
                     </div>
-                    <div class='newest-job-created-button-container'>
-                        <%= button_to root_path, method: :get, class: "newest-job-apply-button" do %>
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <p>Send an Application</p>
-                        <% end %>
+                    <div class = 'dashboard-buttons-container'>
+                        <button class='dashboard-button'><i class="fa-solid fa-eye"></i> View</button>
+                        <button class='dashboard-button'><i class="fa-solid fa-paper-plane"></i> Apply</button>
                     </div>
-                </div>
-
-                <div class='dashboard-main-newest-divider'>
                 </div>
             <% end %>
         </div>

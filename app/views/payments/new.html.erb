@@ -1,12 +1,12 @@
 <h1>Pay with Stripe</h1>
 
-<%= form_tag payments_path do %>
   <article>
     <label class="amount">
       <span>Amount: $<%= @amount %></span>
     </label>
   </article>
 
+<%= form_tag payments_path(job_listing_id: @job_listing.id, applicant_id: @talent.id) do %>
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="<%= ENV['STRIPE_PUBLIC_KEY'] %>"
@@ -14,3 +14,5 @@
     data-amount="<%= @amount %>"
     data-locale="auto"></script>
 <% end %>
+
+<%= @job_listing.inspect %>

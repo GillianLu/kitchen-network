@@ -4,4 +4,6 @@ class JobListing < ApplicationRecord
   has_many :talents, through: :applied_jobs
 
   validates :title, :description, :requirements, :salary, :duration, presence: true
+  validates :status, inclusion: { in: %w(pending assigned completed),
+    message: "%{value} is not a valid status" }
 end

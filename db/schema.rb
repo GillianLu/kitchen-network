@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_092402) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.decimal "balance"
     t.index ["job_listing_id"], name: "index_applied_jobs_on_job_listing_id"
     t.index ["talent_id"], name: "index_applied_jobs_on_talent_id"
   end

@@ -14,14 +14,12 @@ class AppliedJob < ApplicationRecord
 
     ActiveRecord::Base.transaction do
       
-      if job_listing.update(status: 'assigned') && applied_job.update(status: 'confirmed')
+      if job_listing.update(status: 'assigned') && applied_job.update(status: 'confirmed', balance: job_listing.salary)
         { success: true, message: 'Application confirmed. Please proceed to payment.'}
       else
         { success: false, message: 'Failed to confirm application.' }
       end
-
     end
   end
-
-
+  
 end

@@ -14,6 +14,7 @@
                             <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
                         </div>
                         <p><%= job_listing.description %></p>
+                        <p><%= job_listing.requirements %></p>
                         <p class='job-card-salary'>Salary: <%= job_listing.salary %></p>
                         <div class='job-card-links'>
                             <%= link_to 'View', job_listing_path(job_listing) %>

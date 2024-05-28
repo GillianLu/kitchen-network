@@ -26,8 +26,8 @@ body {
 .job-listing-main-body {
     margin-left: 300px;
     width: calc(100% - 300px);
-    padding: 20px;
     overflow-y: auto;
+    padding: 20px;
 }
 
 .header {
@@ -82,9 +82,8 @@ h1 {
 }
 
 .job-listing-actions {
-    margin-bottom: 20px;
-    display: flex;
-    padding: 20px;
+    padding-left: 10px;
+    margin-bottom: 30px;
 }
 
 .action-link {
@@ -119,7 +118,12 @@ h1 {
 .job-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
+    margin-bottom: 10px;
+}
+.job-card-header h2 {
+    font-size: 2em;
+    font-style: bold;
 }
 
 .job-card-date {
@@ -133,10 +137,20 @@ h1 {
     margin: 10px 0;
 }
 
+.job-card-links {
+    display: flex;
+    align-items: center;
+}
+
 .job-card-links a {
-    color: #FB730C;
+    color: #fff;
     text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-spacing {
     margin-right: 10px;
+    font-weight: bold;
 }
 
 .job-card-links a:hover {
@@ -161,6 +175,7 @@ h1 {
     font-size: 2.5em;
     color: #333;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .job-details p {
@@ -175,11 +190,14 @@ h1 {
     margin-bottom: 25px;
 }
 
+.actions {
+    display: flex;
+}
+
 .job-details .actions a {
-    color: #4A90E2;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
-    margin-right: 20px;
 }
 
 .job-details .actions a:hover {

@@ -6,7 +6,7 @@
     <div class='job-listing-main-body'>
         <h1>Your Job Listings</h1>
         <div class='job-listing-actions'>
-            <%= link_to 'New Job Listing', new_job_listing_path, class: 'action-link' %> 
+            <%= link_to 'Post a job!', new_job_listing_path, class: 'btn btn-primary' %>
         </div>
         <div class='job-cards'>
             <% @job_listings.each do |job_listing| %>
@@ -15,12 +15,15 @@
                         <h2><%= job_listing.title %></h2>
                         <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
                     </div>
-                    <p><%= job_listing.description %></p>
-                    <p class='job-card-salary'>Salary: <%= job_listing.salary %></p>
+                    <p class='job-card-salary'>Salary per month: <%= job_listing.salary %></p>
+                    <div class='job-card-header'>
+                        <p><%= job_listing.description %></p>
+                    </div>
+                    
                     <div class='job-card-links'>
-                        <%= link_to 'View', job_listing_path(job_listing) %>
+                        <%= link_to 'View', job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
                         <% if current_user.role.role_name == 'owner' %>
-                            | <%= link_to 'Applicants', applicants_job_listing_path(job_listing) %>
+                            <%= link_to 'Applicants', applicants_job_listing_path(job_listing), class: 'btn btn-primary'  %>
                         <% end %>
                     </div>
                 </div>

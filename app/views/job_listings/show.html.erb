@@ -4,12 +4,23 @@
 
 <div class="container">
     <div class="job-details">
+        <%= link_to 'Back', job_listings_path, class: 'btn btn-primary btn-spacing'%>
         <h1><%= @job_listing.title %></h1>
         <p><%= @job_listing.description %></p>
         <p class="salary">Salary: <%= @job_listing.salary %></p>
+        <p class="duration">Duration: <%= @job_listing.duration %> months</p>
+
+        <h2>Requirements</h2>
+        <ul class="requirements-list">
+            <% @job_listing.requirements.split("\n").each do |requirement| %>
+            <li><%= requirement %></li>
+            <% end %>
+        </ul>
+
         <div class="actions">
-            <%= link_to 'Edit', edit_job_listing_path(@job_listing) %> |
-            <%= link_to 'Back', job_listings_path %>
+            <%= link_to 'Edit', edit_job_listing_path(@job_listing), class: 'btn btn-primary btn-spacing' %>
+            <%= button_to 'Delete', job_listing_path(@job_listing), method: :delete, data: { confirm: 'Are you sure?' }, class: 'class: btn btn-primary btn-spacing' %>
         </div>
+
     </div>
 </div>

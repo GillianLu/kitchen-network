@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :applied_jobs, only: [:index] do
+  resources :applied_jobs, only: [:index, :destroy] do
     collection do
       post 'apply'
     end

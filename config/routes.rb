@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'profiles/show'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users, only: [:index, :edit, :update] do
+    resources :users, only: [:index, :edit, :update, :show] do
       collection do
         get 'talents'
         get 'pending', to: 'users#pending_users'
@@ -43,4 +44,7 @@ Rails.application.routes.draw do
   end
 
   resources :payments, only: [:new, :create]
+  resources :profiles, only: [:show]
+
+
 end

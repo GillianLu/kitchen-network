@@ -1,0 +1,44 @@
+.profile-container {
+    margin-left: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h1 {
+    margin-bottom: 20px;
+}
+
+.profile-container h2 {
+    margin-top: 20px;
+}
+
+.profile-container p {
+    margin-bottom: 10px;
+}
+
+.btn.btn-primary {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.info-container {
+    display: flex;
+    align-items: baseline;
+}
+
+.info-container h2 {
+    margin-right: 5px;
+}

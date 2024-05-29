@@ -1,3 +1,5 @@
+# app/models/user.rb
+
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
@@ -12,6 +14,9 @@ class User < ApplicationRecord
   has_many :talent_transactions, class_name: 'Transaction', foreign_key: 'talent_id'
 
   validates :first_name, :last_name, :email, :role_id, presence: true
+
+  #To upload the resume
+  mount_uploader :resume, ResumeUploader
 
   def admin?
     role.role_name == 'admin'

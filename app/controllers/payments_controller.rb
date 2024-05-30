@@ -5,6 +5,7 @@ class PaymentsController < ApplicationController
 		@talent = @applied_job.talent if @applied_job
 		@amount = @job_listing.salary.to_i / 2
 		@amount_in_dollars_in_cents = @amount * 100
+		@job_status = "assigned"
 	end
 
 	def create
@@ -28,12 +29,12 @@ class PaymentsController < ApplicationController
 					currency: 'usd'
 				)
 
-				result = Transaction.send_payment(current_user, params[:job_listing_id], params[:applied_job_id])
+				result = Transaction.send_payment(current_user, params[:job_listing_id], params[:applied_job_id], params[:job_status])
 
 				if result[:success]
-					redirect_to new_payment_path(job_listing_id: @job_listing.id, applicant_id: @talent_id), notice: result[:message]
+					redirect_to job_listings_path, notice: result[:message]
 				else
-					redirect_to new_payment_path(job_listing_id: @job_listing.id, applicant_id: @talent_id), alert: result[:message]
+					redirect_to job_listings_path, alert: result[:message]
 				end
 			
 			else
@@ -45,5 +46,16 @@ class PaymentsController < ApplicationController
 				flash[:error] = e.message
 				redirect_to new_payment_path(job_listing_id: @job_listing.id, applicant_id: @talent_id)
 		end
+	end
+
+	def new_complete
+		@job_listing = JobListing.find(params[:job_listing_id])
+		@applied_job = @job_listing.applied_jobs.find_by(talent_id: params[:applicant_id])
+		@talent = @applied_job.talent if @applied_job
+		@amount = @applied_job.balance if @applied_job
+		@amount_in_dollars_in_cents = @amount * 100
+		@job_status = "completed"
+
+		render :new
 	end
 end

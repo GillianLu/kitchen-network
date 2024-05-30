@@ -43,7 +43,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :payments, only: [:new, :create]
+
+  resources :payments, only: [:new, :create] do
+    collection do
+      get 'new_complete'
+    end
+  end
+
+  resources :transactions, only: [:index]
+  
   resources :profiles, only: [:show]
 
 

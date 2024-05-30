@@ -16,14 +16,25 @@
                         <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
                     </div>
                     <p class='job-card-salary'>Salary per month: <%= job_listing.salary %></p>
-                    <div class='job-card-header'>
+                    <div class='job-card-description'>
                         <p><%= job_listing.description %></p>
                     </div>
-                    
                     <div class='job-card-links'>
                         <%= link_to 'View', job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
-                        <% if current_user.role.role_name == 'owner' %>
-                            <%= link_to 'Applicants', applicants_job_listing_path(job_listing), class: 'btn btn-primary'  %>
+                        <% if current_user.role.role_name == 'owner' && job_listing.status == 'pending' %>
+                            <%= link_to 'Applicants', applicants_job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
+                        <% end %>
+                        <% assigned_applied_job = job_listing.applied_jobs.find_by(status: 'confirmed') %>
+                        <% if assigned_applied_job %>
+                            <% if job_listing.salary != assigned_applied_job.balance %>
+                                <% if job_listing.status == 'assigned' %>
+                                    <%= link_to 'Mark as Completed', new_complete_payments_path(job_listing_id: job_listing.id, applicant_id: assigned_applied_job.talent_id), class: 'btn btn-primary btn-spacing' %>
+                                <% end %>
+                            <% else %>
+                                <% if job_listing.status == 'assigned' %>
+                                    <%= link_to 'Send a Downpayment', new_payment_path(job_listing_id: job_listing.id, applicant_id: assigned_applied_job.talent_id), class: 'btn btn-primary btn-spacing' %>
+                                <% end %>
+                            <% end %>
                         <% end %>
                     </div>
                 </div>

@@ -47,5 +47,7 @@ Rails.application.routes.draw do
       get 'new_complete'
     end
   end
+
+  resources :transactions, only: [:index]
   
 end

@@ -3,7 +3,8 @@ class JobListing < ApplicationRecord
   has_many :applied_jobs, dependent: :destroy
   has_many :talents, through: :applied_jobs
 
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :title, :description, :requirements, :salary, :duration, presence: true
   validates :status, inclusion: { in: %w(pending assigned completed),

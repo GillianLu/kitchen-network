@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
 
   resources :job_listings do
+    resources :reviews
     collection do
       get 'browse'
     end
@@ -49,5 +50,5 @@ Rails.application.routes.draw do
   end
 
   resources :transactions, only: [:index]
-  
+
 end

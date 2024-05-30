@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
   get '/reviews', to: 'home#reviews', as: 'reviews'
+  get '/transactions', to: 'home#transactions', as: 'transactions'
+  get '/search/job', to: 'home#search_job', as: 'search_job'
 
   resources :job_listings do
     resources :reviews

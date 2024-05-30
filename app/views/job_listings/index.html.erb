@@ -39,7 +39,7 @@
                             <% end %>
                             <% end %>
 
-                            <% if job_listing.status == 'completed' %>
+                            <% if job_listing.status == 'completed' && job_listing.review == nil %>
                                 <%= link_to 'Make a Review', new_job_listing_review_path(job_listing_id: job_listing.id), class: 'btn btn-primary btn-spacing' %>
                             <% end %>
                         <% end %>

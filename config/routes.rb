@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'account/registered', to: 'home#registered', as: 'registered'
 
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+  get '/reviews', to: 'home#reviews', as: 'reviews'
 
   resources :job_listings do
     resources :reviews
@@ -52,11 +53,6 @@ Rails.application.routes.draw do
   end
 
   resources :transactions, only: [:index]
-<<<<<<< HEAD
-=======
   
   resources :profiles, only: [:show]
-
->>>>>>> 1e52c2afe529b7122c184b44965c73fcbd3d8896
-
 end

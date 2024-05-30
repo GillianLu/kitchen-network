@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   skip_before_action :authenticate_user!, except: [:dashboard]
-  before_action :check_if_logged_in, except: [:dashboard]
+  before_action :check_if_logged_in, except: [:dashboard, :reviews]
 
   def index
   end
@@ -11,6 +11,11 @@ class HomeController < ApplicationController
 
   def registered
     @resource = User.find(params[:resource_id])
+  end
+
+  def reviews
+    @reviews_received = Review.where(reviewee_id: current_user.id)
+    @reviews_sent = Review.where(reviewer_id: current_user.id)
   end
 
   def dashboard

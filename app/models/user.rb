@@ -1,3 +1,5 @@
+# app/models/user.rb
+
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
@@ -15,6 +17,9 @@ class User < ApplicationRecord
   has_many :reviews_given, class_name: 'Review', foreign_key: 'reviewer_id', dependent: :destroy
 
   validates :first_name, :last_name, :email, :role_id, presence: true
+
+  #To upload the resume
+  mount_uploader :resume, ResumeUploader
 
   def admin?
     role.role_name == 'admin'

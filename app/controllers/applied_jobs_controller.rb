@@ -3,7 +3,7 @@ class AppliedJobsController < ApplicationController
   before_action :authorize_user!
 
   def index
-    @applied_jobs = current_user.applied_jobs
+    @applied_jobs = current_user.applied_jobs.includes(job_listing: :owner)
   end
 
   def apply
@@ -19,6 +19,13 @@ class AppliedJobsController < ApplicationController
       redirect_to root_path, alert: 'Unauthorized'
     end
   end
+
+  def destroy
+    @applied_job = current_user.applied_jobs.find(params[:id])
+    @applied_job.destroy
+    redirect_to applied_jobs_path, notice: 'Application successfully rescinded.'
+  end
+
   private
 
   def authorize_user!
@@ -32,7 +39,7 @@ class AppliedJobsController < ApplicationController
   end
 
   def allow_talent_access
-    unless params[:action] == 'index' || params[:action] == 'apply'
+    unless %w[index apply destroy].include?(params[:action])
       redirect_to root_path, alert: 'Unauthorized'
     end
   end

@@ -19,7 +19,9 @@
       <tbody>
         <% @applicants.each do |applied_job| %>
           <tr>
-            <td><%= applied_job.talent.first_name %> <%= applied_job.talent.last_name %></td>
+            <td>
+              <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'profile-link' %>
+            </td>
             <td><%= applied_job.talent.email %></td>
             <td><%= applied_job.created_at %></td>
             <td><%= applied_job.status.present? ? applied_job.status.capitalize : 'Pending' %></td>

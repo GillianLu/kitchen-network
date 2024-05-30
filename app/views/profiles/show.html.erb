@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag "user_profile" %>
+<%= render 'shared/user_navbar' %>
+
+<div class="profile-container">
+    <h1><%= @user.first_name %> <%= @user.last_name %>'s Profile</h1>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+    <p><strong>Role:</strong> <%= @user.role.role_name %></p>
+    
+    <% if @user.role.role_name == "talent" %>
+      <div class="info-container">
+        <h2>Resume:</h2>
+        <%= link_to "Download Resume", @user.resume.url, class: 'btn btn-primary' if @user.resume.present? %>
+      </div>
+        
+        <h2>Skills</h2>
+        <p><%= @user.skills %></p>
+
+        <h2>Experience</h2>
+        <p><%= @user.experience %></p>
+
+        <h2>Education</h2>
+        <p><%= @user.education %></p>
+    <% end %>
+    
+    <% if current_user == @user %>
+    <div class="profile-actions">
+        <%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-primary' %>
+        <%= button_to "Delete Account", registration_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: 'btn btn-danger' %>
+    </div>
+    <% end %>
+</div>

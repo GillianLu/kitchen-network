@@ -22,7 +22,7 @@
                         <i class="fas fa-list"></i>
                         <p class='user-navbar-link-label'>Job Listings</p>
                     <% end %>
-                    <% else %>
+                <% else %>
                     <%= link_to browse_job_listings_path, class: 'user-navbar-main-menu-link' do %>
                         <i class="fas fa-list"></i>
                         <p class='user-navbar-link-label'>Browse Job Listings</p>
@@ -37,7 +37,7 @@
                 <% else %>
                     <%= link_to applied_jobs_path, class: 'user-navbar-main-menu-link' do %>
                         <i class="fas fa-list-check"></i>
-                        <p class='user-navbar-link-label'>Appplicants</p>
+                        <p class='user-navbar-link-label'>Applicants</p>
                     <% end %>
                 <% end %>
 
@@ -55,8 +55,12 @@
                     <i class="fas fa-message"></i>
                     <p class='user-navbar-link-label'>Messages</p>
                 <% end %>
-            </div>
 
+                <%= link_to profile_path(current_user), class: 'user-navbar-main-menu-link' do %>
+                    <i class="fas fa-user"></i>
+                    <p class='user-navbar-link-label'>View Your Profile</p>
+                <% end %>
+            </div>
 
             <div class='user-navbar-main-menu-title'>
                 <p>PREFERENCES</p>

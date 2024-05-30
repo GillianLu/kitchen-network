@@ -22,9 +22,10 @@ class Transaction < ApplicationRecord
         errors.add(:base, 'Client and talent must not be the same user.') if client_id == talent_id
     end
 
-    def self.send_payment(current_user, job_listing_id, applied_job_id)
+    def self.send_payment(current_user, job_listing_id, applied_job_id, job_status)
         job_listing = current_user.job_listings.find_by(id: job_listing_id)
         applied_job = job_listing.applied_jobs.find(applied_job_id)
+        talent = User.find(applied_job.talent_id)
         amount = job_listing.salary.to_i / 2
 
         return { success: false, message: 'Job not found.' } if job_listing.nil?
@@ -39,7 +40,12 @@ class Transaction < ApplicationRecord
                 amount: amount
             )
 
-            if transaction.save
+            job_listing.status = job_status
+            applied_job.balance -= amount
+            talent.wallet ||= 0  # Initialize wallet to 0 if it is nil
+            talent.wallet += amount
+
+            if transaction.save && applied_job.save && talent.save && job_listing.save
                 { success: true, message: 'Payment Succesful.'}
             else
                 { success: false, message: 'Failed to confirm application.' }

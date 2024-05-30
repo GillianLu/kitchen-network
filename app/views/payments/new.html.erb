@@ -6,7 +6,7 @@
     </label>
   </article>
 
-<%= form_tag payments_path(job_listing_id: @job_listing.id, applied_job_id: @applied_job.id) do %>
+<%= form_tag payments_path(job_listing_id: @job_listing.id, applied_job_id: @applied_job.id, job_status: @job_status) do %>
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="<%= ENV['STRIPE_PUBLIC_KEY'] %>"
@@ -17,5 +17,5 @@
 
 <%= @job_listing.inspect %>
 <br />
-<%= @amount.inspect %>
-<%= @amount_in_dollars_in_cents.inspect %>
+<%= @amount.inspect %><br />
+<%= @applied_job.inspect %>

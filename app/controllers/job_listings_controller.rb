@@ -6,6 +6,7 @@ class JobListingsController < ApplicationController
   def index
     if current_user.role.role_name == 'owner'
       @job_listings = current_user.job_listings
+      # @assigned_applicant = @job_listing.applied_jobs.find_by(status: 'confirmed')
     else
       redirect_to applied_jobs_path
     end
@@ -53,17 +54,6 @@ class JobListingsController < ApplicationController
   end
 
   def confirm_applicant
-    # @applied_job = AppliedJob.find(params[:applicant_id])
-    # if current_user.role.role_name == 'owner' && @applied_job.job_listing.owner == current_user
-    #   @applied_job.update(status: 'confirmed')
-    #   redirect_to new_payment_path(job_listing_id: @applied_job.job_listing.id), notice: 'Application confirmed. Please proceed to payment.'
-    # else
-    #   redirect_to root_path, alert: 'Unauthorized'
-    # end
-    
-    # @applied_job = AppliedJob.find(params[:applicant_id])
-    # Rails.logger.info(@applied_job)
-    
     result = AppliedJob.confirm_application(current_user, params[:job_listing_id], params[:applicant_id])
 
     if result[:success]

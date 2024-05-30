@@ -13,13 +13,14 @@
                             <h2><%= job_listing.title %></h2>
                             <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
                         </div>
-                        <p><%= job_listing.description %></p>
-                        <p><%= job_listing.requirements %></p>
-                        <p class='job-card-salary'>Salary: <%= job_listing.salary %></p>
+                        <p class='job-card-salary'>Salary per month: <%= job_listing.salary %></p>
+                        <div class='job-card-header'>
+                            <p><%= job_listing.description %></p>
+                        </div>
                         <div class='job-card-links'>
-                            <%= link_to 'View', job_listing_path(job_listing) %>
+                            <%= link_to 'View', job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
                             <% if current_user.role.role_name == 'talent' %>
-                                | <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post, class: 'apply-button' %>
+                                <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post, class: 'btn btn-primary btn-spacing' %>
                             <% end %>
                         </div>
                     </div>

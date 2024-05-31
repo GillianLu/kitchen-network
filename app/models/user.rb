@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :client_transactions, class_name: 'Transaction', foreign_key: 'client_id'
   has_many :talent_transactions, class_name: 'Transaction', foreign_key: 'talent_id'
 
+  has_many :reviews_received, class_name: 'Review', foreign_key: 'reviewee_id', dependent: :destroy
+  has_many :reviews_given, class_name: 'Review', foreign_key: 'reviewer_id', dependent: :destroy
+
   validates :first_name, :last_name, :email, :role_id, presence: true
 
   #To upload the resume

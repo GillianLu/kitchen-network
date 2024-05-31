@@ -16,8 +16,12 @@ Rails.application.routes.draw do
   get 'account/registered', to: 'home#registered', as: 'registered'
 
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+  get '/reviews', to: 'home#reviews', as: 'reviews'
+  get '/transactions', to: 'home#transactions', as: 'transactions'
+  get '/search/job', to: 'home#search_job', as: 'search_job'
 
   resources :job_listings do
+    resources :reviews
     collection do
       get 'browse'
     end
@@ -53,6 +57,4 @@ Rails.application.routes.draw do
   resources :transactions, only: [:index]
   
   resources :profiles, only: [:show]
-
-
 end

@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   skip_before_action :authenticate_user!, except: [:dashboard]
-  before_action :check_if_logged_in, except: [:dashboard]
+  before_action :check_if_logged_in, except: [:dashboard, :reviews, :transactions, :search_job]
 
   def index
   end
@@ -13,9 +13,33 @@ class HomeController < ApplicationController
     @resource = User.find(params[:resource_id])
   end
 
+  def reviews
+    @reviews_received = Review.where(reviewee_id: current_user.id)
+    @reviews_sent = Review.where(reviewer_id: current_user.id)
+  end
+
   def dashboard
     @jobs = JobListing.includes(:owner).order(created_at: :desc).limit(5)
   end
+
+  def transactions
+    if current_user.role_id == 3
+      @transactions = current_user.client_transactions
+    else
+      @transactions = current_user.talent_transactions
+    end
+  end
+
+  def search_job
+    @job_listings = JobListing.all
+    # If a search query is present, filter job listings by title, description, or requirements
+    if params[:query].present?
+      search_query = "%#{params[:query]}%"
+      @job_listings = @job_listings.where("title ILIKE :query OR description ILIKE :query OR requirements ILIKE :query", query: search_query)
+    end
+    render 'job_listings/browse'
+  end
+  
 
   private
 

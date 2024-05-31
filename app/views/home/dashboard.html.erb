@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class='dashboard-header-search'>
-                <%= form_tag(job_listings_path, method: :get, class: 'dashboard-search-form', id: 'search-form') do %>
+                <%= form_tag(search_job_path, method: :get, class: 'dashboard-search-form', id: 'search-form') do %>
                     <%= text_field_tag :query, params[:query], placeholder: 'Search Job Listing...', class: 'dashboard-search-input' %>
                 <% end %>
             </div>

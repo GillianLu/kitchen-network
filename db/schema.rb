@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_29_044256) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_081036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_29_044256) do
     t.integer "duration"
     t.string "status", default: "pending"
     t.index ["owner_id"], name: "index_job_listings_on_owner_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.bigint "job_listing_id"
+    t.bigint "reviewer_id"
+    t.bigint "reviewee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_listing_id"], name: "index_reviews_on_job_listing_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -86,6 +97,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_29_044256) do
   add_foreign_key "applied_jobs", "job_listings"
   add_foreign_key "applied_jobs", "users", column: "talent_id"
   add_foreign_key "job_listings", "users", column: "owner_id"
+  add_foreign_key "reviews", "job_listings"
+  add_foreign_key "reviews", "users", column: "reviewee_id"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
   add_foreign_key "transactions", "job_listings"
   add_foreign_key "transactions", "users", column: "client_id"
   add_foreign_key "transactions", "users", column: "talent_id"

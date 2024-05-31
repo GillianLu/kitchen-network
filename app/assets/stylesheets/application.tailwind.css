@@ -2,12 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+
+  .btn-main {
+    text-decoration: none;
+    border-radius: 0.75rem;
+    background-color: #F65A11;
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+
+    &:hover {
+      background-color: #F7A465;
+    }
+  }
+
+  .tab-link {
+    @apply inline-block p-3 border-b-2 border-transparent rounded-t-lg;
+  }
+  
+  .tab-link-active {
+    @apply font-bold text-darkorange border-darkorange;
+  }
+  
+  .tab-link-inactive {
+    @apply hover:text-stronggray hover:border-stronggray;
   }
 }
-
-*/

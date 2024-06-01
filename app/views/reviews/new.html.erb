@@ -1,20 +1,17 @@
-<%= stylesheet_link_tag "job_listing" %>
-
-<%= render 'shared/user_navbar' %>
-
-<div class="container">
-    <%= form_with(model: @review, url: job_listing_reviews_path(@job_listing), method: :post) do |form| %>
-      <div class="field">
-        <%= form.label :title %>
-        <%= form.text_field :title %>
-      </div>
-      <div class="field">
-        <%= form.label :content %>
-        <%= form.text_area :content %>
-      </div>
-      <%= form.submit "Submit Review", class: "btn btn-primary" %>
-    <% end %>
+<div class = 'w-full h-screen'>
+  <div class = 'w-full h-full px-64 pt-20'>
+    <div class='px-5 pb-5'>
+        <%= form_with(model: @review, url: job_listing_reviews_path(@job_listing), method: :post) do |form| %>
+          <div class="field">
+            <%= form.label :title %>
+            <%= form.text_field :title %>
+          </div>
+          <div class="field">
+            <%= form.label :content %>
+            <%= form.text_area :content %>
+          </div>
+          <%= form.submit "Submit Review", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+  </div>
 </div>
-
-
-

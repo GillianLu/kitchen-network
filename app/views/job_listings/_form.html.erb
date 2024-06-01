@@ -1,47 +1,54 @@
 <%= stylesheet_link_tag "form" %>
+<%= stylesheet_link_tag "job_listing" %>
 
-<div class="form-container">
-    <h1>New Job Listing</h1>
-    <%= form_with(model: @job_listing, local: true) do |form| %>
-        <% if @job_listing.errors.any? %>
-            <div id="error_explanation">
-                <h2><%= pluralize(@job_listing.errors.count, "error") %> prohibited this job listing from being saved:</h2>
-                <ul>
-                    <% @job_listing.errors.full_messages.each do |message| %>
-                        <li><%= message %></li>
+<div class="flex flex-col min-h-screen w-full">
+    <div class="my-20 overflow-y-auto">
+        <div class="px-5 py-5">
+            <div class="p-8 bg-white rounded-lg shadow-md w-full">
+                <h1 class="text-4xl font-bold mb-6">New Job Listing</h1>
+                <%= form_with(model: @job_listing, local: true) do |form| %>
+                    <% if @job_listing.errors.any? %>
+                        <div class="mb-6 p-4 bg-red-100 text-red-700 rounded">
+                            <h2 class="font-bold mb-2"><%= pluralize(@job_listing.errors.count, "error") %> prohibited this job listing from being saved:</h2>
+                            <ul class="list-disc list-inside">
+                                <% @job_listing.errors.full_messages.each do |message| %>
+                                    <li><%= message %></li>
+                                <% end %>
+                            </ul>
+                        </div>
                     <% end %>
-                </ul>
+
+                    <div class="mb-6">
+                        <%= form.label :title, class: 'block text-sm font-medium text-gray-700' %>
+                        <%= form.text_field :title, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm' %>
+                    </div>
+
+                    <div class="mb-6">
+                        <%= form.label :description, class: 'block text-sm font-medium text-gray-700' %>
+                        <%= form.text_area :description, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm' %>
+                    </div>
+
+                    <div class="mb-6">
+                        <%= form.label :requirements, class: 'block text-sm font-medium text-gray-700' %>
+                        <%= form.text_area :requirements, placeholder: 'Enter each requirement on a new line', class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm' %>
+                    </div>
+
+                    <div class="mb-6">
+                        <%= form.label :duration, 'Job Duration (months)', class: 'block text-sm font-medium text-gray-700' %>
+                        <%= form.number_field :duration, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm' %>
+                    </div>
+
+                    <div class="mb-6">
+                        <%= form.label :salary, class: 'block text-sm font-medium text-gray-700' %>
+                        <%= form.number_field :salary, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm' %>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <%= form.submit 'Save Job Listing', class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
+                    </div>
+                <% end %>
+                <%= link_to 'Back', job_listings_path, class: 'inline-block mt-4 text-blue-500 hover:underline' %>
             </div>
-        <% end %>
-
-        <div class="form-group">
-            <%= form.label :title, class: 'form-label' %>
-            <%= form.text_field :title, class: 'form-control' %>
         </div>
-
-        <div class="form-group">
-            <%= form.label :description, class: 'form-label' %>
-            <%= form.text_area :description, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-            <%= form.label :requirements, class: 'form-label' %>
-            <%= form.text_area :requirements, class: 'form-control', placeholder: 'Enter each requirement on a new line' %>
-        </div>
-
-        <div class="form-group">
-            <%= form.label :duration, 'Job Duration (months)', class: 'form-label' %>
-            <%= form.number_field :duration, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-            <%= form.label :salary, class: 'form-label' %>
-            <%= form.number_field :salary, class: 'form-control' %>
-        </div>
-
-        <div class="form-actions">
-            <%= form.submit 'Save Job Listing', class: 'btn btn-primary' %>
-        </div>
-    <% end %>
-    <%= link_to 'Back', job_listings_path, class: 'back-link' %>
+    </div>
 </div>

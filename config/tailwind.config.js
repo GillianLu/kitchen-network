@@ -17,7 +17,7 @@ module.exports = {
         stronggray: "#6A6D69", /*text*/
         mediumgreen: '#48683eb9', /*hover*/
         stronggreen: "#22331D", /*sidebar*/
-        lightorange: "#F8BC7C",
+        lightorange: "#ffd7b5",
         mediumorange: "#F7A465",
         darkorange: "#F65A11", /*buttons & active*/
         linen: "#EFEDE7", /*background*/

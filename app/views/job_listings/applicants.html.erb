@@ -1,48 +1,56 @@
 <%= stylesheet_link_tag "job_listing" %>
 
-<div class="container">
-  <h1>Applicants for <%= @job_listing.title %></h1>
+<div class="flex flex-col min-h-screen w-full">
+  <div class="ml-64 my-20 overflow-y-auto">
+    <div class="px-5 py-5">
+      <div class="max-w-7xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
+        <h1 class="text-4xl font-bold mb-6">Applicants for <%= @job_listing.title %></h1>
 
-  <% if @applicants.any? %>
-    <table class="applicants-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Application Time</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @applicants.each do |applied_job| %>
-          <tr>
-            <td>
-              <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'profile-link' %>
-            </td>
-            <td><%= applied_job.talent.email %></td>
-            <td><%= applied_job.created_at %></td>
-            <td><%= applied_job.status.present? ? applied_job.status.capitalize : 'Pending' %></td>
-            <td>
-              <% if applied_job.status != 'confirmed' %>
-                <%= link_to 'Confirm',  confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id),  method: :patch, class: 'action-link' %>
+        <% if @applicants.any? %>
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Time</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @applicants.each do |applied_job| %>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'text-blue-500 hover:underline' %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.talent.email %></td>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.created_at %></td>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.status.present? ? applied_job.status.capitalize : 'Pending' %></td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex space-x-4">
+                      <% if applied_job.status != 'confirmed' %>
+                        <%= link_to 'Confirm', confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id), method: :patch, class: 'text-blue-500 hover:underline' %>
+                      <% end %>
+                      <% if applied_job.status != 'confirmed' %>
+                        <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
+                      <% end %>
+                      <% if applied_job.status == 'confirmed' %>
+                        <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
               <% end %>
-              <% if applied_job.status != 'confirmed' %>
-                <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'action-link' %>
-              <% end %>
-              <% if applied_job.status == 'confirmed' %>
-                <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'action-link' %>
-              <% end %>
-            </td>
-          </tr>
+            </tbody>
+          </table>
+        <% else %>
+          <p class="text-gray-500">No applicants found.</p>
         <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No applicants found.</p>
-  <% end %>
 
-  <div class="actions">
-    <%= link_to 'Back to Job Listings', job_listings_path, class: 'back-link' %>
+        <div class="mt-6">
+          <%= link_to 'Back to Job Listings', job_listings_path, class: 'text-blue-500 hover:underline' %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

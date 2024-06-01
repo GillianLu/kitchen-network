@@ -25,6 +25,9 @@ class HomeController < ApplicationController
   def transactions
     if current_user.role_id == 3
       @transactions = current_user.client_transactions
+      @total_spent = current_user.client_transactions.sum(:amount)
+      @talents_hired = current_user.client_transactions.distinct.count(:talent_id)
+      @transactions_count = current_user.client_transactions.count
     else
       @transactions = current_user.talent_transactions
     end
@@ -32,15 +35,14 @@ class HomeController < ApplicationController
 
   def search_job
     @job_listings = JobListing.all
-    # If a search query is present, filter job listings by title, description, or requirements
     if params[:query].present?
       search_query = "%#{params[:query]}%"
       @job_listings = @job_listings.where("title ILIKE :query OR description ILIKE :query OR requirements ILIKE :query", query: search_query)
     end
     render 'job_listings/browse'
   end
-  
 
+  
   private
 
   def check_if_logged_in

@@ -1,32 +1,43 @@
 <%= stylesheet_link_tag "user_profile" %>
-<%= render 'shared/user_navbar' %>
 
-<div class="profile-container">
-    <h1><%= @user.first_name %> <%= @user.last_name %>'s Profile</h1>
-    <p><strong>Email:</strong> <%= @user.email %></p>
-    <p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-    <p><strong>Role:</strong> <%= @user.role.role_name %></p>
-    
-    <% if @user.role.role_name == "talent" %>
-      <div class="info-container">
-        <h2>Resume:</h2>
-        <%= link_to "Download Resume", @user.resume.url, class: 'btn btn-primary' if @user.resume.present? %>
-      </div>
-        
-        <h2>Skills</h2>
-        <p><%= @user.skills %></p>
-
-        <h2>Experience</h2>
-        <p><%= @user.experience %></p>
-
-        <h2>Education</h2>
-        <p><%= @user.education %></p>
-    <% end %>
-    
-    <% if current_user == @user %>
-    <div class="profile-actions">
-        <%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-primary' %>
-        <%= button_to "Delete Account", registration_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: 'btn btn-danger' %>
+<div class="flex flex-col h-full w-full">
+    <div class="my-20 overflow-y-auto">
+        <div class="px-5 py-5">
+            <div class="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
+                <h1 class="text-4xl font-bold mb-6"><%= @user.first_name %> <%= @user.last_name %>'s Profile</h1>
+                <p class="text-xl mb-4"><strong>Email:</strong> <%= @user.email %></p>
+                <p class="text-xl mb-4"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+                <p class="text-xl mb-4"><strong>Role:</strong> <%= @user.role.role_name %></p>
+                
+                <% if @user.role.role_name == "talent" %>
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold mb-3">Resume:</h2>
+                        <%= link_to "Download Resume", @user.resume.url, class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' if @user.resume.present? %>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold mb-3">Skills</h2>
+                        <p class="text-gray-700"><%= @user.skills %></p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold mb-3">Experience</h2>
+                        <p class="text-gray-700"><%= @user.experience %></p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold mb-3">Education</h2>
+                        <p class="text-gray-700"><%= @user.education %></p>
+                    </div>
+                <% end %>
+                
+                <% if current_user == @user %>
+                    <div class="flex space-x-4 mt-6">
+                        <%= link_to "Edit Profile", edit_user_registration_path, class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
+                        <%= button_to "Delete Account", registration_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: 'bg-red-500 text-white font-bold py-2 px-4 rounded' %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
     </div>
-    <% end %>
 </div>

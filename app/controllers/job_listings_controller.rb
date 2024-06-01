@@ -53,6 +53,14 @@ class JobListingsController < ApplicationController
     @applicants = @job_listing.applied_jobs.includes(:talent)
   end
 
+  def all_applicants
+    if current_user.role.role_name == 'owner'
+      @applicants = AppliedJob.joins(:job_listing).where(job_listings: { owner_id: current_user.id }).includes(:job_listing, :talent)
+    else
+      redirect_to root_path, alert: "You don't have access to this page."
+    end
+  end
+
   def confirm_applicant
     result = AppliedJob.confirm_application(current_user, params[:job_listing_id], params[:applicant_id])
 

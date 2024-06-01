@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     resources :reviews
     collection do
       get 'browse'
+      get 'all_applicants'
+
     end
     member do
       get 'applicants'
@@ -52,6 +54,11 @@ Rails.application.routes.draw do
   end
 
   resources :transactions, only: [:index]
-  
-  resources :profiles, only: [:show]
+
+  resources :profiles, only: [:show] do
+    collection do
+      get 'talents'
+    end
+  end
+
 end

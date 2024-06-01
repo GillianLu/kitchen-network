@@ -1,3 +1,4 @@
+
 <li>
     <div id="main-menu" class="flex flex-col space-y-2">
         <%= link_to dashboard_path, class: "flex items-center w-full p-2 text-base text-linen transition duration-75 rounded-lg group hover:bg-mediumgreen" do %>
@@ -32,7 +33,7 @@
             </li>
             <li>
                 <% if current_user.role.role_name == 'owner' %>
-                    <%= link_to applied_jobs_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
+                    <%= link_to all_applicants_job_listings_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
                         <svg class="w-5 h-5 mr-3 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
                         </svg>
@@ -48,7 +49,7 @@
                 <% end %>
             </li>
             <li>
-                <%= link_to dashboard_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
+                <%= link_to transactions_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
                     <svg class="w-5 h-5 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clip-rule="evenodd"/>
                         <path fill-rule="evenodd" d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" clip-rule="evenodd"/>
@@ -58,11 +59,11 @@
                 <% end %>
             </li>
             <li>
-                <%= link_to dashboard_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
+                <%= link_to talents_profiles_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
                     <svg class="w-5 h-5 mr-3 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
                     </svg>
-                    <span>Reviews</span>
+                    <span>Talents</span>
                 <% end %>
             </li>
             <li>
@@ -79,7 +80,7 @@
 <li>
     <div id="preferences" class="flex flex-col space-y-2">
         <%= link_to dashboard_path, class: "flex items-center w-full p-2 text-base text-linen transition duration-75 rounded-lg group hover:bg-mediumgreen" do %>
-            <span class="flex-1 text-left rtl:text-right whitespace-nowrap">Preferencesz</span>
+            <span class="flex-1 text-left rtl:text-right whitespace-nowrap">Preferences</span>
         <% end %>
         <ul class="py-2 space-y-2">
             <li>

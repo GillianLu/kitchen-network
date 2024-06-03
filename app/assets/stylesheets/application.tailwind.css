@@ -32,10 +32,6 @@
     @apply hover:text-stronggray hover:border-stronggray;
   }
 
-  .tab-link-stronggreen-active {
-    @apply font-bold text-stronggreen border-stronggreen;
-  }
-
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }

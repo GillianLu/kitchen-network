@@ -1,0 +1,32 @@
+<div class="flex flex-col min-h-screen w-full">
+	<div class="h-full w-full pt-20">
+		<div class='pb-5'>
+			<p class = 'font-bold text-lg'><%= @receiver_info.first_name %> <%= @receiver_info.last_name %></p>
+
+			<%= form_with(model: @message, url: message_index_path) do |form| %>
+				<% if @message.errors.any? %>
+					<div id="error_explanation">
+					<h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+					<ul>
+					<% @message.errors.full_messages.each do |message| %>
+						<li><%= message %></li>
+					<% end %>
+					</ul>
+					</div>
+				<% end %>
+
+				<div class="field">
+					<%= form.text_area :content %>
+				</div>
+
+				<%= form.hidden_field :message_receiver_id, value: @message_receiver %>
+
+				<div class="actions">
+					<%= form.submit %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+

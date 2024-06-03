@@ -1,5 +1,5 @@
 class MessageController < ApplicationController
-    # before_action :authorize_user, only: [:new]
+    before_action :authorize_user, only: [:new]
   
     def new
       if params[:talent_id] == current_user.id
@@ -16,9 +16,9 @@ class MessageController < ApplicationController
       @message.message_sender = current_user
   
       if @message.save
-        redirect_to new_message_path(talent_id: params[:message_receiver_id]), notice: 'Message was successfully created.'
+        redirect_to conversation_path(user: @message.message_receiver_id)
       else
-        redirect_to new_message_path(talent_id: params[:message_receiver_id]), notice: 'Failed to create message.'
+        redirect_to new_message_path(talent_id: @message.message_receiver_id), notice: 'Failed to create message.'
       end
     end
 
@@ -47,10 +47,10 @@ class MessageController < ApplicationController
       params.require(:message).permit(:content, :message_receiver_id)
     end
   
-    # def authorize_user
-    #     unless current_user.role.role_name == "owner"
-    #         redirect_to dashboard_path, notice: 'Please wait for the Job Listing Owner to message you.'
-    #     end
-    # end
+    def authorize_user
+        unless current_user.role.role_name == "owner"
+            redirect_to dashboard_path, notice: 'Please wait for the Job Listing Owner to message you.'
+        end
+    end
 end
   

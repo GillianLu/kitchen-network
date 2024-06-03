@@ -2,33 +2,26 @@
   <div class="my-20 overflow-y-auto">
     <div class="px-5 py-5">
       <div class="max-w-7xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
-        <h1 class="text-4xl font-bold mb-6">Our Talents</h1>
+        <h1 class="text-4xl font-bold mb-6 text-darkorange">Our Talents</h1>
 
         <% if @talents.any? %>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <% @talents.each do |talent| %>
-              <div class="bg-white p-8 rounded-lg shadow-lg">
+              <div class="bg-lightorange p-8 rounded-lg shadow-lg transition transform hover:-translate-y-1 hover:shadow-2xl">
                 <div class="flex items-center mb-6">
-                  <%= image_tag 'avatar.jpg', class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+                  <% if talent.photo.attached? %>
+                    <%= image_tag url_for(talent.photo), class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+                  <% else %>
+                    <%= image_tag 'avatar.jpg', class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+                  <% end %>
                   <div>
-                    <h2 class="text-2xl font-bold"><%= talent.first_name %> <%= talent.last_name %></h2>
+                    <h2 class="text-2xl font-bold text-darkorange"><%= talent.first_name %> <%= talent.last_name %></h2>
+                    <p class="text-mediumorange"><%= talent.professional_title %></p>
                     <p class="text-gray-500"><%= talent.email %></p>
                   </div>
                 </div>
-                <div class="mb-6">
-                  <h3 class="text-xl font-semibold">Skills</h3>
-                  <p class="text-gray-700 whitespace-pre-line"><%= talent.skills %></p>
-                </div>
-                <div class="mb-6">
-                  <h3 class="text-xl font-semibold">Experience</h3>
-                  <p class="text-gray-700 whitespace-pre-line"><%= talent.experience %></p>
-                </div>
-                <div class="mb-6">
-                  <h3 class="text-xl font-semibold">Education</h3>
-                  <p class="text-gray-700 whitespace-pre-line"><%= talent.education %></p>
-                </div>
                 <div>
-                  <%= link_to 'View Profile', profile_path(talent), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600' %>
+                  <%= link_to 'View Profile', profile_path(talent), class: 'bg-mediumorange text-white font-bold py-2 px-4 rounded hover:bg-darkorange' %>
                 </div>
               </div>
             <% end %>
@@ -40,3 +33,25 @@
     </div>
   </div>
 </div>
+
+<style>
+  .bg-lightorange {
+    background-color: #ffd7b5;
+  }
+  .bg-mediumorange {
+    background-color: #F7A465;
+  }
+  .bg-darkorange {
+    background-color: #F65A11;
+  }
+  .text-mediumorange {
+    color: #F7A465;
+  }
+  .text-darkorange {
+    color: #F65A11;
+  }
+  .hover\:bg-darkorange:hover {
+    background-color: #F65A11;
+  }
+</style>
+

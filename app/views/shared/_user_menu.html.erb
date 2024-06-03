@@ -91,6 +91,16 @@
                     <span>Settings</span>
                 <% end %>
             </li>
+
+            <li>
+                <%= link_to edit_user_registration_path, class: "flex items-center w-full p-2 text-linen transition duration-75 rounded-lg pl-8 group hover:bg-mediumgreen" do %>
+                    <svg class="w-5 h-5 mr-3 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M21.414 2.586a2 2 0 0 0-2.828 0L3 18.172V21h2.828L21.414 5.414a2 2 0 0 0 0-2.828zM4 20v-2.172l11.314-11.314 2.172 2.172L6.172 20H4zm15.414-11.414L17.242 5.828l2.172-2.172 2.172 2.172-2.172 2.172z"/>
+                    </svg>
+                    <span>Edit your profile</span>
+                <% end %>
+            </li>
+
         </ul>
     </div>
 </li>

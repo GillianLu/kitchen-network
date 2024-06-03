@@ -1,34 +1,56 @@
 <%= stylesheet_link_tag "applied_jobs_index" %>
 
-<div class='applied-jobs-index-main-container'>
-    <div class='applied-jobs-index-main-body'>
-        <h1>Applied Jobs</h1>
-        <div class="browse-more-jobs">
-            <%= link_to 'Browse for More Job Listings', browse_job_listings_path, class: 'btn btn-primary btn-spacing' %>
+<div class="flex flex-col h-full w-full">
+    <div class="my-20 overflow-y-auto">
+        <div class="px-5 py-5">
+            <h1 class="text-4xl text-gray-800 mb-5">Applied Jobs</h1>
+            <div class="mb-8">
+                <%= link_to 'Browse for More Job Listings', browse_job_listings_path, class: 'bg-darkorange text-white font-bold py-2 px-4 rounded' %>
+            </div>
+            <div class="space-y-5">
+                <table class="min-w-full bg-white divide-y divide-mediumorange">
+                    <thead class="bg-lightorange">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Owner ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Owner Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Created At</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-mediumorange">
+                        <% @applied_jobs.each do |applied_job| %>
+                            <tr class="hover:bg-lightorange">
+                                <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.job_listing.title %></td>
+                                <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.job_listing.owner_id %></td>
+                                <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.job_listing.owner.first_name %> <%= applied_job.job_listing.owner.last_name %></td>
+                                <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.created_at.strftime("%d %b, %Y") %></td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <%= button_to 'Rescind Application', applied_job_path(applied_job), method: :delete, data: { confirm: 'Are you sure you want to rescind this application?' }, class: 'bg-red-500 text-white font-bold py-2 px-4 rounded' %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <table class="applied-jobs-table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Owner ID</th>
-                <th>Owner Name</th>
-                <th>Created At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @applied_jobs.each do |applied_job| %>
-            <tr>
-                <td><%= applied_job.job_listing.title %></td>
-                <td><%= applied_job.job_listing.owner_id %></td>
-                <td><%= applied_job.job_listing.owner.first_name %> <%= applied_job.job_listing.owner.last_name %></td>
-                <td><%= applied_job.created_at.strftime("%d %b, %Y") %></td>
-                <td>
-                    <%= button_to 'Rescind Application', applied_job_path(applied_job), method: :delete, data: { confirm: 'Are you sure you want to rescind this application?' }, class: 'btn btn-danger btn-spacing' %>
-                </td>
-            </tr>
-            <% end %>
-        </tbody>
-        </table>
     </div>
 </div>
+
+<style>
+    .bg-lightorange {
+        background-color: #ffd7b5;
+    }
+    .bg-mediumorange {
+        background-color: #F7A465;
+    }
+    .bg-darkorange {
+        background-color: #F65A11;
+    }
+    .hover\:bg-lightorange:hover {
+        background-color: #ffd7b5;
+    }
+    .divide-mediumorange > :not([hidden]) ~ :not([hidden]) {
+        border-color: #F7A465;
+    }
+</style>

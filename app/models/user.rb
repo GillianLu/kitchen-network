@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   belongs_to :role
+  has_one_attached :photo
 
   has_many :job_listings, foreign_key: 'owner_id'
   has_many :applied_jobs, foreign_key: 'talent_id'

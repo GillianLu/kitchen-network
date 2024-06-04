@@ -1,34 +1,54 @@
-<%= stylesheet_link_tag "login" %>
+<div class="mx-auto max-w-8xl h-screen flex flex-col justify-center">
+    <div class="bg-mediumorange p-8 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border-none"> 
+        <div class="flex justify-center">
+            <%= link_to root_path do %>
+                <%= image_tag 'logo.png', class: "h-20 w-20", alt: "Logo" %>
+            <% end %>
+        </div>
 
-<%= render 'shared/home_navbar' %>
+		<div class='mt-2 font-extrabold text-lg text-stronggreen text-center'>
+            <h2>Welcome Back</h2>
+        </div>
 
+		<div class='mb-4 font-medium text-sm text-stronggreen text-center'>
+            <h2>Log in to your account.</h2>
+        </div>
 
-<div class='login-main-container'>
-	<div class='login-body-container '>
-		<h2>Log in</h2>
-			<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-				<div class="field">
-					<%= f.label :email %><br />
-					<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+		<div class="max-h-96 overflow-auto hide-scrollbar">
+			<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "max-w-xl mx-auto" }) do |f| %>
+				<div class= "mb-4">
+					<%= f.label :email, "Email", class:"block mb-2 text-sm font-medium text-gray-900"%>
+					<%= f.email_field :email, autocomplete: "email", autofocus: true, required: true, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5", placeholder: "juan.delacruz@email.com" %>
+				</div> 
+
+				<div class= "mb-2">
+					<%= f.label :password, "Password", class:"block mb-2 text-sm font-medium text-gray-900"%>
+					<%= f.password_field :password, autocomplete: "current-password", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5", placeholder: "•••••••••" %>
 				</div>
-
-				<div class="field">
-					<%= f.label :password %><br />
-					<%= f.password_field :password, autocomplete: "current-password" %>
-				</div>
-
+							
 				<% if devise_mapping.rememberable? %>
-					<div class="field">
-						<%= f.check_box :remember_me %>
-						<%= f.label :remember_me %>
+					<div class= "mb-4">
+						<%= f.check_box :remember_me, class: "w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-darkorange" %>
+						<%= f.label :remember_me, class: "ms-2 text-sm font-medium text-gray-900" %>
 					</div>
 				<% end %>
 
-				<div class="actions">
-					<%= f.submit "Log in" %>
+				<div class="flex justify-center pt-2">
+					<%= f.submit "Log in", class: "bg-darkorange hover:bg-mediumorange focus:ring-1 focus:outline-none focus:ring-mediumorange font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center" %>
+				</div>
+
+				<div class="text-sm text-center pt-2">
+					New to Kitchen Network? <%= link_to "Sign up", new_user_registration_path, class: "no-underline font-bold hover:text-darkorange hover:underline" %>
+				</div>
+
+				<div class="text-sm text-center pt-2">
+					<%= link_to "Forgot your password?", new_password_path(resource_name), class: "no-underline font-medium hover:text-darkorange hover:underline" %>
+				</div>
+
+				<div class="text-sm text-center pt-2">
+					<%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: "no-underline font-medium hover:text-darkorange hover:underline" %>
 				</div>
 			<% end %>
-
-			<%= render "devise/shared/links" %>
+		</div>
 	</div>
 </div>

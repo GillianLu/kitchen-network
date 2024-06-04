@@ -1,39 +1,18 @@
-<%= stylesheet_link_tag "home_navbar"%>
-
-<div class = 'home-navbar-container'>
-    <div class='home-navbar-logo-container'>
-       <div class='home-navbar-logo-content'>
-            <%= image_tag('logo.png', alt: 'Your Logo', class: 'home-navbar-logo') %>
-        </div>
+<nav class="w-full fixed top-0 z-10 flex items-center border-none justify-between px-8 py-4 drop-shadow-lg">
+    <div class="flex items-center">
+        <%= link_to root_path, class: "flex items-center" do %>
+            <%= image_tag 'logo.png', class: "h-10 w-10 me-1", alt: "Logo" %>
+            <span class="self-center text-xl font-semibold whitespace-nowrap text-darkorange">
+                Kitchen Network
+            </span>
+        <% end %>
     </div>
-    <div class = 'home-navbar-links-container'>
-        <div class='home-navbar-links-content'>
-            <%= link_to root_path, class: 'home-navbar-link' do %>
-                <i class="fa-solid fa-house"></i>
-                <p class='home-navbar-link-label'>Home</p>
-            <% end %>
-
-            <%= link_to new_user_registration_path(role_id: 1), class: 'home-navbar-link' do %>
-                <i class="fa-solid fa-user-tie"></i>
-                <p class='home-navbar-link-label'>Talents</p>
-            <% end %>
-
-            <%= link_to new_user_registration_path(role_id: 1), class: 'home-navbar-link' do %>
-                <i class="fa-solid fa-magnifying-glass-dollar"></i>
-                <p class='home-navbar-link-label'>Gigs</p>
-            <% end %>
-
-            <%= link_to new_user_session_path(role_id: 1), class: 'home-navbar-link' do %>
-                <i class="fa-solid fa-right-to-bracket"></i></i>
-                <p class='home-navbar-link-label'>Sign-In</p>
-            <% end %>
-
-            <%= link_to new_user_registration_path, class: 'home-navbar-button' do %>
-                <i class="fa-solid fa-user-plus"></i>
-                <p class='home-navbar-link-label'>Register</p>
-            <% end %>
-
-            
-        </div>
+    <div class="text-stronggreen text-sm font-medium text-center ">
+        <%= link_to new_user_session_path, class: "inline-flex items-center justify-center px-4 py-2 text-line bg-white rounded-full hover:text-linen hover:bg-darkorange group" do %>
+            <svg class="w-5 h-5 me-3 group-hover:text-linen" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+            </svg>
+            <span class="font-bold">Sign in</span>
+        <% end %>
     </div>
-</div>
+</nav>

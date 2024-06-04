@@ -1,14 +1,32 @@
-<%= stylesheet_link_tag "home" %>
-<%= render 'shared/home_navbar' %>
+<div class="relative overflow-hidden h-screen w-full">
+    <%= render 'shared/home_navbar' %>
+    <div class="bg-linen px-6 flex justify-evenly items-center h-full">
+        <div class="m-4 px-4 flex flex-col">
+            <h1 class="mb-4 text-6xl font-bold leading-none tracking-tight">
+                <span>
+                    <span class="mb-1 text-stronggreen">
+                        Sourcing
+                        <span class="text-darkorange font-extrabold">Skills</span>
+                    </span>
+                    <span class="text-stronggreen">
+                        Serving
+                        <span class="text-darkorange font-extrabold">Success</span>
+                    </span>
+                </span>
+            </h1>
+            <span class="text-stronggray mb-6 text-lg font-normal">Empowering you with top culinary talent and resources to achieve excellence in every kitchen.</span>
 
-<div class = 'home-main-container'>
-    <div class = 'home-body-container'>
-        <h1>Home#index</h1>
-        <p>Gawin na lang tong landing page. Kahit wag na muna isipin (more on styling lang to.)</p>
-
-
-        <%= link_to "Sign up", new_user_registration_path %>
-
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+            <div class="text-linen">
+                <%= link_to new_user_registration_path, class: "inline-flex items-center justify-center px-6 py-3 text-base font-medium text-center text-line bg-darkorange rounded-lg hover:bg-mediumorange focus:ring-4 focus:ring-mediumorange" do %>
+                    <span class="font-bold">Register</span>
+                    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                <% end %>
+            </div>
+        </div>
+        <div class="h-auto max-w-xl mt-12 me-6">
+            <%= image_tag 'chef.png', class: "h-auto max-w-2xl" %>
+        </div>
     </div>
 </div>

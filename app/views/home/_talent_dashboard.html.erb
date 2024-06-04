@@ -15,11 +15,11 @@
                         <i class="fa-solid fa-kitchen-set icon"></i>
                     </div>
                     <div class='dashboard-card-icon'>
-                        <p>__ Jobs Available</p>
+                        <p><%= @job_listings.count%> Jobs Available</p>
                     </div>
                 </div>
                 <div>
-                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                    <p class='dashboard-card-details'>Explore available job opportunities.</p>
                 </div>
             </div>
 
@@ -29,11 +29,11 @@
                         <i class="fa-solid fa-user-tie icon"></i>
                     </div>
                     <div class='dashboard-card-icon'>
-                        <p>__ Registered Clients</p>
+                        <p> <%= @owners.count%> Registered Clients</p>
                     </div>
                 </div>
                 <div>
-                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                    <p class='dashboard-card-details'>View registered clients and their job postings.</p>
                 </div>
             </div>
 
@@ -43,11 +43,11 @@
                         <i class="fa-solid fa-envelope-circle-check icon"></i>
                     </div>
                     <div class='dashboard-card-icon'>
-                        <p>__ Application Sent</p>
+                        <p><%=@applications.count%> Application Sent</p>
                     </div>
                 </div>
                 <div>
-                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                    <p class='dashboard-card-details'>Track your application status and responses.</p>
                 </div>
             </div>
 
@@ -57,11 +57,11 @@
                         <i class="fa-solid fa-circle-check icon"></i>
                     </div>
                     <div class='dashboard-card-icon'>
-                        <p>__ Jobs Done</p>
+                        <p><%=@jobs_done.count%> Jobs Done</p>
                     </div>
                 </div>
                 <div>
-                    <p class='dashboard-card-details'>There are __ registered clients waiting for you.</p>
+                    <p class='dashboard-card-details'>View your completed jobs and feedback.</p>
                 </div>
             </div>
         </div>

@@ -4,6 +4,6 @@
 <% if current_user.role.role_name === 'talent' %>
     <%= render 'home/talent_dashboard' %>
 <% else %>
-
+    <%= render 'home/owner_dashboard' %>
 <% end %>
 

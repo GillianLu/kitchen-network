@@ -1,0 +1,36 @@
+<div class = 'p-3 border-b border-linen'>
+    <p class = 'text-md font-semibold'>Inbox</p>
+</div>
+<div class = 'p-3'>
+    <% @inbox.each do | conversation | %>
+        <% if current_user.role.role_name == "owner" %>
+            <% @conversation_user = User.find(conversation.message_receiver_id) %>
+        <% else %>
+            <% @conversation_user = User.find(conversation.message_sender_id) %>
+        <% end %>
+        <% 
+            @last_message = Message.where(message_receiver_id: 1).or(Message.where(message_sender_id: 1))
+            .order('created_at DESC')
+            .limit(1)
+            .first
+        %>
+
+        <%= link_to conversation_path(user: @conversation_user.id) do %>
+            <div class = 'flex gap-2 items-center'>
+                <div class = 'flex items-center justify-center h-12 w-12 rounded-full p-3 bg-mediumgreen border border-stronggreen border-2'>
+                    <div class = 'h-8 w-8 flex items-center'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill='#fff' d="M256 288A144 144 0 1 0 256 0a144 144 0 1 0 0 288zm-94.7 32C72.2 320 0 392.2 0 481.3c0 17 13.8 30.7 30.7 30.7H481.3c17 0 30.7-13.8 30.7-30.7C512 392.2 439.8 320 350.7 320H161.3z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class = 'h-12 w-full flex flex-col justify-center'> 
+                    <p class = 'font-semibold'><%= @conversation_user.first_name %> <%= @conversation_user.last_name %></p>
+                    <p class = 'text-sm text-gray-400 overflow-hidden'><%= @last_message.content %></p>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+</div>
+
+

@@ -31,6 +31,12 @@ class MessageController < ApplicationController
     end    
 
     def conversation
+      if current_user.role.role_name == "owner"
+          @inbox = current_user.sent_messages.select(:message_receiver_id).distinct
+      else
+          @inbox = current_user.received_messages.select(:message_sender_id).distinct
+      end
+      
       @conversation_user = User.find(params[:user])
       @message = Message.where(
         "(message_sender_id = :current_user_id AND message_receiver_id = :conversation_user_id) OR 
@@ -41,6 +47,18 @@ class MessageController < ApplicationController
       @new_message = Message.new
     end
   
+    def fetch_messages
+      @conversation_user = User.find(params[:user])
+      @messages = Message.where(
+        "(message_sender_id = :current_user_id AND message_receiver_id = :conversation_user_id) OR 
+        (message_sender_id = :conversation_user_id AND message_receiver_id = :current_user_id)",
+        current_user_id: current_user.id, 
+        conversation_user_id: @conversation_user.id
+      )
+      render partial: 'message/messages_list', locals: { messages: @messages }
+    end
+
+
     private
   
     def message_params

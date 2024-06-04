@@ -21,6 +21,11 @@ class User < ApplicationRecord
   #To upload the resume
   mount_uploader :resume, ResumeUploader
 
+
+  has_many :sent_messages, class_name: 'Message', foreign_key: 'message_sender_id', dependent: :destroy
+  has_many :received_messages, class_name: 'Message', foreign_key: 'message_receiver_id', dependent: :destroy
+
+
   def admin?
     role.role_name == 'admin'
   end

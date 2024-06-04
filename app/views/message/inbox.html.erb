@@ -1,0 +1,16 @@
+<div class="flex flex-col min-h-screen w-full">
+	<div class="h-full w-full pt-20">
+		<div class='pb-5'>
+             <% @inbox.each do | conversation | %>
+                <% if current_user.role.role_name == "owner" %>
+                    <% @conversation_user = User.find(conversation.message_receiver_id) %>
+                <% else %>
+                    <% @conversation_user = User.find(conversation.message_sender_id) %>
+                <% end %>
+
+                <%= link_to "#{@conversation_user.first_name} #{@conversation_user.last_name}", conversation_path(user: @conversation_user.id ) %>
+            <% end %>
+		</div>
+	</div>
+</div>
+

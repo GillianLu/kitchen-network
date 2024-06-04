@@ -37,6 +37,7 @@
                       <% if applied_job.status == 'confirmed' %>
                         <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
                       <% end %>
+                      <%= link_to 'Message', new_message_path(talent_id: applied_job.talent_id), method: :get, class: 'text-green-500 hover:underline' %>
                     </div>
                   </td>
                 </tr>

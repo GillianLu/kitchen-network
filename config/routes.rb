@@ -61,4 +61,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :message
+  get '/inbox', to: 'message#inbox', as: 'inbox'
+  get '/conversation', to: 'message#conversation', as: 'conversation'
+
 end

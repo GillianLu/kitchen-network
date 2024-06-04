@@ -20,6 +20,16 @@ class HomeController < ApplicationController
 
   def dashboard
     @jobs = JobListing.includes(:owner).order(created_at: :desc).limit(5)
+    if current_user.role.role_name == 'talent'
+      @job_listings = JobListing.all || []
+      @owners = User.where(role_id: Role.find_by(role_name: 'owner').id) || []
+      @applications = current_user.applied_jobs
+      @jobs_done = current_user.applied_jobs.where(status: 'completed')
+    elsif current_user.role.role_name == 'owner'
+      @job_listings = current_user.job_listings
+      @applications = current_user.job_listings.map(&:applied_jobs).flatten
+      @jobs_done = AppliedJob.where(status: 'completed')
+    end
   end
 
   def transactions

@@ -1,34 +1,8 @@
-<%= stylesheet_link_tag "applied_jobs_index" %>
-
-<div class='applied-jobs-index-main-container'>
-    <div class='applied-jobs-index-main-body'>
-        <h1>Applied Jobs</h1>
-        <div class="browse-more-jobs">
-            <%= link_to 'Browse for More Job Listings', browse_job_listings_path, class: 'btn btn-primary btn-spacing' %>
-        </div>
-        <table class="applied-jobs-table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Owner ID</th>
-                <th>Owner Name</th>
-                <th>Created At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @applied_jobs.each do |applied_job| %>
-            <tr>
-                <td><%= applied_job.job_listing.title %></td>
-                <td><%= applied_job.job_listing.owner_id %></td>
-                <td><%= applied_job.job_listing.owner.first_name %> <%= applied_job.job_listing.owner.last_name %></td>
-                <td><%= applied_job.created_at.strftime("%d %b, %Y") %></td>
-                <td>
-                    <%= button_to 'Rescind Application', applied_job_path(applied_job), method: :delete, data: { confirm: 'Are you sure you want to rescind this application?' }, class: 'btn btn-danger btn-spacing' %>
-                </td>
-            </tr>
-            <% end %>
-        </tbody>
-        </table>
+<div class="w-full h-screen px-8 pt-14">
+    <div class="w-full flex justify-between items-center mt-8">
+        <h3 class="text-3xl font-bold text-black">Applied Jobs</h3>
+        <%= link_to 'Explore More', browse_job_listings_path, class: 'text-white bg-darkorange hover:bg-mediumorange focus:ring-1 focus:outline-none focus:ring-mediumorange font-medium rounded-xl text-sm px-4 py-3 text-center' %>
     </div>
+
+    <%= render 'applied_jobs_table' %>
 </div>

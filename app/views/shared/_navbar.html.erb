@@ -22,12 +22,14 @@
                         </button>
                     <div class="absolute right-0 top-6 z-50 hidden my-4 w-60 text-sm list-none bg-stronggreen divide-y divide-gray-100 rounded-lg shadow" id="dropdown-user">
                         <div class="px-4 py-3" role="none">
+                             <%= link_to edit_user_registration_path do %>
                             <p class="text-base text-linen" role="none">
-                                <%= current_user.first_name %> <%= current_user.last_name %>
+                                    <%= current_user.first_name %> <%= current_user.last_name %>
                             </p>
                             <p class="text-sm font-medium text-mediumgray truncate" role="none">
                                 <%= current_user.email %>
                             </p>
+                            <% end %>
                         </div>
                         <ul class="p-2" role="none"> 
                             <li>

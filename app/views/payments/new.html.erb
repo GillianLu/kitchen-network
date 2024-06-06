@@ -1,52 +1,70 @@
-<div class = 'w-full h-screen'>
-    <div class = 'w-full h-full pl-64 pt-20 flex'>
-        <div class = 'px-3 pb-3'>
-            <div class = 'h-fit w-full'>
-                <p class = 'text-3xl font-bold pb-5'>Work Summary:</p>
+<%= stylesheet_link_tag "user_profile" %>
+
+<div class="flex flex-col h-screen w-full bg-gray-100">
+    <div class="flex flex-col items-center w-full h-full pt-20">
+        <div class="w-10/12 px-3 pb-3">
+            <div class="w-full h-fit mb-5">
+                <p class="text-3xl font-bold pb-5">Work Summary:</p>
             </div>
-            <div class = 'flex gap-2 w-full'>
-                <div class = 'w-2/3 bg-white rounded-lg drop-shadow p-5'>
-                    <p class = 'text-xl font-bold'>Job Listing Information: </p>
-                    <p class = 'py-2 text-lg font-semibold'><%=  @job_listing.title %></p>
-                    <p class = 'py-2'><b>Description:</b> <%=  @job_listing.description %></p>
-                    <p class = 'py-2'><b>Requirements:</b> <%=  @job_listing.requirements %></p>
-                    <p class = 'pt-2'><b>Salary:</b> ₱ <%= number_with_precision(@job_listing.salary, precision: 2) %></p>
+            <div class="flex gap-8 w-full">
+                <div class="w-1/2 bg-lightorange rounded-lg shadow-lg p-6">
+                    <p class="text-xl font-bold mb-4">Job Listing Information:</p>
+                    <p class="text-lg font-semibold mb-2"><%= @job_listing.title %></p>
+                    <p class="py-2"><b>Description:</b> <%= @job_listing.description %></p>
+                    <p class="py-2"><b>Requirements:</b> <%= @job_listing.requirements %></p>
+                    <p class="pt-2"><b>Salary:</b> ₱ <%= number_with_precision(@job_listing.salary, precision: 2) %></p>
                 </div>
-                <div class = 'w-10 flex items-center'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path fill='#22331D' d="M32 96l320 0V32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 352c17.7 0 32 14.3 32 32s-14.3 32-32 32H160v64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64H480z"/>
+                <div class="flex items-center justify-center w-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6 text-stronggreen">
+                        <path fill='currentColor' d="M32 96l320 0V32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l96 96c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-96 96c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160L32 160c-17.7 0-32-14.3-32-32s14.3-32 32-32zM480 352c17.7 0 32 14.3 32 32s-14.3 32-32 32H160v64c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-96-96c-6-6-9.4-14.1-9.4-22.6s3.4-16.6 9.4-22.6l96-96c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 64H480z"/>
                     </svg>
                 </div>
-                <div class = 'w-1/3 bg-white rounded-lg drop-shadow p-5'>
-                    <p class = 'text-xl font-bold'>Recipient: </p>
-                    <p class = 'pt-2 font-semibold text-xl'><%=  @applied_job.talent.first_name %> <%=  @applied_job.talent.last_name %></p>
-                    <p class = 'py-2 '><b>Email: </b><%=  @applied_job.talent.email %></p>
-                    <p class = 'py-2 '><b>Phone Number: </b><%=  @applied_job.talent.phone_number %></p>
+                <div class="w-1/2 bg-lightorange rounded-lg shadow-lg p-6">
+                    <p class="text-xl font-bold mb-4">Recipient:</p>
+                    <p class="text-xl font-semibold mb-2"><%= @applied_job.talent.first_name %> <%= @applied_job.talent.last_name %></p>
+                    <p class="py-2"><b>Email:</b> <%= @applied_job.talent.email %></p>
+                    <p class="py-2"><b>Phone Number:</b> <%= @applied_job.talent.phone_number %></p>
                     <% if @job_listing.salary == @applied_job.balance %>
-                        <p class = 'py-2 '><b>Payment Description: </b>Down Payment</p>
+                        <p class="py-2"><b>Payment Description:</b> Down Payment</p>
                     <% else %>
-                        <p class = 'py-1 '><b>Payment Description: </b>Completion Payment</p>
+                        <p class="py-2"><b>Payment Description:</b> Completion Payment</p>
                     <% end %>
-                    <p class = 'py-2 '><b>Amount: </b>₱ <%= number_with_precision(@amount, precision: 2) %></p>
+                    <p class="py-2"><b>Amount:</b> ₱ <%= number_with_precision(@amount, precision: 2) %></p>
                 </div>
             </div>
-            <article>
-                <label class="amount">
-                <span>Amount: $<%= @amount %></span>
-                </label>
-            </article>
-            <%= form_tag payments_path(job_listing_id: @job_listing.id, applied_job_id: @applied_job.id, job_status: @job_status) do %>
-            <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="<%= ENV['STRIPE_PUBLIC_KEY'] %>"
-                data-description="Rails Stripe customer"
-                data-amount="<%= @amount_in_dollars_in_cents %>"
-                data-locale="auto"></script>
-            <% end %>
-            <%= @job_listing.inspect %>
-            <br />
-            <%= @amount.inspect %><br />
-            <%= @applied_job.inspect %>
+            <div class="mt-8">
+                <article class="mb-4">
+                    <label class="amount">
+                        <span class="text-xl font-semibold">Amount: ₱ <%= number_with_precision(@amount, precision: 2) %></span>
+                    </label>
+                </article>
+                <%= form_tag payments_path(job_listing_id: @job_listing.id, applied_job_id: @applied_job.id, job_status: @job_status) do %>
+                    <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="<%= ENV['STRIPE_PUBLIC_KEY'] %>"
+                        data-description="Rails Stripe customer"
+                        data-amount="<%= @amount_in_dollars_in_cents %>"
+                        data-locale="auto"></script>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+  .bg-lightorange {
+    background-color: #ffd7b5;
+  }
+  .bg-mediumorange {
+    background-color: #F7A465;
+  }
+  .bg-darkorange {
+    background-color: #F65A11;
+  }
+  .hover\:bg-mediumorange:hover {
+    background-color: #F7A465;
+  }
+  .hover\:bg-darkorange:hover {
+    background-color: #F65A11;
+  }
+</style>

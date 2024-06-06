@@ -9,11 +9,15 @@ class AppliedJobsController < ApplicationController
   def apply
     @job_listing = JobListing.find(params[:job_listing_id])
     if current_user.role.role_name == 'talent' && @job_listing
-      @applied_job = current_user.applied_jobs.new(job_listing_id: @job_listing.id)
-      if @applied_job.save
-        redirect_to applied_jobs_path, notice: 'You have successfully applied to the job listing.'
+      if current_user.applied_jobs.exists?(job_listing_id: @job_listing.id)
+        redirect_to applied_jobs_path, alert: 'You have already applied to this job listing.'
       else
-        redirect_to job_listings_path, alert: 'Failed to apply to the job listing.'
+        @applied_job = current_user.applied_jobs.new(job_listing_id: @job_listing.id)
+        if @applied_job.save
+          redirect_to applied_jobs_path, notice: 'You have successfully applied to the job listing.'
+        else
+          redirect_to job_listings_path, alert: 'Failed to apply to the job listing.'
+        end
       end
     else
       redirect_to root_path, alert: 'Unauthorized'

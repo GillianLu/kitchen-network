@@ -1,0 +1,46 @@
+<div class="mt-4">
+    <% if @transactions.any? %>
+        <table class="w-full text-sm text-left rtl:text-right text-black border">
+            <thead class="bg-linen text-xs uppercase">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Job Title
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @transactions.each do |transaction| %>
+                    <tr class="bg-white">
+                        <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                            <%= transaction.created_at.strftime("%m-%d-%Y %I:%M %p") %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= "#{transaction.talent.first_name} #{transaction.talent.last_name}" %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= transaction.job_listing.title %>
+                        </td>
+                        <td class="px-6 py-4 font-bold">
+                            ₱ <%= number_with_precision(transaction.amount, precision: 2) %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% else %>
+        <div class="flex justify-center items-center">
+            <p class="mt-4 text-gray-500 italic text-center">
+                No transactions have been recorded yet. Once transactions occur, they will be displayed here.
+            </p>
+        </div>
+    <% end %>
+</div>

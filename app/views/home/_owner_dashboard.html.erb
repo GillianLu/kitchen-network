@@ -4,8 +4,8 @@
   <div class="overflow-y-auto px-8 pt-14 hide-scrollbar">
     <div class="mt-8">
       <div class='dashboard-main-overview'>
-        <h1>Overview</h1>
-        <p>Overview of your job listings and applications.</p>
+        <h3 class="text-3xl font-bold text-black">Overview</h3>
+        <p class="text-stronggray">Overview of your job listings and applications.</p>
       </div>
       <div class='dashboard-main-numbers-container'>
         <div class='dashboard-main-number-card'>
@@ -52,29 +52,29 @@
       </div>
       <div class='dashboard-main-newest-container'>
         <div class='dashboard-main-newest'>
-          <h2>Newest Applications</h2>
-          <p>Here are the latest applications received for your job listings.</p>
+          <h2>Your Newest Job Listings</h2>
+          <p class="text-gray-600">Here are the newest job listings that you created.</p>
         </div>
         <div class='dashboard-newest-body'>
-          <% @applications.each do |application| %>
-            <div class='dashboard-newest-card'>
-              <div class='dashboard-card-date-container'>
-                <p class='dashboard-card-date'><%= application.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
+          <% @job_lisitng.each do |job| %>
+              <div class = 'dashboard-newest-card'>
+                  <div class = 'dashboard-card-date-container'>
+                      <p class='dashboard-card-date'><%= job.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
+                  </div>
+                  <div class = 'dashboard-card-info-container'>
+                      <div class='dashboard-card-title-container'>
+                          <p class='dashboard-card-title'><%= job.title %></p>
+                          <p class='dashboard-card-salary'><%= number_to_currency(job.salary, unit: "₱", precision: 2) %></p>
+                      </div>
+                      <div class='dashboard-card-definition-container'>
+                          <p class='dashboard-card-definition'><%= job.description %></p>
+                      </div>
+                  </div>
+                  <div class = 'dashboard-buttons-container'>
+                      <button class='dashboard-button'><i class="fa-solid fa-eye"></i> View</button>
+                      <button class='dashboard-button'><i class="fa-solid fa-paper-plane"></i> Apply</button>
+                  </div>
               </div>
-              <div class='dashboard-card-info-container'>
-                <div class='dashboard-card-title-container'>
-                  <p class='dashboard-card-title'><%= application.job_listing.title %></p>
-                  <p class='dashboard-card-salary'><%= number_to_currency(application.job_listing.salary, unit: "₱", precision: 2) %></p>
-                </div>
-                <div class='dashboard-card-definition-container'>
-                  <p class='dashboard-card-definition'><%= application.job_listing.description %></p>
-                </div>
-              </div>
-              <div class = 'dashboard-buttons-container'>
-                    <button class='dashboard-button'><i class="fa-solid fa-eye"></i> View</button>
-                    <button class='dashboard-button'><i class="fa-solid fa-paper-plane"></i> Respond</button>
-                </div>
-            </div>
           <% end %>
         </div>
       </div>

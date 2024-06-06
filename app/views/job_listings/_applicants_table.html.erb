@@ -37,14 +37,16 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex space-x-4">
-                                <% if applied_job.status!= 'confirmed' %>
-                                    <%= link_to 'Confirm', confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id), method: :patch, class: 'text-blue-500 hover:underline' %>
-                                <% end %>
-                                <% if applied_job.status!= 'confirmed' %>
-                                    <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
-                                <% end %>
-                                <% if applied_job.status == 'confirmed' %>
-                                    <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
+                                <% if @job_listing.status == 'pending' %>
+                                    <% if applied_job.status!= 'confirmed' %>
+                                        <%= link_to 'Confirm', confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id), method: :patch, class: 'text-blue-500 hover:underline' %>
+                                    <% end %>
+                                    <% if applied_job.status!= 'confirmed' %>
+                                        <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
+                                    <% end %>
+                                    <% if applied_job.status == 'confirmed' %>
+                                        <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
+                                    <% end %>
                                 <% end %>
                                 <%= link_to 'Message', new_message_path(talent_id: applied_job.talent_id), method: :get, class: 'text-green-500 hover:underline' %>
                             </div>

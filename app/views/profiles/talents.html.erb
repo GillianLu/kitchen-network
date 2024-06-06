@@ -7,17 +7,17 @@
         <% if @talents.any? %>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <% @talents.each do |talent| %>
-              <div class="bg-lightorange p-8 rounded-lg shadow-lg transition transform hover:-translate-y-1 hover:shadow-2xl">
+              <div class="bg-lightorange p-4 rounded-lg shadow-lg transition transform hover:-translate-y-1 hover:shadow-2xl">
                 <div class="flex items-center mb-6">
                   <% if talent.photo.attached? %>
-                    <%= image_tag url_for(talent.photo), class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+                    <%= image_tag url_for(talent.photo), class: 'w-12 h-12 rounded-full mr-2', alt: 'Avatar' %>
                   <% else %>
-                    <%= image_tag 'avatar.jpg', class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+                    <%= image_tag 'avatar.jpg', class: 'w-12 h-12 rounded-full mr-2', alt: 'Avatar' %>
                   <% end %>
                   <div>
-                    <h2 class="text-2xl font-bold text-darkorange"><%= talent.first_name %> <%= talent.last_name %></h2>
-                    <p class="text-mediumorange"><%= talent.professional_title %></p>
-                    <p class="text-gray-500"><%= talent.email %></p>
+                    <h2 class="text-base font-bold text-darkorange"><%= talent.first_name %> <%= talent.last_name %></h2>
+                    <p class="text-xs text-mediumorange"><%= talent.professional_title %></p>
+                    <p class="text-xs text-gray-500"><%= talent.email %></p>
                   </div>
                 </div>
                 <div>

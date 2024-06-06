@@ -1,100 +1,99 @@
-<div class="flex flex-col min-h-screen w-full">
-  <div class="my-20 overflow-y-auto">
-    <div class="px-5 py-5 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
-      <h2 class="text-3xl font-bold mb-6 text-gray-800">Edit <%= resource_name.to_s.humanize %></h2>
+<div class="mx-auto mt-8 max-w-5xl h-screen flex flex-col justify-center">
+  <div class="bg-mediumorange p-8 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border-none"> 
+    <h2 class="text-3xl font-bold mb-2 text-gray-800">Edit <%= resource_name.to_s.humanize %></h2>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'space-y-6', multipart: true }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="max-h-80 overflow-auto hide-scrollbar">
+      <div class="flex flex-col justify-center items-center p-2 ">
 
-        <div class='flex flex-col md:flex-row md:space-x-4'>
-          <div class='flex flex-col w-full'>
-            <%= f.label :first_name, "First Name*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-            <%= f.text_field :first_name, autocomplete: "first-name", required: true, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-          </div>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'space-y-6', multipart: true }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-          <div class='flex flex-col w-full'>
-            <%= f.label :last_name, "Last Name*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-            <%= f.text_field :last_name, autocomplete: "last-name", required: true, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-          </div>
-        </div>
+          <div class="grid gap-4 mb-4 md:grid-cols-2">
+            <div>
+              <%= f.label :first_name, "First Name*", class: "block mb-2 text-sm font-medium text-gray-900" %>
+              <%= f.text_field :first_name, autocomplete: "first-name", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
+            </div>
 
-        <div class='flex flex-col'>
-          <%= f.label :email, "Email*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-          <%= f.email_field :email, autocomplete: "email", required: true, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-        </div>
+            <div>
+              <%= f.label :last_name, "Last Name*", class: "block mb-2 text-sm font-medium text-gray-900" %>
+              <%= f.text_field :last_name, autocomplete: "last-name", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
+            </div>
 
-        <div class='flex flex-col'>
-          <%= f.label :phone_number, "Phone Number*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-          <%= f.text_field :phone_number, autocomplete: "phone-number", required: true, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-        </div>
+            <div>
+              <%= f.label :phone_number, "Phone Number*", class: "block mb-2 text-sm font-medium text-gray-900" %>
+              <%= f.text_field :phone_number, autocomplete: "phone-number", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
+            </div>
 
-        <div class='flex flex-col md:flex-row md:space-x-4'>
-          <div class='flex flex-col w-full'>
-            <div class='flex items-baseline justify-between'>
-              <%= f.label :password, "Password*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-              <% if @minimum_password_length %>
-                <em class='text-xs text-gray-500'>(<%= @minimum_password_length %> characters minimum)</em>
+            <div>
+              <%= f.label :email, "Email*", class: "block mb-2 text-sm font-medium text-gray-900" %>
+              <%= f.email_field :email, autocomplete: "email", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
+            </div>
+
+            <div>
+              <%= f.label :current_password, "Current Password*", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+              <%= f.password_field :current_password, autocomplete: "current-password", required: true, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5' %>
+            </div>
+
+            <div>
+              <%= f.label :password, class:"block mb-2 text-sm font-medium text-gray-900" do %>
+                  New Password*  <em><%= "(#{@minimum_password_length} characters minimum)" if @minimum_password_length %></em>
               <% end %>
-            </div>
-            <%= f.password_field :password, autocomplete: "new-password", class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-          </div>
-          <div class='flex flex-col w-full'>
-            <%= f.label :password_confirmation, "Confirm Password*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-          </div>
-        </div>
-
-        <div class='flex flex-col'>
-          <%= f.label :current_password, "Current Password*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-          <%= f.password_field :current_password, autocomplete: "current-password", required: true, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-        </div>
-
-        <!-- Photo  -->
-        <div class='flex flex-col'>
-          <%= f.label :photo, "Profile Photo", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-          <%= f.file_field :photo, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-        </div>
-
-        <!-- Talent Specific  -->
-        <% if current_user.role.role_name == "talent" %>
-          <div class='space-y-6'>
-            <div class='flex flex-col'>
-              <%= f.label :professional_title, "Professional Title*", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-              <%= f.text_field :professional_title, autocomplete: "professional-title", required: true, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-            </div>
-
-            <div class='flex flex-col'>
-              <%= f.label :resume, "Resume", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-              <%= f.file_field :resume, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-            </div>
-
-            <div class='flex flex-col'>
-              <%= f.label :skills, "Skills", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-              <%= f.text_area :skills, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-            </div>
-
-            <div class='flex flex-col'>
-              <%= f.label :experience, "Experience", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-              <%= f.text_area :experience, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-            </div>
-
-            <div class='flex flex-col'>
-              <%= f.label :education, "Education", class: 'block text-sm font-medium text-gray-700 mb-1' %>
-              <%= f.text_area :education, class: 'mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+              <%= f.password_field :password, autocomplete: "new-password", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
             </div>
           </div>
-        <% end %>
 
-        <div class='flex justify-end'>
-          <%= f.submit "Update", class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600' %>
-        </div>
-      <% end %>
-      <div class="mt-2">
-        <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600" %>
+          <div class="mb-4">
+            <%=  f.label :password_confirmation, "Confirm Password*", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",  required: true, class: 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50' %>
+          </div>
+
+            <!-- Photo  -->
+          <div class="mb-4">
+            <%= f.label :photo, "Profile Photo", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+            <%= f.file_field :photo, class: 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50' %>
+          </div>
+
+            <!-- Talent Specific  -->
+          <% if current_user.role.role_name == "talent" %>
+            <div class="mb-4">
+              <%= f.label :professional_title, "Professional Title*", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+              <%= f.text_field :professional_title, autocomplete: "professional-title", required: true, class: 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-darkorange focus:border-darkorange' %>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :resume, "Resume", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+              <%= f.file_field :resume, class: 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-darkorange focus:border-darkorange' %>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :skills, "Skills", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+              <%= f.text_area :skills, rows:"1", class: 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-darkorange focus:border-darkorange' %>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :experience, "Experience", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+              <%= f.text_area :experience, rows:"1", class: 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-darkorange focus:border-darkorange' %>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :education, "Education", class: 'block mb-2 text-sm font-medium text-gray-900' %>
+              <%= f.text_area :education, rows:"1", class: 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-darkorange focus:border-darkorange' %>
+            </div>
+          <% end %>
+
+            <div class='flex justify-center pt-2'>
+              <%= f.submit "Update", class: 'bg-darkorange hover:bg-mediumorange focus:ring-1 focus:outline-none focus:ring-mediumorange font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center' %>
+            </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="flex items-center justify-between w-full mt-4">
+      <div >
+        <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "text-stronggreen hover:text-darkorange hover:underline inline-block" %>
       </div>
 
-      <div class="mt-4">
-        <%= link_to "Back", :back, class: "text-blue-500 hover:underline" %>
+      <div>
+        <%= link_to "Back", :back, class: "text-stronggreen hover:text-darkorange hover:underline inline-block" %>
       </div>
     </div>
   </div>

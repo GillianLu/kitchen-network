@@ -1,32 +1,34 @@
 <%= stylesheet_link_tag "job_listing" %>
 
 
-<div class="h-screen px-8 pt-14" style="width: calc(100% - 16rem);">
-    <div class="mt-8">
-        <h1>Browse Job Listings</h1>
-        <div class='job-cards'>
-            <% if @job_listings.any? %>
-                <% @job_listings.each do |job_listing| %>
-                    <div class='job-card'>
-                        <div class='job-card-header'>
-                            <h2><%= job_listing.title %></h2>
-                            <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
+<div class="flex h-screen" style="width: calc(100% - 16rem);">
+    <div class="overflow-y-auto px-8 pt-14 hide-scrollbar">
+        <div class="mt-8">
+            <h1>Browse Job Listings</h1>
+            <div class='job-cards'>
+                <% if @job_listings.any? %>
+                    <% @job_listings.each do |job_listing| %>
+                        <div class='job-card'>
+                            <div class='job-card-header'>
+                                <h2><%= job_listing.title %></h2>
+                                <span class='job-card-date'><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
+                            </div>
+                            <p class='job-card-salary'>Salary per month: <%= job_listing.salary %></p>
+                            <div class='job-card-header'>
+                                <p><%= job_listing.description %></p>
+                            </div>
+                            <div class='job-card-links'>
+                                <%= link_to 'View', job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
+                                <% if current_user.role.role_name == 'talent' %>
+                                    <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post, class: 'btn btn-primary btn-spacing' %>
+                                <% end %>
+                            </div>
                         </div>
-                        <p class='job-card-salary'>Salary per month: <%= job_listing.salary %></p>
-                        <div class='job-card-header'>
-                            <p><%= job_listing.description %></p>
-                        </div>
-                        <div class='job-card-links'>
-                            <%= link_to 'View', job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
-                            <% if current_user.role.role_name == 'talent' %>
-                                <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post, class: 'btn btn-primary btn-spacing' %>
-                            <% end %>
-                        </div>
-                    </div>
+                    <% end %>
+                <% else %>
+                    <p>No job listings found.</p>
                 <% end %>
-            <% else %>
-                <p>No job listings found.</p>
-            <% end %>
+            </div>
         </div>
     </div>
 </div>

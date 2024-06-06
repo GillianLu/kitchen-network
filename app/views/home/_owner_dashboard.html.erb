@@ -1,84 +1,86 @@
 <%= stylesheet_link_tag "dashboard" %>
 
-<div class="h-screen px-8 pt-14" style="width: calc(100% - 16rem);">
+<div class="flex h-screen" style="width: calc(100% - 16rem);">
+  <div class="overflow-y-auto px-8 pt-14 hide-scrollbar">
     <div class="mt-8">
-    <div class='dashboard-main-overview'>
-      <h1>Overview</h1>
-      <p>Overview of your job listings and applications.</p>
-    </div>
-    <div class='dashboard-main-numbers-container'>
-      <div class='dashboard-main-number-card'>
-        <div class='dashboard-card-title'>
-          <div class='dashboard-card-icon-container'>
-            <i class="fa-solid fa-kitchen-set icon"></i>
+      <div class='dashboard-main-overview'>
+        <h1>Overview</h1>
+        <p>Overview of your job listings and applications.</p>
+      </div>
+      <div class='dashboard-main-numbers-container'>
+        <div class='dashboard-main-number-card'>
+          <div class='dashboard-card-title'>
+            <div class='dashboard-card-icon-container'>
+              <i class="fa-solid fa-kitchen-set icon"></i>
+            </div>
+            <div class='dashboard-card-icon'>
+              <p><%= @job_listings.count %> Job Listings</p>
+            </div>
           </div>
-          <div class='dashboard-card-icon'>
-            <p><%= @job_listings.count %> Job Listings</p>
+          <div>
+            <p class='dashboard-card-details'>There are <%= @job_listings.count %> job listings available.</p>
           </div>
         </div>
-        <div>
-          <p class='dashboard-card-details'>There are <%= @job_listings.count %> job listings available.</p>
+
+        <div class='dashboard-main-number-card'>
+          <div class='dashboard-card-title'>
+            <div class='dashboard-card-icon-container1'>
+              <i class="fa-solid fa-envelope-circle-check icon"></i>
+            </div>
+            <div class='dashboard-card-icon'>
+              <p><%= @applications.count %> Applications</p>
+            </div>
+          </div>
+          <div>
+            <p class='dashboard-card-details'>There are <%= @applications.count %> applications received.</p>
+          </div>
+        </div>
+
+        <div class='dashboard-main-number-card'>
+          <div class='dashboard-card-title'>
+            <div class='dashboard-card-icon-container2'>
+              <i class="fa-solid fa-circle-check icon"></i>
+            </div>
+            <div class='dashboard-card-icon'>
+              <p><%= @jobs_done.count %> Jobs Done</p>
+            </div>
+          </div>
+          <div>
+            <p class='dashboard-card-details'>There are <%= @jobs_done.count %> jobs completed.</p>
+          </div>
         </div>
       </div>
-
-      <div class='dashboard-main-number-card'>
-        <div class='dashboard-card-title'>
-          <div class='dashboard-card-icon-container1'>
-            <i class="fa-solid fa-envelope-circle-check icon"></i>
-          </div>
-          <div class='dashboard-card-icon'>
-            <p><%= @applications.count %> Applications</p>
-          </div>
+      <div class='dashboard-main-newest-container'>
+        <div class='dashboard-main-newest'>
+          <h2>Newest Applications</h2>
+          <p>Here are the latest applications received for your job listings.</p>
         </div>
-        <div>
-          <p class='dashboard-card-details'>There are <%= @applications.count %> applications received.</p>
-        </div>
-      </div>
-
-      <div class='dashboard-main-number-card'>
-        <div class='dashboard-card-title'>
-          <div class='dashboard-card-icon-container2'>
-            <i class="fa-solid fa-circle-check icon"></i>
-          </div>
-          <div class='dashboard-card-icon'>
-            <p><%= @jobs_done.count %> Jobs Done</p>
-          </div>
-        </div>
-        <div>
-          <p class='dashboard-card-details'>There are <%= @jobs_done.count %> jobs completed.</p>
+        <div class='dashboard-newest-body'>
+          <% @applications.each do |application| %>
+            <div class='dashboard-newest-card'>
+              <div class='dashboard-card-date-container'>
+                <p class='dashboard-card-date'><%= application.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
+              </div>
+              <div class='dashboard-card-info-container'>
+                <div class='dashboard-card-title-container'>
+                  <p class='dashboard-card-title'><%= application.job_listing.title %></p>
+                  <p class='dashboard-card-salary'><%= number_to_currency(application.job_listing.salary, unit: "₱", precision: 2) %></p>
+                </div>
+                <div class='dashboard-card-definition-container'>
+                  <p class='dashboard-card-definition'><%= application.job_listing.description %></p>
+                </div>
+                <div class='dashboard-card-requirements-container'>
+                  <p class='dashboard-card-requirements'><b>Requirements: </b><%= application.job_listing.requirements %></p>
+                </div>
+              </div>
+              <<div class = 'dashboard-buttons-container'>
+                    <button class='dashboard-button'><i class="fa-solid fa-eye"></i> View</button>
+                    <button class='dashboard-button'><i class="fa-solid fa-paper-plane"></i> Respond</button>
+                </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
-  <div class='dashboard-main-newest-container'>
-    <div class='dashboard-main-newest'>
-      <h2>Newest Applications</h2>
-      <p>Here are the latest applications received for your job listings.</p>
-    </div>
-    <div class='dashboard-newest-body'>
-      <% @applications.each do |application| %>
-        <div class='dashboard-newest-card'>
-          <div class='dashboard-card-date-container'>
-            <p class='dashboard-card-date'><%= application.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
-          </div>
-          <div class='dashboard-card-info-container'>
-            <div class='dashboard-card-title-container'>
-              <p class='dashboard-card-title'><%= application.job_listing.title %></p>
-              <p class='dashboard-card-salary'><%= number_to_currency(application.job_listing.salary, unit: "₱", precision: 2) %></p>
-            </div>
-            <div class='dashboard-card-definition-container'>
-              <p class='dashboard-card-definition'><%= application.job_listing.description %></p>
-            </div>
-            <div class='dashboard-card-requirements-container'>
-              <p class='dashboard-card-requirements'><b>Requirements: </b><%= application.job_listing.requirements %></p>
-            </div>
-          </div>
-          <<div class = 'dashboard-buttons-container'>
-                <button class='dashboard-button'><i class="fa-solid fa-eye"></i> View</button>
-                <button class='dashboard-button'><i class="fa-solid fa-paper-plane"></i> Respond</button>
-            </div>
-        </div>
-         <% end %>
-        </div>
-    </div>
 </div>

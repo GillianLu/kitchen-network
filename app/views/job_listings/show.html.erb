@@ -1,8 +1,8 @@
 <%= stylesheet_link_tag "job_listing" %>
 
-<div class="flex flex-col h-full w-full">
-    <div class="my-20">
-        <div class="px-5 py-5">
+<div class="flex h-screen" style="width: calc(100% - 16rem);">
+    <div class="overflow-y-auto px-8 pt-14 hide-scrollbar">
+        <div class="mt-8">
             <div class="max-w-7xl mx-auto p-8 bg-lightorange rounded-lg shadow-md w-full">
                 <%= link_to 'Back', job_listings_path, class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded mb-5 inline-block' %>
                 <h1 class="text-4xl font-bold mb-5"><%= @job_listing.title %></h1>
@@ -16,11 +16,12 @@
                         <li><%= requirement %></li>
                     <% end %>
                 </ul>
-
+                <% if current_user.role.role_name == 'owner'%>
                 <div class="flex space-x-4">
                     <%= link_to 'Edit', edit_job_listing_path(@job_listing), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
                     <%= button_to 'Delete', job_listing_path(@job_listing), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 text-white font-bold py-2 px-4 rounded' %>
                 </div>
+                <%end%>
             </div>
         </div>
     </div>

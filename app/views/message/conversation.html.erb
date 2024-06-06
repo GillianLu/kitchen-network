@@ -1,0 +1,94 @@
+<div class='w-full h-screen'>
+  <div class='w-full h-full pl-64 pt-16 flex'>
+    <div class='w-1/5 h-full bg-white'>
+      <%= render 'shared/inbox', locals: { inbox: @inbox } %>
+    </div>
+    <div class='grow border-l border-linen h-full bg-white flex flex-col'>
+      <div class='p-3 border-b border-linen'>
+        <p class='text-md font-semibold'><%= @conversation_user.first_name %> <%= @conversation_user.last_name %></p>
+      </div>
+      <div class='grow overflow-y-scroll flex flex-col p-2 conversation-scroll' id='conversation-box'>
+        <% @message.each do |mess| %>
+          <% if mess.message_sender_id != current_user.id %>
+            <div class='flex items-center py-2 gap-2'>
+              <div class='flex justify-center items-center h-9 w-9 rounded-full bg-linen border-2 border-gray-500'>
+                <p class='text-gray-500 font-semibold'><%= @conversation_user.first_name.slice(0) %></p>
+              </div>
+              <div class='bg-linen rounded-lg w-fit py-2 px-3'>
+                <%= mess.content %>
+              </div>
+            </div>
+          <% else %>
+            <div class='flex justify-end items-center py-2 gap-2'>
+              <div class='bg-mediumgreen rounded-lg w-fit py-2 px-3 max-w-xl'>
+                <p class='text-white text-justify'><%= mess.content %></p>
+              </div>
+              <div class='flex justify-center items-center h-9 w-9 rounded-full bg-mediumgreen border-2 border-stronggreen'>
+                <p class='text-white font-semibold'><%= current_user.first_name.slice(0) %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class='h-32 w-full border-t border-linen'>
+        <%= form_with(model: @new_message, url: message_index_path, html: { class: "flex items-center justify-center gap-2 p-2 h-full", id: "message-form" }) do |form| %>
+          <div class="field h-full w-full">
+            <%= form.text_area :content, class: "form-control h-full w-full resize-none", id: "message-content", placeholder: 'Type something here...' %>
+          </div>
+          <%= form.hidden_field :message_receiver_id, value: @conversation_user.id %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('message-form');
+    const textArea = document.getElementById('message-content');
+    const conversationBox = document.getElementById('conversation-box');
+    const conversationUserId = <%= @conversation_user.id %>;
+
+    function scrollToBottom() {
+      console.log('Scrolling to bottom...');
+      setTimeout(() => {
+        conversationBox.scrollTop = conversationBox.scrollHeight;
+        console.log('Scrolled to:', conversationBox.scrollTop);
+      }, 100); // Delay to ensure DOM is updated
+    }
+
+    function fetchMessages() {
+      fetch(`/fetch_messages?user=${conversationUserId}`)
+        .then(response => response.text())
+        .then(html => {
+          console.log('Fetched new messages.');
+          conversationBox.innerHTML = html;
+          scrollToBottom(); // Scroll to the bottom after fetching messages
+        })
+        .catch(error => console.error('Error fetching messages:', error));
+    }
+
+    textArea.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        form.submit();
+      }
+    });
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form)
+      }).then(response => {
+        if (response.ok) {
+          textArea.value = ''; // Clear the textarea after submission
+          fetchMessages(); // Fetch the new messages after sending one
+        }
+      }).catch(error => console.error('Error sending message:', error));
+    });
+
+    scrollToBottom(); // Initial scroll to bottom
+    setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+  });
+</script>

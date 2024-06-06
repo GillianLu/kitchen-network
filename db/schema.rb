@@ -66,6 +66,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_152814) do
     t.index ["owner_id"], name: "index_job_listings_on_owner_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "message_sender_id", null: false
+    t.bigint "message_receiver_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_receiver_id"], name: "index_messages_on_message_receiver_id"
+    t.index ["message_sender_id"], name: "index_messages_on_message_sender_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -129,6 +139,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_152814) do
   add_foreign_key "applied_jobs", "job_listings"
   add_foreign_key "applied_jobs", "users", column: "talent_id"
   add_foreign_key "job_listings", "users", column: "owner_id"
+  add_foreign_key "messages", "users", column: "message_receiver_id"
+  add_foreign_key "messages", "users", column: "message_sender_id"
   add_foreign_key "reviews", "job_listings"
   add_foreign_key "reviews", "users", column: "reviewee_id"
   add_foreign_key "reviews", "users", column: "reviewer_id"

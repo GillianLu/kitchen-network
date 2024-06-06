@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
+<nav class="fixed top-0 z-10 h-16 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
     <div class="px-3 py-3 lg:px-5 lg:pl-3 w-full">
             <div class="flex items-center justify-between">
                 <form class="ml-4">
@@ -16,41 +16,48 @@
                 </form>
                 <div class="flex items-center">
                     <div class="relative flex items-center mr-4">
-                        <div>
-                            <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                                <span class="sr-only">Open user menu</span>
-                                <%= image_tag 'avatar.jpg', class: "w-8 h-8 rounded-full", alt: "user photo" %>
-                            </button>
+                        <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleDropdown()">
+                            <span class="sr-only">Open user menu</span>
+                            <%= image_tag 'avatar.jpg', class: "w-8 h-8 rounded-full", alt: "user photo" %>
+                        </button>
+                    <div class="absolute right-0 top-6 z-50 hidden my-4 w-60 text-sm list-none bg-stronggreen divide-y divide-gray-100 rounded-lg shadow" id="dropdown-user">
+                        <div class="px-4 py-3" role="none">
+                            <p class="text-base text-linen" role="none">
+                                <%= current_user.first_name %> <%= current_user.last_name %>
+                            </p>
+                            <p class="text-sm font-medium text-mediumgray truncate" role="none">
+                                <%= current_user.email %>
+                            </p>
                         </div>
-                        <div class="absolute right-0 top-6 z-50 hidden my-4 w-60 text-sm list-none bg-stronggreen divide-y divide-gray-100 rounded-lg shadow" id="dropdown-user">
-                            <div class="px-4 py-3" role="none">
-                                <p class="text-base text-linen" role="none">
-                                    <%= current_user.first_name %> <%= current_user.last_name %>
-                                </p>
-                                <p class="text-sm font-medium text-mediumgray truncate" role="none">
-                                    <%= current_user.email %>
-                                </p>
-                            </div>
-                            <ul class="p-2" role="none"> 
-                                <li>
-                                    <%= form_tag(destroy_user_session_path, method: :delete) do %>
-                                        <%= button_tag(type: 'submit', class: 'flex items-center px-4 py-2 w-full text-linen transition duration-75 rounded-lg hover:bg-mediumgreen group') do %>
-                                            <svg class="w-5 h-5 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
-                                            </svg>
-                                            <span>Log Out</span>
-                                        <% end %>
+                        <ul class="p-2" role="none"> 
+                            <li>
+                                <%= form_tag(destroy_user_session_path, method: :delete) do %>
+                                    <%= button_tag(type: 'submit', class: 'flex items-center px-4 py-2 w-full text-linen transition duration-75 rounded-lg hover:bg-mediumgreen group') do %>
+                                        <svg class="w-5 h-5 mr-3 text-linen group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                                        </svg>
+                                        <span>Log Out</span>
                                     <% end %>
-                                </li>
-                            </ul>
-                        </div>
+                                <% end %>
+                            </li>
+                        </ul>
                     </div>
+                </div>
                 </div>
             </div>
     </div>
 </nav>
 
+
 <script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById('dropdown-user');
+        dropdown.classList.toggle('hidden');
+    }
+</script>
+
+
+<%# <script>
     document.addEventListener("DOMContentLoaded", function() {
         const dropdownButton = document.querySelector("[data-dropdown-toggle]");
         const dropdownMenu = document.getElementById("dropdown-user");
@@ -68,4 +75,4 @@
             }
         });
     });
-</script>
+</script> %>

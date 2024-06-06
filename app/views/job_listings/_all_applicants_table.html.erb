@@ -1,0 +1,54 @@
+<div class="mt-8">
+    <% if @applicants.any? %>
+        <div class="relative overflow-x-auto bg-white shadow-md sm:rounded-lg p-2">
+            <table class="w-full text-sm text-left rtl:text-right text-black">
+                <thead class="bg-linen text-xs uppercase">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Email
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Job Title
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Application Date
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @applicants.each do |applied_job| %>
+                        <tr class="bg-white">
+                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                                <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'font-bold hover:text-darkorange hover:underline' %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= applied_job.talent.email %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= applied_job.job_listing.title %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= applied_job.created_at.strftime("%B %d, %Y") %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= applied_job.status.present?? applied_job.status.capitalize : 'Pending' %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    <% else %>    
+        <div class="flex justify-center items-center">
+            <p class="mt-4 text-gray-500 italic text-center">
+                No applicants have been found yet. Share the job posting or reach out to potential candidates to attract top talent.
+            </p>
+        </div>
+    <% end %>
+</div>

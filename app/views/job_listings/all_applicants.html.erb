@@ -1,44 +1,16 @@
-<%= stylesheet_link_tag "job_listing" %>
 
-<div class="flex flex-col min-h-screen w-full">
-  <div class="my-20 overflow-y-auto">
-    <div class="px-5 py-5">
-      <div class="max-w-7xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
-        <h1 class="text-4xl font-bold mb-6">All Applicants</h1>
 
-        <% if @applicants.any? %>
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Title</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Time</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <% @applicants.each do |applied_job| %>
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'text-blue-500 hover:underline' %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.talent.email %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.job_listing.title %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.created_at %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.status.present? ? applied_job.status.capitalize : 'Pending' %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% else %>
-          <p class="text-gray-500">No applicants found.</p>
-        <% end %>
+<div class="flex flex-col h-screen w-full">
+    <div class = 'h-full w-full pl-64 pt-16 overflow-y-auto'>
+        
+        <div class = 'p-5'>
+            <div class="">
+              <h3 class="text-3xl font-bold text-black">All Applicants</h3>
+            </div>
 
-        <div class="mt-6">
-          <%= link_to 'Back to Job Listings', job_listings_path, class: 'text-blue-500 hover:underline' %>
+            <%= render "all_applicants_table" %>
         </div>
-      </div>
+
     </div>
-  </div>
 </div>
+

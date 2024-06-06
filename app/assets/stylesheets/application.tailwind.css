@@ -31,4 +31,8 @@
   .tab-link-inactive {
     @apply hover:text-stronggray hover:border-stronggray;
   }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

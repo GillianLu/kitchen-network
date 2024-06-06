@@ -1,80 +1,9 @@
-<%= stylesheet_link_tag "applied_jobs_index" %>
-
-<div class="flex flex-col min-h-screen w-full bg-gray-100">
-  <div class="my-20 overflow-y-auto">
-    <div class="px-5 py-5">
-      <div class="max-w-7xl mx-auto p-8 bg-lightorange rounded-lg shadow-md w-full">
-        <h1 class="text-4xl font-bold mb-6 text-darkorange">Applicants for <%= @job_listing.title %></h1>
-
-        <% if @applicants.any? %>
-          <table class="min-w-full divide-y divide-darkorange">
-            <thead class="bg-darkorange">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Email</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Application Time</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-lightorange">
-              <% @applicants.each do |applied_job| %>
-                <tr class="hover:bg-mediumorange">
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'text-darkorange hover:underline' %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.talent.email %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.created_at %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= applied_job.status.present? ? applied_job.status.capitalize : 'Pending' %></td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex space-x-4">
-                      <% if applied_job.status != 'confirmed' %>
-                        <%= link_to 'Confirm', confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id), method: :patch, class: 'text-darkorange hover:underline' %>
-                      <% end %>
-                      <% if applied_job.status != 'confirmed' %>
-                        <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
-                      <% end %>
-                      <% if applied_job.status == 'confirmed' %>
-                        <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
-                      <% end %>
-                    </div>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% else %>
-          <p class="text-gray-500">No applicants found.</p>
-        <% end %>
-
-        <div class="mt-6">
-          <%= link_to 'Back to Job Listings', job_listings_path, class: 'text-darkorange hover:underline' %>
-        </div>
-      </div>
+<div class="h-screen px-8 pt-14" style="width: calc(100% - 16rem);">
+    <div class="mt-8">
+        <h3 class="text-3xl font-bold text-black">Applicants for <%= @job_listing.title %></h3>
     </div>
-  </div>
+
+    <%= render "applicants_table" %>
 </div>
 
-<style>
-  .bg-lightorange {
-    background-color: #ffd7b5;
-  }
-  .bg-mediumorange {
-    background-color: #F7A465;
-  }
-  .bg-darkorange {
-    background-color: #F65A11;
-  }
-  .hover\:bg-lightorange:hover {
-    background-color: #ffd7b5;
-  }
-  .hover\:bg-mediumorange:hover {
-    background-color: #F7A465;
-  }
-  .hover\:bg-darkorange:hover {
-    background-color: #F65A11;
-  }
-  .text-darkorange {
-    color: #F65A11;
-  }
-</style>
+

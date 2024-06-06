@@ -1,20 +1,35 @@
-<div class="flex flex-col min-h-screen w-full">
-	<div class="h-full w-full pt-20">
-		<div class='pb-5'>
-			<p class = 'font-bold text-lg'><%= @receiver_info.first_name %> <%= @receiver_info.last_name %></p>
-
-			<%= form_with(model: @message, url: message_index_path) do |form| %>
-				<div class="field">
-					<%= form.text_area :content %>
-				</div>
-
-				<%= form.hidden_field :message_receiver_id, value: @message_receiver %>
-
-				<div class="actions">
-					<%= form.submit %>
-				</div>
-			<% end %>
-		</div>
-	</div>
+<div class='w-full h-screen'>
+  <div class='w-full h-full pt-16 flex'>
+    <div class='w-1/5 h-full bg-white'>
+      <%= render 'shared/inbox', locals: { inbox: @inbox } %>
+    </div>
+    <div class='grow border-l border-linen h-full bg-white flex flex-col'>
+      <div class='p-3 border-b border-linen'>
+        <p class='text-md font-semibold'><%= @receiver_info.first_name %> <%= @receiver_info.last_name %></p>
+      </div>
+      <div class = 'w-full grow'> </div>
+      <div class='h-16 w-full border-t border-linen'>
+        <%= form_with(model: @message, url: message_index_path, html: { class: "flex items-center justify-center gap-2 p-2 h-full", id: "message-form" }) do |form| %>
+          <div class="field h-full w-full">
+            <%= form.text_area :content, class: "form-control h-full w-full resize-none", id: "message-content", placeholder: 'Type something here...' %>
+          </div>
+          <%= form.hidden_field :message_receiver_id, value: @receiver_info.id %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var messageTextArea = document.getElementById('message-content');
+
+    messageTextArea.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        document.getElementById('message-form').submit();
+      }
+    });
+  });
+</script>

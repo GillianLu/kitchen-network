@@ -2,12 +2,19 @@ class MessageController < ApplicationController
     before_action :authorize_user, only: [:new]
   
     def new
+      @inbox = current_user.sent_messages.select(:message_receiver_id).distinct
       if params[:talent_id] == current_user.id
         redirect_to inbox_path, notice: "You can't message yourself."
       else
-        @message = Message.new
-        @message_receiver = params[:talent_id]
-        @receiver_info = User.find(@message_receiver)
+        @conversation = Message.find_by(message_sender_id: current_user.id, message_receiver_id: params[:talent_id]) ||
+        Message.find_by(message_sender_id: params[:talent_id], message_receiver_id: current_user.id)
+        if @conversation
+          redirect_to conversation_path(user: params[:talent_id])
+        else
+          @message = Message.new
+          @message_receiver = params[:talent_id]
+          @receiver_info = User.find(@message_receiver)
+        end
       end
     end
   

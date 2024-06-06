@@ -30,7 +30,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class='h-32 w-full border-t border-linen'>
+      <div class='h-16 w-full border-t border-linen'>
         <%= form_with(model: @new_message, url: message_index_path, html: { class: "flex items-center justify-center gap-2 p-2 h-full", id: "message-form" }) do |form| %>
           <div class="field h-full w-full">
             <%= form.text_area :content, class: "form-control h-full w-full resize-none", id: "message-content", placeholder: 'Type something here...' %>
@@ -50,18 +50,13 @@
     const conversationUserId = <%= @conversation_user.id %>;
 
     function scrollToBottom() {
-      console.log('Scrolling to bottom...');
-      setTimeout(() => {
-        conversationBox.scrollTop = conversationBox.scrollHeight;
-        console.log('Scrolled to:', conversationBox.scrollTop);
-      }, 100); // Delay to ensure DOM is updated
+      conversationBox.scrollTop = conversationBox.scrollHeight - conversationBox.clientHeight;
     }
 
     function fetchMessages() {
       fetch(`/fetch_messages?user=${conversationUserId}`)
         .then(response => response.text())
         .then(html => {
-          console.log('Fetched new messages.');
           conversationBox.innerHTML = html;
           scrollToBottom(); // Scroll to the bottom after fetching messages
         })
@@ -89,6 +84,6 @@
     });
 
     scrollToBottom(); // Initial scroll to bottom
-    setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+    setInterval(fetchMessages, 3000); // Fetch messages every 5 seconds
   });
 </script>

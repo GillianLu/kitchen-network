@@ -1,12 +1,14 @@
-<nav class="fixed top-0 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
+<nav class="fixed top-0 h-16 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
     <div class="px-3 py-3 lg:px-5 lg:pl-3 w-full">
             <div class="flex items-center justify-between">
-                <form class="ml-4" action="<%= search_job_path %>" method="get" id="search-form">
-                    <div class="relative w-full">
-                        <%= text_field_tag :query, params[:query], placeholder: 'Search Job Listings...', class: 'bg-linen border-none text-stronggray text-sm rounded-xl block w-full focus:ring-transparent focus:border-transparent px-10 py-2.5' %>
-                    </div>
-                </form>
-                <div class="flex items-center">
+                <% if current_user.role == 2 %>
+                    <form class="ml-4" action="<%= search_job_path %>" method="get" id="search-form">
+                        <div class="relative w-full">
+                            <%= text_field_tag :query, params[:query], placeholder: 'Search Job Listings...', class: 'bg-linen border-none text-stronggray text-sm rounded-xl block w-full focus:ring-transparent focus:border-transparent px-10 py-2.5' %>
+                        </div>
+                    </form>
+                <% end %>
+                <div class="flex w-full items-center justify-end">
                     <div class="relative flex items-center mr-4">
                         <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleDropdown()">
                             <span class="sr-only">Open user menu</span>

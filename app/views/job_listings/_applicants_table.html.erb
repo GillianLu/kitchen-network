@@ -1,67 +1,63 @@
 <div class="mt-8">
-    <div class="relative overflow-x-auto bg-white shadow-md sm:rounded-lg p-2">
-        <h1 class="text-4xl font-bold mb-6">Applicants for <%= @job_listing.title %></h1>
-
-        <% if @applicants.present? %>
-            <table class="w-full text-sm text-left rtl:text-right text-black">
-                <thead class="bg-linen text-xs uppercase">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Email
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Application Time
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Status
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Actions
-                        </th>
+    <% if @applicants.any? %>
+        <table class="w-full text-sm text-left rtl:text-right text-black">
+            <thead class="bg-linen text-xs uppercase">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Email
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Application Time
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @applicants.each do |applied_job| %>
+                    <tr class="bg-white">
+                        <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                            <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'text-blue-500 hover:underline' %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= applied_job.talent.email %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= applied_job.created_at.strftime("%B %d, %Y") %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= applied_job.status.present?? applied_job.status.capitalize : 'Pending' %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex space-x-4">
+                                <% if applied_job.status!= 'confirmed' %>
+                                    <%= link_to 'Confirm', confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id), method: :patch, class: 'text-blue-500 hover:underline' %>
+                                <% end %>
+                                <% if applied_job.status!= 'confirmed' %>
+                                    <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
+                                <% end %>
+                                <% if applied_job.status == 'confirmed' %>
+                                    <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
+                                <% end %>
+                                <%= link_to 'Message', new_message_path(talent_id: applied_job.talent_id), method: :get, class: 'text-green-500 hover:underline' %>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <% @applicants.each do |applied_job| %>
-                        <tr class="bg-white">
-                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                                <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'text-blue-500 hover:underline' %>
-                            </td>
-                            <td class="px-6 py-4">
-                                <%= applied_job.talent.email %>
-                            </td>
-                            <td class="px-6 py-4">
-                                <%= applied_job.created_at.strftime("%B %d, %Y") %>
-                            </td>
-                            <td class="px-6 py-4">
-                                <%= applied_job.status.present?? applied_job.status.capitalize : 'Pending' %>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex space-x-4">
-                                    <% if applied_job.status!= 'confirmed' %>
-                                        <%= link_to 'Confirm', confirm_applicant_job_listing_path(job_listing_id: @job_listing.id, applicant_id: applied_job.id), method: :patch, class: 'text-blue-500 hover:underline' %>
-                                    <% end %>
-                                    <% if applied_job.status!= 'confirmed' %>
-                                        <%= link_to 'Reject', reject_applicant_job_listing_path(@job_listing, applicant_id: applied_job.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
-                                    <% end %>
-                                    <% if applied_job.status == 'confirmed' %>
-                                        <%= link_to 'Send Payment', new_payment_path(job_listing_id: @job_listing.id, applicant_id: applied_job.talent_id), method: :get, data: { confirm: 'Are you sure?' }, class: 'text-green-500 hover:underline' %>
-                                    <% end %>
-                                    <%= link_to 'Message', new_message_path(talent_id: applied_job.talent_id), method: :get, class: 'text-green-500 hover:underline' %>
-                                </div>
-                            </td>
-                        </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        <% else %>    
-            <div class="flex justify-center items-center">
-                <p class="mt-4 text-gray-500 italic text-center">
-                    No applicants have been found yet. Share the job posting or reach out to potential candidates to attract top talent.
-                </p>
-            </div>
-        <% end %>
-    </div>
+                <% end %>
+            </tbody>
+        </table>
+    <% else %>    
+        <div class="flex justify-center items-center">
+            <p class="mt-4 text-gray-500 italic text-center">
+                No applicants have been found yet. Share the job posting or reach out to potential candidates to attract top talent.
+            </p>
+        </div>
+    <% end %>
 </div>

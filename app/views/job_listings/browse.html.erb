@@ -17,10 +17,10 @@
                             <div class='job-card-header'>
                                 <p><%= job_listing.description %></p>
                             </div>
-                            <div class='job-card-links'>
-                                <%= link_to 'View', job_listing_path(job_listing), class: 'btn btn-primary btn-spacing' %>
+                            <div class='job-card-links gap-4 text-linen'>
+                                <%= link_to 'View', job_listing_path(job_listing), class: 'flex items-center justify-center px-6 py-3 text-base font-bold text-center text-line bg-darkorange rounded-lg hover:bg-mediumorange focus:ring-4 focus:ring-mediumorange' %>
                                 <% if current_user.role.role_name == 'talent' %>
-                                    <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post, class: 'btn btn-primary btn-spacing' %>
+                                    <%= button_to 'Apply', apply_applied_jobs_path(job_listing_id: job_listing.id), method: :post, class: 'flex items-center justify-center px-6 py-3 text-base font-bold text-center text-line bg-darkorange rounded-lg hover:bg-mediumorange hover:underline focus:ring-4 focus:ring-mediumorange' %>
                                 <% end %>
                             </div>
                         </div>

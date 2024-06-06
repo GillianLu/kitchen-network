@@ -53,36 +53,9 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="flex flex-col pt-5 gap-3">
-                    <div class="flex">
-                        <div class="w-1/2">
-                            <p class="font-bold text-3xl">Transactions</p>
-                        </div>
-                    </div>
-                    <div class="">
-                        <table class="w-full h-fit text-gray-700 border border-darkorange">
-                            <thead>
-                                <tr class="bg-darkorange text-white">
-                                    <th class="py-3 w-1/6">Date</th>
-                                    <th class="py-3 w-2/6">Talent Name</th>
-                                    <th class="py-3 w-2/6">Job Name</th>
-                                    <th class="py-3 w-1/6">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% @transactions.each do |transaction| %>
-                                    <tr class="text-center hover:bg-darkorange hover:text-white">
-                                        <td class="py-3"><%= transaction.created_at.strftime("%m-%d-%Y %I:%M %p") %></td>
-                                        <td class="py-3"><%= transaction.talent.first_name %> <%= transaction.talent.last_name %></td>
-                                        <td class="py-3"><%= transaction.job_listing.title %></td>
-                                        <td class="py-3 font-bold">₱ <%= number_with_precision(transaction.amount, precision: 2) %></td>
-                                    </tr>
-                                <% end %>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                
+                <h3 class="text-3xl font-bold text-black mt-8">Transactions</h3>
+                <%= render 'transactions'%>
             </div>
         </div>
 

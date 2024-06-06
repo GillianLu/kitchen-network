@@ -9,7 +9,8 @@ class ReviewsController < ApplicationController
       redirect_to job_listings_path, alert: "You have already reviewed this job listing."
     else
       @review = Review.new
-      # @reviewee_id = @job_listing.applied_jobs.find_by(status: 'confirmed')
+      @applied_job = @job_listing.applied_jobs.find_by(status: 'confirmed')
+      @reviewee = User.find(@applied_job.talent_id)
     end
   end
 

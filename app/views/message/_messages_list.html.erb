@@ -1,23 +1,27 @@
 <div class="grow overflow-y-scroll flex flex-col p-2 conversation-scroll" id="conversation-box">
   <% messages.each do |mess| %>
-    <% if mess.message_sender_id != current_user.id %>
-      <div class='flex items-center py-2 gap-2'>
-        <div class='flex justify-center items-center h-9 w-9 rounded-full bg-linen border-2 border-gray-500'>
+  <% if mess.message_sender_id != current_user.id %>
+    <div class='flex items-center py-2 gap-2'>
+      <div class='flex justify-center items-center h-9 w-9 rounded-full bg-linen border-2 border-gray-500'>
+        <% if mess.message_sender.photo.attached? %>
+          <%= image_tag url_for(mess.message_sender.photo), class: "w-full h-full rounded-full", alt: "#{mess.message_sender.first_name}'s photo" %>
+        <% else %>
           <p class='text-gray-500 font-semibold'><%= mess.message_sender.first_name.slice(0) %></p>
-        </div>
-        <div class='bg-linen rounded-lg w-fit py-2 px-3 '>
-          <%= mess.content %>
-        </div>
+        <% end %>
       </div>
-    <% else %>
-      <div class='flex justify-end items-center py-2 gap-2'>
-        <div class='bg-mediumgreen rounded-lg w-fit py-2 px-3 max-w-xl'>
-          <p class='text-white text-justify'><%= mess.content %></p>
-        </div>
-        <div class='flex justify-center items-center h-9 w-9 rounded-full bg-mediumgreen border-2 border-stronggreen'>
-          <p class='text-white font-semibold'><%= mess.message_sender.first_name.slice(0) %></p>
-        </div>
+      <div class='bg-linen rounded-lg w-fit py-2 px-3 '>
+        <%= mess.content %>
       </div>
-    <% end %>
+    </div>
+  <% else %>
+    <div class='flex justify-end items-center py-2 gap-2'>
+      <div class='bg-mediumgreen rounded-lg w-fit py-2 px-3 max-w-xl'>
+        <p class='text-white text-justify'><%= mess.content %></p>
+      </div>
+      <div class='flex justify-center items-center h-9 w-9 rounded-full bg-mediumgreen border-2 border-stronggreen'>
+        <p class='text-white font-semibold'><%= mess.message_sender.first_name.slice(0) %></p>
+      </div>
+    </div>
   <% end %>
+<% end %>
 </div>

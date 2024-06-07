@@ -10,10 +10,17 @@
                 <% end %>
                 <div class="flex w-full items-center justify-end">
                     <div class="relative flex items-center mr-4">
-                        <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleDropdown()">
-                            <span class="sr-only">Open user menu</span>
-                            <%= image_tag 'avatar.jpg', class: "w-8 h-8 rounded-full", alt: "user photo" %>
-                        </button>
+                        <% if current_user.photo.attached? %>
+                            <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleDropdown()">
+                                <span class="sr-only">Open user menu</span>
+                                <%= image_tag url_for(current_user.photo), class: "w-8 h-8 rounded-full", alt: "user photo" %>
+                            </button>
+                        <% else %>
+                            <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleDropdown()">
+                                <span class="sr-only">Open user menu</span>
+                                <%= image_tag 'avatar.jpg', class: "w-8 h-8 rounded-full", alt: "user photo" %>
+                            </button>
+                        <% end %>
                     <div class="absolute right-0 top-6 z-50 hidden my-4 w-60 text-sm list-none bg-stronggreen divide-y divide-gray-100 rounded-lg shadow" id="dropdown-user">
                         <div class="px-4 py-3" role="none">
                              <%= link_to edit_user_registration_path do %>

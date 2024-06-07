@@ -41,6 +41,8 @@ class HomeController < ApplicationController
       @transactions_count = current_user.client_transactions.count
     else
       @transactions = current_user.talent_transactions
+      @total_acquired = current_user.talent_transactions.sum(:amount)
+      @applications = current_user.applied_jobs.count
     end
   end
 

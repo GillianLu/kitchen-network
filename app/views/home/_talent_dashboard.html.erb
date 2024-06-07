@@ -87,8 +87,7 @@
                                 </div>
                             </div>
                             <div class = 'dashboard-buttons-container'>
-                                <button class='dashboard-button'><i class="fa-solid fa-eye"></i> View</button>
-                                <button class='dashboard-button'><i class="fa-solid fa-paper-plane"></i> Apply</button>
+                                <%= link_to 'View', job_listing_path(job), class: 'dashboard-button text-center' %>
                             </div>
                         </div>
                     <% end %>

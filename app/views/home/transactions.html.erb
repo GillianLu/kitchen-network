@@ -12,11 +12,19 @@
                                     </svg>
                                 </div>
                                 <div class='dashboard-card-icon'>
-                                    <p>Total Spent: ₱ <%= number_with_precision(@total_spent, precision: 2) %></p>
+                                    <% if current_user.role_id == 3 %>
+                                        <p>Total Spent: ₱ <%= number_with_precision(@total_spent, precision: 2) %></p>
+                                    <% else %>
+                                        <p>Salary Acquired: ₱ <%= number_with_precision(@total_acquired, precision: 2) %></p>
+                                    <% end %>
                                 </div>
                             </div>
                             <div>
-                                <p class='dashboard-card-details'>You have spent a total of ₱<%= number_with_precision(@total_spent, precision: 2) %>.</p>
+                                <% if current_user.role_id == 3 %>
+                                    <p class='dashboard-card-details'>You have spent a total of ₱<%= number_with_precision(@total_spent, precision: 2) %>.</p>
+                                <% else %>
+                                    <p class='dashboard-card-details'>You have acquired a total of ₱<%= number_with_precision(@total_spent, precision: 2) %>.</p>
+                                <% end %>
                             </div>
                         </div>
 
@@ -28,7 +36,11 @@
                                     </svg>                      
                                 </div>
                                 <div class='dashboard-card-icon'>
-                                <p><%= pluralize(@talents_hired, 'Talent') %> Hired</p>
+                                    <% if current_user.role_id == 3 %>
+                                        <p><%= pluralize(@talents_hired, 'Talent') %> Hired</p>
+                                    <% else %>
+                                        <p><%= pluralize(@applications, 'Applications') %> Sent</p>
+                                    <% end %>
                                 </div>
                             </div>
                             <div>

@@ -19,12 +19,15 @@
                         <th scope="col" class="px-6 py-3">
                             Status
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <% @applicants.each do |applied_job| %>
                         <tr class="bg-white">
-                            <td scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap">
                                 <%= link_to "#{applied_job.talent.first_name} #{applied_job.talent.last_name}", profile_path(applied_job.talent.id), class: 'font-bold hover:text-darkorange hover:underline' %>
                             </td>
                             <td class="px-6 py-4">
@@ -37,7 +40,12 @@
                                 <%= applied_job.created_at.strftime("%B %d, %Y") %>
                             </td>
                             <td class="px-6 py-4">
-                                <%= applied_job.status.present?? applied_job.status.capitalize : 'Pending' %>
+                                <%= applied_job.status.present? ? applied_job.status.capitalize : 'Pending' %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <% if applied_job.job_listing.status != 'completed' %>
+                                    <%= link_to 'Message', new_message_path(talent_id: applied_job.talent_id), class: 'text-blue-500 hover:text-blue-700' %>
+                                <% end %>
                             </td>
                         </tr>
                     <% end %>

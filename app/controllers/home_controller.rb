@@ -28,6 +28,7 @@ class HomeController < ApplicationController
     elsif current_user.role.role_name == 'owner'
       @job_listings = current_user.job_listings
       @applications = current_user.job_listings.map(&:applied_jobs).flatten
+      @job_lisitng = current_user.job_listings.order(created_at: :desc).limit(5)
       @jobs_done = AppliedJob.where(status: 'completed')
     end
   end

@@ -250,6 +250,10 @@
     color: #f9f9f9;
 }
 
+.divider1 {
+    height: 1px;
+}
+
 .conversation-scroll {
     overflow-y: scroll;
     scrollbar-width: thin; /* For Firefox */

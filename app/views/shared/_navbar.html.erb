@@ -1,20 +1,14 @@
-<nav class="fixed top-0 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
+<nav class="fixed top-0 h-16 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
     <div class="px-3 py-3 lg:px-5 lg:pl-3 w-full">
             <div class="flex items-center justify-between">
-                <form class="ml-4">
-                    <%= form_tag(job_listings_path, method: :get, class: "flex items-center w-full") do %>
-                        <label for="job-search" class="mb-2 text-sm font-medium text-stronggray sr-only ">Search</label>
+                <% if current_user.role == 2 %>
+                    <form class="ml-4" action="<%= search_job_path %>" method="get" id="search-form">
                         <div class="relative w-full">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-stronggray" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-                                </svg>
-                            </div>
-                            <%= text_field_tag :query, params[:query], class: "bg-linen border-none text-stronggray text-sm rounded-xl block w-full focus:ring-transparent focus:border-transparent ps-10 p-2.5", placeholder: "Search job listings...", required: true %>
+                            <%= text_field_tag :query, params[:query], placeholder: 'Search Job Listings...', class: 'bg-linen border-none text-stronggray text-sm rounded-xl block w-full focus:ring-transparent focus:border-transparent px-10 py-2.5' %>
                         </div>
-                    <% end %>
-                </form>
-                <div class="flex items-center">
+                    </form>
+                <% end %>
+                <div class="flex w-full items-center justify-end">
                     <div class="relative flex items-center mr-4">
                         <button type="button" class="flex text-sm bg-stronggreen rounded-full focus:ring-4 focus:ring-mediumgreen" aria-expanded="false" data-dropdown-toggle="dropdown-user" onclick="toggleDropdown()">
                             <span class="sr-only">Open user menu</span>

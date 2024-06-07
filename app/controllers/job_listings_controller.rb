@@ -55,7 +55,7 @@ class JobListingsController < ApplicationController
 
   def all_applicants
     if current_user.role.role_name == 'owner'
-      @applicants = AppliedJob.joins(:job_listing).where(job_listings: { owner_id: current_user.id }).includes(:job_listing, :talent)
+      @applicants = AppliedJob.joins(:job_listing).where(job_listings: { owner_id: current_user.id, status: 'pending' }).includes(:job_listing, :talent)
     else
       redirect_to root_path, alert: "You don't have access to this page."
     end

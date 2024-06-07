@@ -5,7 +5,8 @@
     </div>
     <div class='grow border-l border-linen h-full bg-white flex flex-col'>
       <div class='p-3 border-b border-linen'>
-        <p class='text-md font-semibold'><%= @conversation_user.first_name %> <%= @conversation_user.last_name %></p>
+        <% @message_partner = User.find(@message[0].message_receiver_id) %>
+        <p class='text-md font-semibold'><%= @message_partner.first_name %> <%= @message_partner.last_name %></p>
       </div>
       <div class='grow overflow-y-scroll flex flex-col p-2 conversation-scroll' id='conversation-box'>
         <% @message.each do |mess| %>
@@ -30,7 +31,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class='h-32 w-full border-t border-linen'>
+      <div class='h-16 w-full border-t border-linen'>
         <%= form_with(model: @new_message, url: message_index_path, html: { class: "flex items-center justify-center gap-2 p-2 h-full", id: "message-form" }) do |form| %>
           <div class="field h-full w-full">
             <%= form.text_area :content, class: "form-control h-full w-full resize-none", id: "message-content", placeholder: 'Type something here...' %>
@@ -50,18 +51,13 @@
     const conversationUserId = <%= @conversation_user.id %>;
 
     function scrollToBottom() {
-      console.log('Scrolling to bottom...');
-      setTimeout(() => {
-        conversationBox.scrollTop = conversationBox.scrollHeight;
-        console.log('Scrolled to:', conversationBox.scrollTop);
-      }, 100); // Delay to ensure DOM is updated
+      conversationBox.scrollTop = conversationBox.scrollHeight - conversationBox.clientHeight;
     }
 
     function fetchMessages() {
       fetch(`/fetch_messages?user=${conversationUserId}`)
         .then(response => response.text())
         .then(html => {
-          console.log('Fetched new messages.');
           conversationBox.innerHTML = html;
           scrollToBottom(); // Scroll to the bottom after fetching messages
         })
@@ -71,7 +67,7 @@
     textArea.addEventListener('keydown', function(event) {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
-        form.submit();
+        form.requestSubmit();
       }
     });
 
@@ -79,6 +75,9 @@
       event.preventDefault();
       fetch(form.action, {
         method: 'POST',
+        headers: {
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
         body: new FormData(form)
       }).then(response => {
         if (response.ok) {
@@ -89,6 +88,6 @@
     });
 
     scrollToBottom(); // Initial scroll to bottom
-    setInterval(fetchMessages, 5000); // Fetch messages every 5 seconds
+    setInterval(fetchMessages, 3000); // Fetch messages every 3 seconds
   });
 </script>

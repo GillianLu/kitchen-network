@@ -1,0 +1,65 @@
+<div class="h-screen px-8 pt-14" style="width: calc(100% - 16rem);">
+    <div class="mt-8">
+        <h3 class="text-3xl font-bold text-black">Transactions</h3>
+    </div>
+    <div class="mt-8">
+        <% if @transactions.present? %>
+            <div class="relative overflow-x-auto bg-white shadow-md sm:rounded-lg p-2">
+                <table class="w-full text-sm text-left rtl:text-right text-black">
+                    <thead class="bg-linen text-xs uppercase">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Owner
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Talent
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Job Title
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Amount
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @transactions.each do |t| %>
+                            <tr class="bg-white">
+                                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                                    <%= t.id %>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <%= t.client.first_name %> <%=t.client.last_name %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= t.talent.first_name %> <%=t.talent.last_name %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= t.job_listing.title %>
+                                </td>
+                                <td class="px-6 py-4">
+                                     ₱ <%= number_with_precision(t.amount, precision: 2)%>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= t.created_at.strftime("%m-%d-%Y %I:%M %p") %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        <% else %>
+            <div class="flex justify-center items-center">
+                <p class="mt-4 text-gray-500 italic text-center">
+                    "Looks like this space is as empty as a freshly cleaned plate! No transactions found here."
+                </p>
+            </div>
+        <% end %>
+    </div>
+</div>

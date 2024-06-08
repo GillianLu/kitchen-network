@@ -234,6 +234,7 @@
 .dashboard-buttons-container {
     height: fit-content;
     display: flex;
+    justify-content: center;
     gap: 5px;
     padding: 5px 0;
 }
@@ -241,13 +242,14 @@
 .dashboard-button {
     background-color: red;
     padding: 5px;
-    width: 50%;
+    width: 75%;
     border-radius: 20px;
     font-weight: 600;
     font-size: 14px;
     background-image: linear-gradient(to right top, #c02425, #d4541e, #e37c19, #eca41f, #f0cb35);
     border: 2px solid #d4541e;
     color: #f9f9f9;
+    text-align: center;
 }
 
 .divider1 {

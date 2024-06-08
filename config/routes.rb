@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :edit, :update]
+    get 'transactions', to: 'users#transactions'
     get 'talents', to: 'users#talents'
     get 'users/pending', to: 'users#pending_users'
   end

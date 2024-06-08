@@ -23,8 +23,6 @@ class Admin::UsersController < ApplicationController
                     .includes(:role)
                     .where(roles: { role_name: ['owner', 'talent'] })
         render :pending_users
-
-        
     end
     
     def edit
@@ -44,7 +42,11 @@ class Admin::UsersController < ApplicationController
             render :edit, alert: 'Something went wrong with the user update.'
         end
     end
-    
+
+    def transactions 
+        @transactions = Transaction.includes(:client, :talent, :job_listing).all
+    end   
+
     private
 
     def set_user

@@ -1,7 +1,7 @@
 <nav class="fixed top-0 h-16 z-10 bg-white border-b border-gray-200 flex" style="width: calc(100% - 16rem);">
     <div class="px-3 py-3 lg:px-5 lg:pl-3 w-full">
             <div class="flex items-center justify-between">
-                <% if current_user.role == 2 %>
+                <% if current_user.role_id == 2 %>
                     <form class="ml-4" action="<%= search_job_path %>" method="get" id="search-form">
                         <div class="relative w-full">
                             <%= text_field_tag :query, params[:query], placeholder: 'Search Job Listings...', class: 'bg-linen border-none text-stronggray text-sm rounded-xl block w-full focus:ring-transparent focus:border-transparent px-10 py-2.5' %>

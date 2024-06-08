@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
 					customer: customer.id,
 					amount: @amount_in_dollars_in_cents,
 					description: 'Rails Stripe customer',
-					currency: 'usd'
+					currency: 'php'
 				)
 
 				result = Transaction.send_payment(current_user, params[:job_listing_id], params[:applied_job_id], params[:job_status])

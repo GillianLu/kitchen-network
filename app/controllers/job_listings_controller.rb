@@ -5,7 +5,7 @@ class JobListingsController < ApplicationController
 
   def index
     if current_user.role.role_name == 'owner'
-      @job_listings = current_user.job_listings
+      @job_listings = current_user.job_listings.order(updated_at: :desc)
       # @assigned_applicant = @job_listing.applied_jobs.find_by(status: 'confirmed')
     else
       redirect_to applied_jobs_path
@@ -65,7 +65,7 @@ class JobListingsController < ApplicationController
     result = AppliedJob.confirm_application(current_user, params[:job_listing_id], params[:applicant_id])
 
     if result[:success]
-      redirect_to applicants_job_listing_path(job_listing_id: params[:job_listing_id]), notice: result[:message]
+      redirect_to job_listings_path, notice: result[:message]
     else
       redirect_to applicants_job_listing_path(@applied_job.job_listing), alert: result[:message]
     end

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     collection do
       get 'browse'
       get 'all_applicants'
+      get 'reviews', to: 'reviews#user_reviews', as: 'reviews'
 
     end
     member do
@@ -59,6 +60,12 @@ Rails.application.routes.draw do
   resources :profiles, only: [:show] do
     collection do
       get 'talents'
+    end
+  end
+
+  resources :users, only: [] do
+    member do
+      get 'reviews', to: 'reviews#user_reviews', as: 'reviews'
     end
   end
 

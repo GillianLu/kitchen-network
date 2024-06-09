@@ -2,6 +2,11 @@ class ReviewsController < ApplicationController
   before_action :set_job_listing, only: [:new, :create]
   before_action :set_review, only: [:edit, :update, :destroy]
 
+  def user_reviews
+    @user = User.find(params[:id])
+    @reviews = Review.where(reviewee_id: @user.id)
+  end
+
   def new
     if @job_listing.status != 'completed'
       redirect_to job_listings_path, alert: "Please mark the job as completed to proceed with the review."
@@ -16,14 +21,14 @@ class ReviewsController < ApplicationController
 
   def create
     @job_listing = JobListing.find(params[:job_listing_id])
-  
+
     if @job_listing.status == 'completed'
       @reviewee = @job_listing.applied_jobs.find_by(status: 'confirmed')
-      
+
       @review = @job_listing.build_review(review_params)
-      @review.reviewer_id = current_user.id 
+      @review.reviewer_id = current_user.id
       @review.reviewee_id = @reviewee.talent_id
-      
+
       if @review.save
         redirect_to reviews_path, notice: "Review submitted successfully."
       else
@@ -34,8 +39,6 @@ class ReviewsController < ApplicationController
       redirect_to job_listings_path, alert: "Please mark the job as completed to proceed with the review."
     end
   end
-  
-  
 
   def edit
     if @review.reviewer_id != current_user.id || @review.job_listing.owner != current_user
@@ -49,7 +52,7 @@ class ReviewsController < ApplicationController
     if @review.reviewer_id != current_user.id || @review.job_listing.owner != current_user
       redirect_to reviews_path, alert: "You are not authorized to update this review."
     end
-  
+
     # Attempt to update the review with the provided parameters
     if @review.update(review_params)
       redirect_to reviews_path, notice: "Review updated successfully."
@@ -57,7 +60,7 @@ class ReviewsController < ApplicationController
       render :edit
     end
   end
-  
+
 
   def destroy
     if @review && @review.job_listing.owner == current_user
@@ -65,7 +68,7 @@ class ReviewsController < ApplicationController
       redirect_to reviews_path, notice: "Review deleted successfully."
     else
       redirect_to reviews_path, alert: "You are not authorized to delete this review."
-    end    
+    end
   end
 
   private

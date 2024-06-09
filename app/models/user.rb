@@ -30,4 +30,8 @@ class User < ApplicationRecord
   def admin?
     role.role_name == 'admin'
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

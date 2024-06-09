@@ -1,47 +1,77 @@
 <%= stylesheet_link_tag "job_listing" %>
 
-<div class='job-listing-main-container'>
-    <div class='job-listing-main-body'>
-        <h1>Received Reviews</h1>
-        <div class='job-cards'>
-            <% @reviews_received.each do |review_received| %>
-                <div class='job-card'>
-                    <div class='job-card-header'>
-                        <h2><%= review_received.title %></h2>
-                        <span class='job-card-date'><%= review_received.created_at.strftime("%d %b, %Y") %></span>
-                    </div>
-                    <div class='job-card-description'>
-                        <p><%= review_received.content %></p>
-                    </div>
-                    <div class='job-card-links'>
-                        <%= link_to 'View', dashboard_path, class: 'btn btn-primary btn-spacing' %>
-                    </div>
+<div class="flex flex-col min-h-screen w-full bg-gray-100">
+  <div class="my-20 overflow-y-auto">
+    <div class="px-5 py-5">
+      <div class="max-w-7xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
+        <h1 class="text-4xl font-bold mb-6 text-darkorange">Received Reviews</h1>
 
-                </div>
-            <% end %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% @reviews_received.each do |review_received| %>
+            <div class="bg-lightorange p-6 rounded-lg shadow-lg">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-darkorange"><%= review_received.title %></h2>
+                <span class="text-sm text-gray-500"><%= review_received.created_at.strftime("%d %b, %Y") %></span>
+              </div>
+              <div class="mb-4">
+                <p class="text-gray-700"><%= review_received.content %></p>
+              </div>
+              <div class="flex justify-end">
+                <%= link_to 'View', dashboard_path, class: 'bg-mediumorange text-white font-bold py-2 px-4 rounded hover:bg-darkorange' %>
+              </div>
+            </div>
+          <% end %>
         </div>
 
+        <h1 class="text-4xl font-bold mb-6 text-darkorange mt-10">Sent Reviews</h1>
 
-        <h1>Sent Reviews</h1>
-        <div class='job-cards'>
-            <% @reviews_sent.each do |reviews_sent| %>
-                <div class='job-card'>
-                    <div class='job-card-header'>
-                        <h2><%= reviews_sent.title %></h2>
-                        <span class='job-card-date'><%= reviews_sent.created_at.strftime("%d %b, %Y") %></span>
-                    </div>
-                    <div class='job-card-description'>
-                        <p><%= reviews_sent.content %></p>
-                        <p>Job Listing Title: <%= reviews_sent.job_listing.title %></p>
-                    </div>
-                    <div class='job-card-links'>
-                        <%= link_to 'View Job Listing', job_listing_path(reviews_sent.job_listing.id), class: 'btn btn-primary btn-spacing' %>
-                        <%= link_to 'Edit Review',   edit_job_listing_review_path(reviews_sent.job_listing.id, reviews_sent.id), class: 'btn btn-primary btn-spacing' %>
-                        <%= button_to 'Delete Review', job_listing_review_path(reviews_sent.job_listing.id, reviews_sent.id), method: :delete, class: 'btn btn-primary btn-spacing', data: { confirm: 'Are you sure you want to delete this review?' } %>
-                    </div>
-
-                </div>
-            <% end %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% @reviews_sent.each do |review_sent| %>
+            <div class="bg-lightorange p-6 rounded-lg shadow-lg">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-darkorange"><%= review_sent.title %></h2>
+                <span class="text-sm text-gray-500"><%= review_sent.created_at.strftime("%d %b, %Y") %></span>
+              </div>
+              <div class="mb-4">
+                <p class="text-gray-700"><%= review_sent.content %></p>
+                <p class="text-sm text-gray-500"><strong>Job Listing Title:</strong> <%= review_sent.job_listing.title %></p>
+              </div>
+              <div class="flex flex-col space-y-2">
+                <%= link_to 'View Job Listing', job_listing_path(review_sent.job_listing.id), class: 'bg-mediumorange text-white font-bold py-2 px-4 rounded hover:bg-darkorange' %>
+                <%= link_to 'Edit Review', edit_job_listing_review_path(review_sent.job_listing.id, review_sent.id), class: 'bg-mediumorange text-white font-bold py-2 px-4 rounded hover:bg-darkorange' %>
+                <%= button_to 'Delete Review', job_listing_review_path(review_sent.job_listing.id, review_sent.id), method: :delete, class: 'bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600', data: { confirm: 'Are you sure you want to delete this review?' } %>
+              </div>
+            </div>
+          <% end %>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<style>
+  .bg-lightorange {
+    background-color: #ffd7b5;
+  }
+  .bg-mediumorange {
+    background-color: #F7A465;
+  }
+  .bg-darkorange {
+    background-color: #F65A11;
+  }
+  .hover\:bg-mediumorange:hover {
+    background-color: #F7A465;
+  }
+  .hover\:bg-darkorange:hover {
+    background-color: #F65A11;
+  }
+  .bg-red-500 {
+    background-color: #ef4444;
+  }
+  .hover\:bg-red-600:hover {
+    background-color: #dc2626;
+  }
+  .text-darkorange {
+    color: #F65A11;
+  }
+</style>

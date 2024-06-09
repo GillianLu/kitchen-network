@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/reviews', to: 'home#reviews', as: 'reviews'
   get '/transactions', to: 'home#transactions', as: 'transactions'
   get '/search/job', to: 'home#search_job', as: 'search_job'
+  get 'user/reviews', to: 'home#user_reviews', as: 'user_reviews'
 
   resources :job_listings do
     resources :reviews

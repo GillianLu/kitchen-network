@@ -4,27 +4,29 @@
   <div class="my-20 overflow-y-auto">
     <div class="px-5 py-5">
       <div class="max-w-7xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
-        <% if current_user.role.role_name == 'talent' %>
-          <h1 class="text-4xl font-bold mb-6 text-darkorange">Received Reviews</h1>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <% @reviews_received.each do |review_received| %>
-              <div class="bg-lightorange p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center mb-4">
-                  <h2 class="text-2xl font-bold text-darkorange"><%= review_received.title %></h2>
-                  <span class="text-sm text-gray-500"><%= review_received.created_at.strftime("%d %b, %Y") %></span>
-                </div>
-                <div class="mb-4">
-                  <p class="text-gray-700"><%= review_received.content %></p>
-                </div>
-                <div class="flex justify-end">
-                  <%= link_to 'View', dashboard_path, class: 'bg-mediumorange text-white font-bold py-2 px-4 rounded hover:bg-darkorange' %>
-                </div>
+        <h1 class="text-4xl font-bold mb-6 text-darkorange">Received Reviews</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% @reviews_received.each do |review_received| %>
+            <div class="bg-lightorange p-6 rounded-lg shadow-lg">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-darkorange"><%= review_received.title %></h2>
+                <span class="text-sm text-gray-500"><%= review_received.created_at.strftime("%d %b, %Y") %></span>
               </div>
-            <% end %>
-          </div>
-        <% elsif current_user.role.role_name == 'owner' %>
-          <h1 class="text-4xl font-bold mb-6 text-darkorange">Sent Reviews</h1>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="mb-4">
+                <p class="text-gray-700"><%= review_received.content %></p>
+              </div>
+              <div class="flex justify-end">
+                <%= link_to 'View', dashboard_path, class: 'bg-mediumorange text-white font-bold py-2 px-4 rounded hover:bg-darkorange' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <% if @reviews_sent.present? %>
+        <h1 class="text-4xl font-bold mb-6 text-darkorange mt-10">Sent Reviews</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
             <% @reviews_sent.each do |review_sent| %>
               <div class="bg-lightorange p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
@@ -42,10 +44,9 @@
                 </div>
               </div>
             <% end %>
-          </div>
-        <% else %>
-          <p class="text-gray-500">No reviews found.</p>
+        </div>
         <% end %>
+
       </div>
     </div>
   </div>

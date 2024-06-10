@@ -11,8 +11,13 @@
             
             <div class = 'flex py-2 px-2'>
                 <div class = 'py-1 flex flex-col justify-center items-center w-full'>
-                    <p class = 'text-sm py-2'>Talent Name:</p>
-                    <p class = 'font-semibold'><%= @reviewee.first_name.upcase %> <%= @reviewee.last_name.upcase %></p>
+                    <% if current_user.role_id == 3 %>
+                        <p class = 'text-sm py-2'>Talent Name:</p>
+                        <p class = 'font-semibold'><%= @reviewee.first_name.upcase %> <%= @reviewee.last_name.upcase %></p>
+                    <% elsif current_user.role_id == 2 %>
+                        <p class = 'text-sm py-2'>Client Name:</p>
+                        <p class = 'font-semibold'><%= @client.first_name.upcase %> <%= @client.last_name.upcase %></p>
+                    <% end%>
                 </div>
                 <div class = 'py-1 flex flex-col justify-center items-center w-full'>
                     <p class = 'text-sm py-2'>Job Title:</p>

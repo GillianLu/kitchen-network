@@ -15,6 +15,7 @@ class ReviewsController < ApplicationController
     else
       @review = Review.new
       @applied_job = @job_listing.applied_jobs.find_by(status: 'confirmed')
+      @client = @job_listing.owner
       @reviewee = User.find(@applied_job.talent_id)
     end
   end
@@ -26,8 +27,14 @@ class ReviewsController < ApplicationController
       @reviewee = @job_listing.applied_jobs.find_by(status: 'confirmed')
 
       @review = @job_listing.build_review(review_params)
-      @review.reviewer_id = current_user.id
-      @review.reviewee_id = @reviewee.talent_id
+
+      if current_user.role_id == 3
+        @review.reviewer_id = current_user.id
+        @review.reviewee_id = @reviewee.talent_id
+      elsif current_user.role_id == 2
+        @review.reviewer_id = current_user.id
+        @review.reviewee_id = @job_listing.owner.id
+      end
 
       if @review.save
         redirect_to reviews_path, notice: "Review submitted successfully."

@@ -14,7 +14,7 @@
                             <i class="fa-solid fa-kitchen-set icon"></i>
                         </div>
                         <div class='dashboard-card-icon'>
-                            <p><%= @job_listings.count%> Jobs Available</p>
+                            <p><%= @job_listings.count %> Jobs Available</p>
                         </div>
                     </div>
                     <div>
@@ -28,7 +28,7 @@
                             <i class="fa-solid fa-user-tie icon"></i>
                         </div>
                         <div class='dashboard-card-icon'>
-                            <p> <%= @owners.count%> Registered Clients</p>
+                            <p><%= @owners.count %> Registered Clients</p>
                         </div>
                     </div>
                     <div>
@@ -42,7 +42,7 @@
                             <i class="fa-solid fa-envelope-circle-check icon"></i>
                         </div>
                         <div class='dashboard-card-icon'>
-                            <p><%=@applications.count%> Application Sent</p>
+                            <p><%= @applications.count %> Application Sent</p>
                         </div>
                     </div>
                     <div>
@@ -56,7 +56,7 @@
                             <i class="fa-solid fa-circle-check icon"></i>
                         </div>
                         <div class='dashboard-card-icon'>
-                            <p><%=@jobs_done.count%> Jobs Done</p>
+                            <p><%= @jobs_done.count %> Jobs Done</p>
                         </div>
                     </div>
                     <div>
@@ -71,13 +71,13 @@
                     <p class="text-stronggray">Here are the latest job opportunities available for you to apply for.</p>
                 </div>
                 
-                <div class = 'dashboard-newest-body'>
-                    <% @jobs.each do |job| %>
-                        <div class = 'dashboard-newest-card'>
-                            <div class = 'dashboard-card-date-container'>
+                <div class='dashboard-newest-body'>
+                    <% @job_listings.each do |job| %>
+                        <div class='dashboard-newest-card'>
+                            <div class='dashboard-card-date-container'>
                                 <p class='dashboard-card-date'><%= job.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
                             </div>
-                            <div class = 'dashboard-card-info-container'>
+                            <div class='dashboard-card-info-container'>
                                 <div class='dashboard-card-title-container'>
                                     <p class='dashboard-card-title'><%= job.title %></p>
                                     <p class='dashboard-card-salary'><%= number_to_currency(job.salary, unit: "₱", precision: 2) %></p>
@@ -86,7 +86,7 @@
                                     <p class='dashboard-card-definition'><%= job.description %></p>
                                 </div>
                             </div>
-                            <div class = 'dashboard-buttons-container'>
+                            <div class='dashboard-buttons-container'>
                                 <%= link_to 'View', job_listing_path(job), class: "dashboard-button" %>
                             </div>
                         </div>

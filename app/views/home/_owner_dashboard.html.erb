@@ -57,6 +57,7 @@
         </div>
         <div class='dashboard-newest-body'>
           <% @job_lisitng.each do |job| %>
+            <% unless job.status == 'completed' %>
               <div class = 'dashboard-newest-card'>
                   <div class = 'dashboard-card-date-container'>
                       <p class='dashboard-card-date'><%= job.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
@@ -74,6 +75,7 @@
                     <%= link_to 'View', job_listing_path(job), class: "dashboard-button" %>
                   </div>
               </div>
+            <% end %>
           <% end %>
         </div>
       </div>

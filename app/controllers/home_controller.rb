@@ -27,15 +27,15 @@ class HomeController < ApplicationController
   def dashboard
     @jobs = JobListing.includes(:owner).order(created_at: :desc).limit(5)
     if current_user.role.role_name == 'talent'
-      @job_listings = JobListing.all || []
+      @job_listings = JobListing.where.not(status: 'completed')
       @owners = User.where(role_id: Role.find_by(role_name: 'owner').id) || []
       @applications = current_user.applied_jobs
-      @jobs_done = current_user.applied_jobs.where(status: 'completed')
+      @jobs_done = JobListing.where(status: 'completed')
     elsif current_user.role.role_name == 'owner'
-      @job_listings = current_user.job_listings
+      @job_listings = current_user.job_listings.where.not(status: 'completed')
       @applications = current_user.job_listings.map(&:applied_jobs).flatten
       @job_lisitng = current_user.job_listings.order(created_at: :desc).limit(5)
-      @jobs_done = AppliedJob.where(status: 'completed')
+      @jobs_done = current_user.job_listings.where(status: 'completed')
     end
   end
 

@@ -73,23 +73,25 @@
                 
                 <div class='dashboard-newest-body'>
                     <% @job_listings.each do |job| %>
-                        <div class='dashboard-newest-card'>
-                            <div class='dashboard-card-date-container'>
-                                <p class='dashboard-card-date'><%= job.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
-                            </div>
-                            <div class='dashboard-card-info-container'>
-                                <div class='dashboard-card-title-container'>
-                                    <p class='dashboard-card-title'><%= job.title %></p>
-                                    <p class='dashboard-card-salary'><%= number_to_currency(job.salary, unit: "₱", precision: 2) %></p>
+                        <% unless job.status == 'completed' %>
+                            <div class='dashboard-newest-card'>
+                                <div class='dashboard-card-date-container'>
+                                    <p class='dashboard-card-date'><%= job.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
                                 </div>
-                                <div class='dashboard-card-definition-container'>
-                                    <p class='dashboard-card-definition'><%= job.description %></p>
+                                <div class='dashboard-card-info-container'>
+                                    <div class='dashboard-card-title-container'>
+                                        <p class='dashboard-card-title'><%= job.title %></p>
+                                        <p class='dashboard-card-salary'><%= number_to_currency(job.salary, unit: "₱", precision: 2) %></p>
+                                    </div>
+                                    <div class='dashboard-card-definition-container'>
+                                        <p class='dashboard-card-definition'><%= job.description %></p>
+                                    </div>
+                                </div>
+                                <div class='dashboard-buttons-container'>
+                                    <%= link_to 'View', job_listing_path(job), class: "dashboard-button" %>
                                 </div>
                             </div>
-                            <div class='dashboard-buttons-container'>
-                                <%= link_to 'View', job_listing_path(job), class: "dashboard-button" %>
-                            </div>
-                        </div>
+                        <% end %>
                     <% end %>
                 </div>
             </div>

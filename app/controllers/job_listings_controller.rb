@@ -5,7 +5,7 @@ class JobListingsController < ApplicationController
 
   def index
     if current_user.role.role_name == 'owner'
-      @job_listings = current_user.job_listings.order(updated_at: :desc)
+      @job_listings = current_user.job_listings
       # @assigned_applicant = @job_listing.applied_jobs.find_by(status: 'confirmed')
     else
       redirect_to applied_jobs_path
@@ -13,7 +13,7 @@ class JobListingsController < ApplicationController
   end
 
   def browse
-    @job_listings = JobListing.all
+    @job_listings = JobListing.where.not(status: 'completed')
   end
 
   def new
@@ -55,7 +55,7 @@ class JobListingsController < ApplicationController
 
   def all_applicants
     if current_user.role.role_name == 'owner'
-      @applicants = AppliedJob.joins(:job_listing).where(job_listings: { owner_id: current_user.id, status: 'pending' }).includes(:job_listing, :talent)
+      @applicants = AppliedJob.joins(:job_listing).where(job_listings: { owner_id: current_user.id }).includes(:job_listing, :talent)
     else
       redirect_to root_path, alert: "You don't have access to this page."
     end
@@ -65,7 +65,7 @@ class JobListingsController < ApplicationController
     result = AppliedJob.confirm_application(current_user, params[:job_listing_id], params[:applicant_id])
 
     if result[:success]
-      redirect_to job_listings_path, notice: result[:message]
+      redirect_to applicants_job_listing_path(job_listing_id: params[:job_listing_id]), notice: result[:message]
     else
       redirect_to applicants_job_listing_path(@applied_job.job_listing), alert: result[:message]
     end

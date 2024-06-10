@@ -6,4 +6,5 @@ class ProfilesController < ApplicationController
   def talents
     @talents = User.joins(:role).where(roles: { role_name: 'talent' })
   end
+
 end

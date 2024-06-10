@@ -1,29 +1,13 @@
-<!-- app/views/devise/registrations/new_admin.html.erb -->
-
-<%= stylesheet_link_tag "signup" %>
-
-<%= render 'shared/home_navbar' %>
-
-<div class="signup-main-container">
-  <div class='signup-body-container'>
-    <div class='signup-body-content'>
-      <div class='signup-body-title'>
-        <h2>Admin Signup</h2>
+<div class="mx-auto max-w-5xl h-screen flex flex-col justify-center">
+  <div class="bg-mediumorange p-8 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border-none"> 
+      <div class="flex justify-center">
+        <%= link_to root_path do %>
+          <%= image_tag 'logo.png', class: "h-20 w-20", alt: "Logo" %>
+        <% end %>
       </div>
 
-      <div class='signup-body-form-container'>
-        <%= render 'shared/admin_registration', admin: @admin %>
-      </div>
-
-      <div class='signup-body-divider'></div>
-
-      <div class='signup-redirect-buttons-container'>
-        <div class='signup-redirect-content'>
-          <div class='signup-redirect-buttons'>
-            <%= button_to "Login", new_session_path(resource_name), method: :get, class: "signup-redirect-login" %>
-          </div>
-        </div>
-      </div>
+    <div class='signup-body-form-container'>
+      <%= render 'shared/admin_registration', admin: @admin %>
     </div>
   </div>
 </div>

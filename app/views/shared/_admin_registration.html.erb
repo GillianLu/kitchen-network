@@ -1,37 +1,45 @@
 <%= form_for(admin, as: resource_name, url: create_admin_registration_path) do |f| %>
     <%= render 'devise/shared/error_messages', resource: admin %>
 
-    <div class="field">
-        <%= f.label :first_name %>
-        <%= f.text_field :first_name %>
+    <div class="grid gap-4 mb-4 md:grid-cols-2">
+        <div>
+            <%= f.label :first_name, "First Name*", class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= f.text_field :first_name, autocomplete: "first-name", placeholder: "Juan", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
+        </div>
+
+        <div>
+            <%= f.label :last_name, "Last Name*", class: "block mb-2 text-sm font-medium text-gray-900" %>
+            <%= f.text_field :last_name, autocomplete: "last-name", placeholder: "dela Cruz", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5" %>
+        </div>
+
+        <div>
+            <%= f.label :phone_number, "Phone Number*", class:"block mb-2 text-sm font-medium text-gray-900"%>
+            <%= f.text_field :phone_number, autocomplete: "phone-number", required: true, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5 ", placeholder:"09123456789"%>
+        </div>
+
+        <div>
+            <%= f.label :email, "Email*", class:"block mb-2 text-sm font-medium text-gray-900"%>
+            <%= f.email_field :email, autocomplete: "email", required: true, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5", placeholder: "juan.delacruz@email.com" %>
+        </div> 
+
+        <div>
+            <%= f.label :password, class:"block mb-2 text-sm font-medium text-gray-900" do %>
+                Password*  <em><%= "(#{@minimum_password_length} characters minimum)" if @minimum_password_length %></em>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5", placeholder: "•••••••••" %>
+        </div>
+
+        <div >
+            <%= f.label :password_confirmation, "Confirm Password*", class:"block mb-2 text-sm font-medium text-gray-900" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-darkorange focus:border-darkorange block w-full p-2.5", placeholder: "•••••••••" %>
+        </div>
     </div>
 
-    <div class="field">
-        <%= f.label :last_name %>
-        <%= f.text_field :last_name %>
+    <div class="flex justify-center pt-2">
+        <%= f.submit "Register", class: "bg-darkorange hover:bg-mediumorange focus:ring-1 focus:outline-none focus:ring-mediumorange font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center" %>
     </div>
 
-    <div class="field">
-        <%= f.label :email %>
-        <%= f.email_field :email %>
-    </div>
-
-    <div class="field">
-        <%= f.label :phone_number %>
-        <%= f.text_field :phone_number %>
-    </div>
-
-    <div class="field">
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-    </div>
-
-    <div class="field">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation %>
-    </div>
-
-    <div class="actions">
-        <%= f.submit "Sign up" %>
+    <div class="text-sm text-center pt-2 ">
+        Have an account? <%= link_to "Login", new_user_session_path, class: "no-underline font-bold hover:text-darkorange hover:underline" %>
     </div>
 <% end %>

@@ -19,15 +19,13 @@ Rails.application.routes.draw do
   get '/reviews', to: 'home#reviews', as: 'reviews'
   get '/transactions', to: 'home#transactions', as: 'transactions'
   get '/search/job', to: 'home#search_job', as: 'search_job'
-  get 'user/reviews', to: 'home#user_reviews', as: 'user_reviews'
 
   resources :job_listings do
     resources :reviews
     collection do
       get 'browse'
       get 'all_applicants'
-      get 'reviews', to: 'reviews#user_reviews', as: 'reviews'
-
+      get 'completed'
     end
     member do
       get 'applicants'
@@ -48,7 +46,6 @@ Rails.application.routes.draw do
     get 'talents', to: 'users#talents'
     get 'users/pending', to: 'users#pending_users'
   end
-
 
   resources :payments, only: [:new, :create] do
     collection do
@@ -74,5 +71,4 @@ Rails.application.routes.draw do
   get '/inbox', to: 'message#inbox', as: 'inbox'
   get '/conversation', to: 'message#conversation', as: 'conversation'
   get '/fetch_messages', to: 'message#fetch_messages'
-
 end

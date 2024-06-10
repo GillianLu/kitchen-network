@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "job_listing" %>
+
+<div class="flex h-screen" style="width: calc(100% - 16rem);">
+  <div class="overflow-y-auto px-8 pt-14 hide-scrollbar">
+    <div class="mt-8">
+      <h1 class="text-4xl text-gray-800 mb-5">Completed Jobs</h1>
+
+      <div class="mb-8">
+        <%= link_to 'Job Listings', job_listings_path, class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
+      </div>
+
+      <div class="space-y-5">
+        <% @completed_jobs.each do |job_listing| %>
+          <div class="bg-lightorange p-5 rounded-lg shadow-lg transition transform hover:-translate-y-1 hover:shadow-2xl">
+            <div class="flex justify-between items-center mb-2">
+              <h2 class="text-2xl font-bold"><%= job_listing.title %></h2>
+              <span class="text-sm text-gray-600"><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
+            </div>
+            <p class="text-xl text-orange-600 mb-2">Salary per month: <%= job_listing.salary %></p>
+            <div class="mb-4">
+              <p class="text-gray-700"><%= job_listing.description %></p>
+            </div>
+            <div class="flex space-x-4">
+              <%= link_to 'View', job_listing_path(job_listing), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
+              <% if job_listing.review.nil? %>
+                <%= link_to 'Make a Review', new_job_listing_review_path(job_listing_id: job_listing.id), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

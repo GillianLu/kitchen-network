@@ -1,68 +1,80 @@
 <%= stylesheet_link_tag "user_profile" %>
 
 <div class="flex flex-col h-full w-full">
-    <div class="my-20 overflow-y-auto">
-        <div class="px-5 py-5">
-            <div class="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
-                <div class="flex items-center mb-6">
-                    <% if @user.photo.attached? %>
-                        <%= image_tag url_for(@user.photo), class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
-                    <% else %>
-                        <% if Rails.application.assets.find_asset('default_profile.png') %>
-                            <%= image_tag 'default_profile.png', class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
-                        <% else %>
-                            <div class="w-20 h-20 rounded-full mr-6 bg-gray-300 flex items-center justify-center">
-                                <span class="text-gray-500">No Image</span>
-                            </div>
-                        <% end %>
-                    <% end %>
-                    <div>
-                        <h1 class="text-4xl font-bold mb-2"><%= @user.first_name %> <%= @user.last_name %></h1>
-                        <% if @user.professional_title.present? %>
-                            <p class="text-2xl text-gray-600 mb-4"><%= @user.professional_title %></p>
-                        <% end %>
-                    </div>
-                </div>
-                <p class="text-xl mb-4"><strong>Email:</strong> <%= @user.email %></p>
-                <p class="text-xl mb-4"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-                <p class="text-xl mb-4"><strong>Role:</strong> <%= @user.role.role_name %></p>
-                
-                <% if @user.role.role_name == "talent" %>
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold mb-3">Resume:</h2>
-                        <%= link_to "Download Resume", @user.resume.url, class: 'bg-darkorange text-white font-bold py-2 px-4 rounded hover:bg-mediumorange' if @user.resume.present? %>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold mb-3">Skills</h2>
-                        <p class="text-gray-700"><%= @user.skills %></p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold mb-3">Experience</h2>
-                        <p class="text-gray-700"><%= @user.experience %></p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold mb-3">Education</h2>
-                        <p class="text-gray-700"><%= @user.education %></p>
-                    </div>
-
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold mb-3">Reviews</h2>
-                        <%= link_to "View Reviews", user_reviews_path(reviewee_id: @user.id), class: 'bg-darkorange text-white font-bold py-2 px-4 rounded hover:bg-mediumorange' %>
-                    </div>
-                <% end %>
-                
-                <% if current_user == @user %>
-                    <div class="flex space-x-4 mt-6">
-                        <%= link_to "Edit Profile", edit_user_registration_path, class: 'bg-darkorange text-white font-bold py-2 px-4 rounded hover:bg-mediumorange' %>
-                        <%= button_to "Delete Account", registration_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: 'bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600' %>
-                    </div>
-                <% end %>
-            </div>
+  <div class="my-20 overflow-y-auto">
+    <div class="px-5 py-5">
+      <div class="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md w-full">
+        <div class="flex items-center mb-6">
+          <% if @user.photo.attached? %>
+            <%= image_tag url_for(@user.photo), class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+          <% else %>
+            <% if Rails.application.assets.find_asset('default_profile.png') %>
+              <%= image_tag 'default_profile.png', class: 'w-20 h-20 rounded-full mr-6', alt: 'Avatar' %>
+            <% else %>
+              <div class="w-20 h-20 rounded-full mr-6 bg-gray-300 flex items-center justify-center">
+                <span class="text-gray-500">No Image</span>
+              </div>
+            <% end %>
+          <% end %>
+          <div>
+            <h1 class="text-4xl font-bold mb-2"><%= @user.first_name %> <%= @user.last_name %></h1>
+            <% if @user.professional_title.present? %>
+              <p class="text-2xl text-gray-600 mb-4"><%= @user.professional_title %></p>
+            <% end %>
+          </div>
         </div>
+        <p class="text-xl mb-4"><strong>Email:</strong> <%= @user.email %></p>
+        <p class="text-xl mb-4"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+        <p class="text-xl mb-4"><strong>Role:</strong> <%= @user.role.role_name %></p>
+
+        <% if @user.role.role_name == "talent" %>
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold mb-3">Resume:</h2>
+            <%= link_to "Download Resume", @user.resume.url, class: 'bg-darkorange text-white font-bold py-2 px-4 rounded hover:bg-mediumorange' if @user.resume.present? %>
+          </div>
+
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold mb-3">Skills</h2>
+            <p class="text-gray-700"><%= @user.skills %></p>
+          </div>
+
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold mb-3">Experience</h2>
+            <p class="text-gray-700"><%= @user.experience %></p>
+          </div>
+
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold mb-3">Education</h2>
+            <p class="text-gray-700"><%= @user.education %></p>
+          </div>
+
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold mb-3">Reviews</h2>
+            <% if @reviews.any? %>
+              <div class="reviews-list">
+                <% @reviews.each do |review| %>
+                  <div class="review-card mb-4 p-4 border rounded">
+                    <h3 class="font-bold text-darkorange"><%= review.title %></h3>
+                    <p><%= review.content %></p>
+                    <small class="text-gray-500">Reviewed by <%= User.find(review.reviewer_id).full_name %> on <%= review.created_at.strftime("%B %d, %Y") %></small>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p>No reviews found.</p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if current_user == @user %>
+          <div class="flex space-x-4 mt-6">
+            <%= link_to "Edit Profile", edit_user_registration_path, class: 'bg-darkorange text-white font-bold py-2 px-4 rounded hover:bg-mediumorange' %>
+            <%= button_to "Delete Account", registration_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" }, class: 'bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600' %>
+          </div>
+        <% end %>
+      </div>
     </div>
+  </div>
 </div>
 
 <style>
@@ -77,5 +89,8 @@
   }
   .hover\:bg-red-600:hover {
     background-color: #dc2626;
+  }
+  .text-darkorange {
+    color: #F65A11;
   }
 </style>

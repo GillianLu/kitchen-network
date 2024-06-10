@@ -1,12 +1,11 @@
 class JobListingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user!, only: [:index, :new, :create, :edit, :update, :destroy, :applicants]
-  before_action :set_job_listing, only: [:show, :edit, :update, :destroy, :applicants, :confirm_applicant, :reject_applicant]
+  before_action :authorize_user!, only: [:index, :new, :create, :edit, :update, :destroy, :applicants, :completed]
+  before_action :set_job_listing, only: [:show, :edit, :update, :destroy, :applicants, :confirm_applicant, :reject_applicant, :mark_as_completed]
 
   def index
     if current_user.role.role_name == 'owner'
-      @job_listings = current_user.job_listings
-      # @assigned_applicant = @job_listing.applied_jobs.find_by(status: 'confirmed')
+      @job_listings = current_user.job_listings.where.not(status: 'completed')
     else
       redirect_to applied_jobs_path
     end
@@ -79,6 +78,19 @@ class JobListingsController < ApplicationController
     else
       redirect_to root_path, alert: 'Unauthorized'
     end
+  end
+
+  def completed
+    if current_user.role.role_name == 'owner'
+      @completed_jobs = current_user.job_listings.where(status: 'completed')
+    else
+      redirect_to applied_jobs_path
+    end
+  end
+
+  def mark_as_completed
+    @job_listing.update(status: 'completed')
+    redirect_to completed_job_listings_path, notice: 'Job listing marked as completed.'
   end
 
   private

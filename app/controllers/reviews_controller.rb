@@ -8,53 +8,38 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    if @job_listing.status != 'completed'
-      redirect_to job_listings_path, alert: "Please mark the job as completed to proceed with the review."
-    elsif @job_listing.review.present?
-      redirect_to job_listings_path, alert: "You have already reviewed this job listing."
-    else
-      @review = Review.new
-      @applied_job = @job_listing.applied_jobs.find_by(status: 'confirmed')
-      @client = @job_listing.owner
-      @reviewee = User.find(@applied_job.talent_id)
-    end
+    @review = Review.new
+    @applied_job = @job_listing.applied_jobs.find_by(status: 'confirmed')
+    @client = @job_listing.owner
+    @reviewee = User.find(@applied_job.talent_id)
   end
 
   def create
-    if @job_listing.status == 'completed'
-      @reviewee = @job_listing.applied_jobs.find_by(status: 'confirmed')
-      @review = @job_listing.build_review(review_params)
+    @review = @job_listing.build_review(review_params)
 
-      if current_user.role_id == 3
-        @review.reviewer_id = current_user.id
-        @review.reviewee_id = @reviewee.talent_id
-      elsif current_user.role_id == 2
-        @review.reviewer_id = current_user.id
-        @review.reviewee_id = @job_listing.owner.id
-      end
+    if current_user.role_id == 3
+      @review.reviewer_id = current_user.id
+      @review.reviewee_id = @job_listing.applied_jobs.find_by(status: 'confirmed').talent_id
+    elsif current_user.role_id == 2
+      @review.reviewer_id = current_user.id
+      @review.reviewee_id = @job_listing.owner.id
+    end
 
-      if @review.save
-        @job_listing.update(status: 'reviewed')
-        redirect_to reviews_path, notice: "Review submitted successfully."
-      else
-        flash[:alert] = "Review submission failed: #{@review.errors.full_messages.join(', ')}"
-        redirect_to job_listings_path
-      end
+    if @review.save
+      @job_listing.update(status: 'completed')
+      redirect_to reviews_path, notice: "Review submitted successfully."
     else
-      redirect_to job_listings_path, alert: "Please mark the job as completed to proceed with the review."
+      flash[:alert] = "Review submission failed: #{@review.errors.full_messages.join(', ')}"
+      redirect_to job_listings_path
     end
   end
 
   def edit
-    if @review.reviewer_id != current_user.id || @review.job_listing.owner != current_user
-      redirect_to reviews_path, alert: "You are not authorized to edit this review."
-    end
+    redirect_to reviews_path, alert: "You are not authorized to edit this review." unless @review.reviewer_id == current_user.id || @review.job_listing.owner != current_user
   end
 
   def update
-    if @review.reviewer_id != current_user.id || @review.job_listing.owner != current_user
-      redirect_to reviews_path, alert: "You are not authorized to update this review."
-    end
+    redirect_to reviews_path, alert: "You are not authorized to update this review." unless @review.reviewer_id == current_user.id || @review.job_listing.owner != current_user
 
     if @review.update(review_params)
       redirect_to reviews_path, notice: "Review updated successfully."
@@ -84,8 +69,6 @@ class ReviewsController < ApplicationController
 
   def set_review
     @review = Review.find_by(id: params[:id], reviewer_id: current_user.id)
-    unless @review
-      redirect_to reviews_path, alert: "Review not found or you are not authorized to view it."
-    end
+    redirect_to reviews_path, alert: "Review not found or you are not authorized to view it." unless @review
   end
 end

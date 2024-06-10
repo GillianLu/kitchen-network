@@ -3,52 +3,52 @@
 <div class="flex h-screen" style="width: calc(100% - 16rem);">
     <div class="overflow-y-auto px-8 pt-14 hide-scrollbar">
         <div class="mt-8">
-                    <h1 class="text-4xl text-gray-800 mb-5">Your Job Listings</h1>
+            <h1 class="text-4xl text-gray-800 mb-5">Your Job Listings</h1>
 
-                    <div class="mb-8">
-                        <%= link_to 'Post a job!', new_job_listing_path, class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
-                    </div>
+            <div class="mb-8">
+                <%= link_to 'Post a job!', new_job_listing_path, class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
+                <%= link_to 'Completed Jobs', completed_job_listings_path, class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded ml-4' %>
+            </div>
 
-                    <div class="space-y-5">
-                        <% @job_listings.each do |job_listing| %>
-                            <div class="bg-lightorange p-5 rounded-lg shadow-lg transition transform hover:-translate-y-1 hover:shadow-2xl">
-                                <div class="flex justify-between items-center mb-2">
-                                    <h2 class="text-2xl font-bold"><%= job_listing.title %></h2>
-                                    <span class="text-sm text-gray-600"><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
-                                </div>
-                                <p class="text-xl text-orange-600 mb-2">Salary per month: <%= job_listing.salary %></p>
-                                <div class="mb-4">
-                                    <p class="text-gray-700"><%= job_listing.description %></p>
-                                </div>
-                                <div class="flex space-x-4">
-                                    <%= link_to 'View', job_listing_path(job_listing), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
-                                    
-                                    <% if current_user.role.role_name == 'owner' && job_listing.status == 'pending' %>
-                                        <%= link_to 'Applicants', applicants_job_listing_path(job_listing), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
+            <div class="space-y-5">
+                <% @job_listings.each do |job_listing| %>
+                    <div class="bg-lightorange p-5 rounded-lg shadow-lg transition transform hover:-translate-y-1 hover:shadow-2xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="text-2xl font-bold"><%= job_listing.title %></h2>
+                            <span class="text-sm text-gray-600"><%= job_listing.created_at.strftime("%d %b, %Y") %></span>
+                        </div>
+                        <p class="text-xl text-orange-600 mb-2">Salary per month: <%= job_listing.salary %></p>
+                        <div class="mb-4">
+                            <p class="text-gray-700"><%= job_listing.description %></p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <%= link_to 'View', job_listing_path(job_listing), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
+
+                            <% if current_user.role.role_name == 'owner' && job_listing.status == 'pending' %>
+                                <%= link_to 'Applicants', applicants_job_listing_path(job_listing), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
+                            <% end %>
+
+                            <% assigned_applied_job = job_listing.applied_jobs.find_by(status: 'confirmed') %>
+
+                            <% if assigned_applied_job %>
+                                <% if job_listing.salary != assigned_applied_job.balance %>
+                                    <% if job_listing.status == 'assigned' %>
+                                        <%= link_to 'Mark as Completed', new_complete_payments_path(job_listing_id: job_listing.id, applicant_id: assigned_applied_job.talent_id), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
                                     <% end %>
-                                    
-                                    <% assigned_applied_job = job_listing.applied_jobs.find_by(status: 'confirmed') %>
-                                    
-                                    <% if assigned_applied_job %>
-                                        <% if job_listing.salary != assigned_applied_job.balance %>
-                                            <% if job_listing.status == 'assigned' %>
-                                                <%= link_to 'Mark as Completed', new_complete_payments_path(job_listing_id: job_listing.id, applicant_id: assigned_applied_job.talent_id), class: 'bg-orange-500 text-white font-bold py-2 px-4 rounded' %>
-                                            <% end %>
-                                        <% else %>
-                                            <% if job_listing.status == 'assigned' %>
-                                                <%= link_to 'Send a Downpayment', new_payment_path(job_listing_id: job_listing.id, applicant_id: assigned_applied_job.talent_id), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
-                                            <% end %>
-                                        <% end %>
-
-                                        <% if job_listing.status == 'completed' && job_listing.review.nil? %>
-                                            <%= link_to 'Make a Review', new_job_listing_review_path(job_listing_id: job_listing.id), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
-                                        <% end %>
+                                <% else %>
+                                    <% if job_listing.status == 'assigned' %>
+                                        <%= link_to 'Send a Downpayment', new_payment_path(job_listing_id: job_listing.id, applicant_id: assigned_applied_job.talent_id), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
                                     <% end %>
-                                </div>
-                            </div>
-                        <% end %>
+                                <% end %>
+
+                                <% if job_listing.status == 'completed' && job_listing.review.nil? %>
+                                    <%= link_to 'Make a Review', new_job_listing_review_path(job_listing_id: job_listing.id), class: 'bg-blue-500 text-white font-bold py-2 px-4 rounded' %>
+                                <% end %>
+                            <% end %>
+                        </div>
                     </div>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
-
